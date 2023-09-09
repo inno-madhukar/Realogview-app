@@ -10,7 +10,7 @@ in project section click on "Edit" to set JDK path.
 
 email id,password change:
 
-src/main/java/com/example/dmmguivisible/DMContiguity.java
+path : src/main/java/com/example/dmmguivisible/DMContiguity.java
 
 Email id (at line 82 in DMContiguity.java file)
 
