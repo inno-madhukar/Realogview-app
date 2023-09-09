@@ -3,6 +3,7 @@ package com.example.dmmguivisible;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import com.fazecast.jSerialComm.SerialPortTimeoutException;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -78,8 +79,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 public class DMContiguity {
 
+      public String gmailid_of_II="chauhantejas98@gmail.com";    // set Gmail id here
+      public String gmailpass_of_II="kyrzstpvvfaoycnq";    // set gmail password here
     public String defaultPath;
-    public String path4;
     @FXML
     public ImageView tr;
     @FXML
@@ -1165,109 +1167,43 @@ else {
     }
 
 
-    public void porthandleMouseClick(MouseEvent mouseEvent) throws InterruptedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    public void porthandleMouseClick(MouseEvent mouseEvent) throws InterruptedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
 
         Portname = (String) portListView.getSelectionModel().getSelectedItem();
         System.out.println("clicked on " + Portname);
-        onselect1(Portname);
+//        onselect1(Portname);
+        try{
+            onclickselection();
+        }catch (SerialPortTimeoutException e){
+            System.out.println(e.toString());
+            showAlert("Communication error","Device is not connected.");
+        }
 
     }
 
-    void onselect1(String portname) throws InterruptedException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        _serialPort =  SerialPort.getCommPort(portname);
-        _serialPort.openPort();
-        _serialPort.setBaudRate(19200);
-        _serialPort.setNumDataBits(8);
-        _serialPort.setNumStopBits(1);
-        _serialPort.setRTS();
-        _serialPort.setDTR();
-        _serialPort.setParity(SerialPort.NO_PARITY);
-        _serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING,6000,6000);
-//        TimeUnit.SECONDS.sleep(1);
-        String hexValue = "CC"; // Example hex value
-        byte[] hexBytes = hexStringToByteArray(hexValue);
-        _serialPort.writeBytes(hexBytes,2);
-        TimeUnit.SECONDS.sleep(1);
-        String hexValue2 = "AB"; // Example hex value
-        byte[] hexBytes2 = hexStringToByteArray(hexValue2);
-        _serialPort.writeBytes(hexBytes2,2);
-        TimeUnit.SECONDS.sleep(1);
-        String hexValue3 = "AB"; // Example hex value
-        byte[] hexBytes3 = hexStringToByteArray(hexValue3);
-        _serialPort.writeBytes(hexBytes3,2);
-//        TimeUnit.SECONDS.sleep(1);
+    void onclickselection() throws InterruptedException, IOException {
 
-//        if(_serialPort.bytesAvailable()==0 || _serialPort.bytesAvailable()==-1 ){
-//            _serialPort.closePort();
-//            onselect1(Portname);
-//        }
-//        else{
-//            byte[] readBuffer = new byte[_serialPort.bytesAvailable()];
-//            long read12 = _serialPort.readBytes(readBuffer, readBuffer.length);
-//            String response = new String(readBuffer).trim();
-//            System.out.println("res  "+response);
-//        }
-
-        _serialPort.addDataListener(new SerialPortDataListener() {
-            @Override
-            public int getListeningEvents() { return SerialPort.LISTENING_EVENT_DATA_AVAILABLE; }
-            @Override
-            public void serialEvent(SerialPortEvent event)
-            {
-                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) {
-                    System.out.println("a");
-                }
-                else{
-                    byte[] newData = new byte[_serialPort.bytesAvailable()];
-                    int numRead = _serialPort.readBytes(newData, newData.length);
-                    String response = new String(newData).trim();
-                    System.out.println("Read " + response + " bytes.");
-                }
-
-            }
-        });
-
-
-//        byte[] readBuffer = new byte[_serialPort.bytesAvailable()];
-//        long read12 = _serialPort.readBytes(readBuffer, readBuffer.length);
-//        String response = new String(readBuffer).trim();
-//        System.out.println("res  "+response);
-//        System.out.println(readBuffer.length);
-//        String[] response1=response.split(",");
-////        disconnect_value=null;
-////        invisibleall();
-//        _serialPort.closePort();
-    }
-
-
-    void onclickselection() throws InterruptedException {
         if ( Portname!=null) {
             if(_serialPort!=null){
                 _serialPort.closePort();
             }
             _serialPort =  SerialPort.getCommPort(Portname);
-            _serialPort.openPort();
             _serialPort.setBaudRate(19200);
             _serialPort.setNumDataBits(8);
             _serialPort.setNumStopBits(1);
             _serialPort.setParity(SerialPort.NO_PARITY);
 
-            _serialPort.setComPortTimeouts(1000,2000,3000);
-
-            TimeUnit.SECONDS.sleep(1);
-
-            String hexValue = "CC"; // Example hex value
-            byte[] hexBytes = hexStringToByteArray(hexValue);
-            _serialPort.writeBytes(hexBytes,2);
-            TimeUnit.SECONDS.sleep(1/3);
-            String hexValue2 = "AB"; // Example hex value
-            byte[] hexBytes2 = hexStringToByteArray(hexValue2);
-            _serialPort.writeBytes(hexBytes2,2);
-            TimeUnit.SECONDS.sleep(1/3);
-            String hexValue3 = "AB"; // Example hex value
-            byte[] hexBytes3 = hexStringToByteArray(hexValue3);
-            _serialPort.writeBytes(hexBytes3,2);
-            TimeUnit.SECONDS.sleep(1);
+            _serialPort.openPort();
+            _serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING,200,100);
+            OutputStream outputStream = _serialPort.getOutputStream();
+            InputStream inputStream = _serialPort.getInputStream();
+            byte[] buf = new byte[200];
+//            TimeUnit.SECONDS.sleep(1/4);
+            outputStream.write(hexStringToByteArray("CC"));
+            TimeUnit.SECONDS.sleep(1/4);
+            outputStream.write(hexStringToByteArray("AB"));
+            TimeUnit.SECONDS.sleep(1/4);
+            outputStream.write(hexStringToByteArray("AB"));
 
             if(_serialPort.bytesAvailable()==-1){
 //                Portname=null;
@@ -1278,12 +1214,15 @@ else {
                 return;
             }
 
-            byte[] readBuffer = new byte[_serialPort.bytesAvailable()];
-            long read12 = _serialPort.readBytes(readBuffer, readBuffer.length);
-            String response = new String(readBuffer).trim();
-            System.out.println("res  "+response);
-            System.out.println(readBuffer.length);
+//            byte[] readBuffer = new byte[_serialPort.bytesAvailable()];
+            int bytesRead = inputStream.read(buf);
+            System.out.println(bytesRead);
+            System.out.println( "string is  "+new String(buf, 0, bytesRead));
+
+            String response = new String(buf, 0, bytesRead).trim();
+        System.out.println("re len "+response.length());
             String[] response1=response.split(",");
+            System.out.println("ble len "+response1[0].length());
             if(response1[0].equals("BLE_READER")){
                 String[] ab=response.split(",");
                 statusbit=2;
@@ -1291,15 +1230,14 @@ else {
                 Disconnectedstatus.setText(ab[1]+" is Disconnected");
                 disconnect_value=ab[1];
                 deviceCon();
-                ConPortname=Portname;
                 portdisCoAle();
-//                openporttittle.setText("Open Port : "+Portname);
                 System.out.println("yess logger1");
                 data1.setText("");data2.setText("");data3.setText("");
                 data4.setText("");data5.setText("");
                 data7.setText("");data8.setText("");
                 conectionwindow.setVisible(false);
-
+                outputStream.close();
+                inputStream.close();
                 showAlertinfo(" ",ab[1]+" is connected on "+ Portname +".");
             }
             else {
@@ -1343,14 +1281,26 @@ else {
         addtextfield.setDisable(false);
 
         if (Portname!=null  ) {
-//
-            if(_serialPort!=null){System.out.println(Portname);}
+
             _serialPort.closePort();
-//            _serialPort.setDTR();
-//            _serialPort.setRTS();
+
             _serialPort =  SerialPort.getCommPort(Portname);
+            _serialPort.setBaudRate(19200);
+            _serialPort.setNumDataBits(8);
+            _serialPort.setNumStopBits(1);
+            _serialPort.setParity(SerialPort.NO_PARITY);
+
             if(_serialPort.openPort()){
-              boolean rDIPort= isrightdeviceport();
+                boolean rDIPort=false;
+                try{
+                     rDIPort= isrightdeviceport();
+                }catch (SerialPortTimeoutException e){
+                    System.out.println(e.toString());
+                    if(disconnect_value==null){
+                        showAlert("Communication error","Device is not connected.");
+                    }
+                    }
+
               if(rDIPort==false){
                   deviceDisCon();
                   if(disconnect_value!=null){
@@ -1361,20 +1311,18 @@ else {
                   }
                   return;
               }
-                TimeUnit.SECONDS.sleep(1/2);
-                _serialPort.setComPortTimeouts(1000,3000,2000);
-                String hexValue = "CC"; // Example hex value
-                byte[] hexBytes = hexStringToByteArray(hexValue);
-                _serialPort.writeBytes(hexBytes,2);
+//                TimeUnit.SECONDS.sleep(1/3);
+                _serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING,500,100);
+                OutputStream outputStream = _serialPort.getOutputStream();
+                InputStream inputStream = _serialPort.getInputStream();
+                byte[] buf = new byte[1024];
+//                TimeUnit.SECONDS.sleep(1/3);
+                outputStream.write(hexStringToByteArray("CC"));
                 TimeUnit.SECONDS.sleep(1/4);
-                String hexValue2 = "C4"; // Example hex value
-                byte[] hexBytes2 = hexStringToByteArray(hexValue2);
-                _serialPort.writeBytes(hexBytes2,2);
+                outputStream.write(hexStringToByteArray("C4"));
                 TimeUnit.SECONDS.sleep(1/4);
-                String hexValue3 = "C4"; // Example hex value
-                byte[] hexBytes3 = hexStringToByteArray(hexValue3);
-                _serialPort.writeBytes(hexBytes3,2);
-                TimeUnit.SECONDS.sleep(1);
+                outputStream.write(hexStringToByteArray("C4"));
+
                 if(_serialPort.bytesAvailable()==-1){
                     deviceDisCon();
                     if(disconnect_value!=null){
@@ -1386,10 +1334,11 @@ else {
                     _serialPort.closePort();
                     return;
                 }
-                byte[] readBuffer = new byte[_serialPort.bytesAvailable()];
-                long read12 = _serialPort.readBytes(readBuffer, readBuffer.length);
-                System.out.println("hee"+read12);
-                String response = new String(readBuffer);
+
+                int bytesRead = inputStream.read(buf);
+                System.out.println(bytesRead);
+                System.out.println( "string is  "+new String(buf, 0, bytesRead));
+                String response = new String(buf, 0, bytesRead).trim();
                 System.out.println("hee "+response);
                 fruits=response.split(",");
 //                _serialPort.closePort();
@@ -1414,7 +1363,7 @@ else {
                 time_of_recived_data=formattedDateTime;
                 data7.setText(formattedDateTime);
 
-                PauseTransition delay = new PauseTransition(Duration.seconds(0.2));
+                PauseTransition delay = new PauseTransition(Duration.seconds(0.1));
                 delay.setOnFinished(event1 -> {
 
                     if(!dmmdatarivecerwindow.isVisible()){
@@ -1430,6 +1379,7 @@ else {
                 gernaralinfoButton.setStyle("-fx-background-color:linear-gradient(to right, #ffffff, #ffffff);");
                 historyButton.setStyle("-fx-background-color:linear-gradient(to right, #ffffff, #ffffff);");
 //                _serialPort.closePort();
+
             }
             else {
                 deviceDisCon();
@@ -1457,34 +1407,33 @@ else {
 
     }
     boolean butClick=false;
-    boolean isrightdeviceport() throws InterruptedException {
-        _serialPort.setComPortTimeouts(1000,5000,5000);
-        String hexValue = "CC"; // Example hex value
-        byte[] hexBytes = hexStringToByteArray(hexValue);
-        _serialPort.writeBytes(hexBytes,2);
-        TimeUnit.SECONDS.sleep(1);
-        String hexValue2 = "AB"; // Example hex value
-        byte[] hexBytes2 = hexStringToByteArray(hexValue2);
-        _serialPort.writeBytes(hexBytes2,2);
-        TimeUnit.SECONDS.sleep(1);
-        String hexValue3 = "AB"; // Example hex value
-        byte[] hexBytes3 = hexStringToByteArray(hexValue3);
-        _serialPort.writeBytes(hexBytes3,2);
-        TimeUnit.SECONDS.sleep(1);
+    boolean isrightdeviceport() throws InterruptedException, IOException {
+        byte[] buf = new byte[200];
+
+        _serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING,200,100);
+        OutputStream outputStream = _serialPort.getOutputStream();
+        InputStream inputStream = _serialPort.getInputStream();
+
+//        TimeUnit.SECONDS.sleep(1/3);
+        outputStream.write(hexStringToByteArray("CC"));
+        TimeUnit.SECONDS.sleep(1/5);
+        outputStream.write(hexStringToByteArray("AB"));
+        TimeUnit.SECONDS.sleep(1/5);
+        outputStream.write(hexStringToByteArray("AB"));
+
         if(_serialPort.bytesAvailable()==-1){
             deviceDisCon();
             _serialPort.closePort();
             return false;
         }
-        byte[] readBuffer = new byte[_serialPort.bytesAvailable()];
-        System.out.println("avail "+readBuffer.length);
+        int bytesRead = inputStream.read(buf);
+        System.out.println(bytesRead);
+        System.out.println( "string is  "+new String(buf, 0, bytesRead));
 
-        long read12 = _serialPort.readBytes(readBuffer, readBuffer.length);
-        System.out.println("hee"+read12);
-        String response = new String(readBuffer).trim();
-        System.out.println("hee "+response);
-        System.out.println("lenght "+response.length());
+        String response = new String(buf, 0, bytesRead).trim();
+        System.out.println("re len "+response.length());
         String[] response1=response.split(",");
+        System.out.println("ble len "+response1[0].length());
         if(response1[0].equals("BLE_READER")){
             String[] ab=response.split(",");
 //                Blemodulename=ab[1];
@@ -1495,11 +1444,15 @@ else {
             deviceCon();
               portdisCoAle();
              System.out.println("yess logger");
+             inputStream.close();
+             outputStream.close();
                  return true;
          }
         else {
             deviceDisCon();
-               _serialPort.closePort();
+            _serialPort.closePort();
+            inputStream.close();
+            outputStream.close();
                   return false;
         }
     }
@@ -1604,8 +1557,8 @@ else {
     }
 
     String smtpHost = "smtp.gmail.com";
-    String senderEmail = "chauhantejas98@gmail.com";
-    String senderPassword = "kyrzstpvvfaoycnq";
+    String senderEmail = gmailid_of_II;
+    String senderPassword =gmailpass_of_II;
     String recipientEmail = "chauhantejas18@gmail.com";
     String subject = "PDF Attachment";
     String body = "Please find attached the generated PDF.";
@@ -1732,8 +1685,8 @@ else {
 
 void indivipdfsend(String mail2,String mail11 ,byte[] pdfContent) throws MessagingException {
     String smtpHost = "smtp.gmail.com";
-    String senderEmail = "chauhantejas98@gmail.com";
-    String senderPassword = "kyrzstpvvfaoycnq";
+    String senderEmail = gmailid_of_II;
+    String senderPassword = gmailpass_of_II;
     String recipientEmail = "chauhantejas18@gmail.com";
     String subject = "PDF Attachment";
     String body = "Please find attached the generated PDF.";
@@ -3276,8 +3229,8 @@ void sendselectedfiles(String filemail ,String filemail2){
     void sharepdf_after_validate(String address) throws SQLException, IOException, MessagingException {
 
         String smtpHost = "smtp.gmail.com";
-        String senderEmail = "chauhantejas98@gmail.com";
-        String senderPassword = "kyrzstpvvfaoycnq";
+        String senderEmail = gmailid_of_II;
+        String senderPassword = gmailpass_of_II;
         String recipientEmail = "chauhantejas18@gmail.com";
         String subject = "Excel Attachment";
         String body = "Please find attached the generated Excel.";
@@ -3356,8 +3309,8 @@ void sendselectedfiles(String filemail ,String filemail2){
 
    void shareexcel_after_validat(String address) throws Exception {
        String smtpHost = "smtp.gmail.com";
-       String senderEmail = "chauhantejas98@gmail.com";
-       String senderPassword = "kyrzstpvvfaoycnq";
+       String senderEmail = gmailid_of_II;
+       String senderPassword = gmailpass_of_II;
        String recipientEmail = "chauhantejas18@gmail.com";
        String subject = "Excel Attachment";
        String body = "Please find attached the generated Excel.";
@@ -3413,8 +3366,8 @@ void sendselectedfiles(String filemail ,String filemail2){
     }
     void share_today_as_pdf_after_validate(String address) throws SQLException, MessagingException, IOException, InterruptedException {
         String smtpHost = "smtp.gmail.com";
-        String senderEmail = "chauhantejas98@gmail.com";
-        String senderPassword = "kyrzstpvvfaoycnq";
+        String senderEmail = gmailid_of_II;
+        String senderPassword = gmailpass_of_II;
         String recipientEmail = "chauhantejas18@gmail.com";
         String subject = "Excel Attachment";
         String body = "Please find attached the generated Excel.";
@@ -3467,8 +3420,8 @@ void sendselectedfiles(String filemail ,String filemail2){
 
     void send_todat_as_excel_after_validate(String address) throws Exception {
         String smtpHost = "smtp.gmail.com";
-        String senderEmail = "chauhantejas98@gmail.com";
-        String senderPassword = "kyrzstpvvfaoycnq";
+        String senderEmail = gmailid_of_II;
+        String senderPassword = gmailpass_of_II;
         String recipientEmail = "chauhantejas18@gmail.com";
         String subject = "Excel Attachment";
         String body = "Please find attached the generated Excel.";
@@ -3674,8 +3627,8 @@ void sendselectedfiles(String filemail ,String filemail2){
 
     private void sendEmailWithAttachmentfile(File attachmentFile,String email1) {
         String smtpHost = "smtp.gmail.com";
-        String senderEmail = "chauhantejas98@gmail.com";
-        String senderPassword = "kyrzstpvvfaoycnq";
+        String senderEmail = gmailid_of_II;
+        String senderPassword = gmailpass_of_II;
         String recipientEmail = "chauhantejas18@gmail.com";
         String subject = "PDF Attachment";
         String body = "Please find attached the generated PDF.";
