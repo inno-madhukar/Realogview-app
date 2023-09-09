@@ -1,0 +1,371 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 09 21, 22, 4:12:17 PM
+    Author     : WINDOWS 10
+    Subscribe our Channel --> https://www.youtube.com/channel/UCPgcmw0LXToDn49akUEJBkQ
+ * Thanks for the support guys! <3
+*/
+
+.top-form{
+    -fx-background-color:#fff;
+    -fx-border-color:#000;
+    -fx-border-width:.4px .4px .2px .4px;
+}
+
+.semi-top-form{
+    -fx-background-color:#efefef;
+    -fx-border-color:#000;
+    -fx-border-width:.2px .4px .8px .4px;
+}
+.rounded-image {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+}
+.inputlable{
+ -fx-font-family:"Arial";
+ -fx-font-underline:"true";
+
+}
+
+.close{
+    -fx-background-color:transparent;
+    -fx-cursor:hand;
+    -fx-background-color:linear-gradient(to right, #edfcff, #e8e8e8);
+}
+.close:hover{
+    -fx-background-color:#ff3547;
+}
+
+.minimize{
+    -fx-background-color:transparent;
+    -fx-cursor:hand;
+    
+    -fx-background-color:linear-gradient(to right, #edfcff, #e8e8e8);
+}
+.minimize:hover{
+    -fx-background-color:#ddd;
+}
+
+.nav-form{
+    -fx-background-color:linear-gradient(to bottom right, #272b3f, #256b51);
+}
+
+.nav-btn{
+    -fx-background-color:transparent;
+    -fx-cursor:hand;
+    -fx-font-family:"Arial";
+    -fx-font-size:14px;
+    -fx-text-fill:#fff;
+    -fx-alignment:CENTER-LEFT;
+}
+
+.logout{
+    -fx-background-color:#219a6a;
+    -fx-background-radius:10px;
+    -fx-cursor:hand;
+}
+.logout:hover{
+    -fx-background-color:#18a383;
+}
+
+.shadow{
+    -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5), 6,0,0,0);
+}
+
+.white-bg{
+    -fx-background-color:#fff;
+    -fx-background-radius:8px;
+}
+
+ .white-bg:hover {
+      -fx-background-color: lightgray;
+    }
+ .white-bg:pressed  {
+      -fx-background-color: linear-gradient(to left, #b5b5b5, #b5b5b5);
+      -fx-text-fill:#fff;
+    }
+
+    .status{
+   -fx-background-color:linear-gradient(to right, #ff5d22, #ffb029);
+         -fx-text-fill:#fff;
+            -fx-background-radius:8px;
+    }
+
+
+.card{
+    -fx-background-color:linear-gradient(to right, #2b303c, #525968);
+    -fx-background-radius:5px;
+}
+.pimag{
+-fx-background-radius:10px;
+-fx-background-color:linear-gradient(to right, #acb6e5, #86fde8);
+}
+
+.card1{
+    -fx-background-color:linear-gradient(to right, #2b303c, #525968);
+    -fx-background-radius:0px;
+}
+.table-view{
+    -fx-background-color:transparent;
+    -fx-border-color:linear-gradient(to bottom right, #272b3f, #256b51);
+    -fx-border-radius:8px;
+    -fx-padding:0px;
+}
+.table-view .table-column{
+    -fx-alignment:CENTER;
+}
+.table-view .column-header-background{
+    -fx-background-color:linear-gradient(to bottom right, #272b3f, #256b51);
+    -fx-background-insets: 0 0 0 0;
+    -f-background-radius:8px 8px 0px 0px;
+}
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size:40px;
+}
+.table-view .column-header .label{
+    -fx-text-fill:#fff;
+    -fx-font-family:"Arial";
+}
+
+.textfield{
+    -fx-background-color:linear-gradient(to bottom, #efefef, #eee);
+    -fx-border-color:linear-gradient(to bottom right, #272b3f, #256b51);
+    -fx-border-width:.8px;
+    -fx-font-family:"Tahoma";
+    -fx-border-radius:4px;
+}
+.textfield:focused{
+    -fx-border-width:1.8px;
+    -fx-background-color:#fff;
+}
+
+.search{
+    -fx-background-color:transparent;
+    -fx-border-color:linear-gradient(to bottom right, #272b3f, #256b51);
+    -fx-border-radius:5px;
+    -fx-font-size:13px;
+    -fx-font-family:"Arial";
+    -fx-border-width:1px;
+    -fx-padding:0px 0px 0px 28px;
+}
+.search:focused{
+    -fx-border-width:2px;
+}
+
+.import-btn{
+    -fx-background-color:#ddd;
+    -fx-text-fill:red;
+    -fx-cursor:hand;
+}
+
+.add-btn{
+    -fx-background-color:#304575;
+    -fx-background-radius:8px;
+    -fx-text-fill:#fff;
+    -fx-font-size:14px;
+    -fx-font-family:"Arial";
+    -fx-cursor:hand;
+}
+.add-btn:hover{
+    -fx-background-color:#3357a4;
+}
+
+.update-btn{
+    -fx-background-color:#327252;
+    -fx-background-radius:8px;
+    -fx-text-fill:#fff;
+    -fx-font-size:14px;
+    -fx-font-family:"Arial";
+    -fx-cursor:hand;
+}
+.update-btn:hover{
+    -fx-background-color:#309a65;
+}
+
+.delete-btn{
+    -fx-background-color:#86253f;
+    -fx-background-radius:8px;
+    -fx-text-fill:#fff;
+    -fx-font-size:14px;
+    -fx-font-family:"Arial";
+    -fx-cursor:hand;
+}
+.delete-btn:hover{
+    -fx-background-color:#ae1d46;
+}
+
+.clear-btn{
+    -fx-background-color:#753566;
+    -fx-background-radius:8px;
+    -fx-text-fill:#fff;
+    -fx-font-size:14px;
+    -fx-font-family:"Arial";
+    -fx-cursor:hand;
+}
+.clear-btn:hover{
+    -fx-background-color:#9d3485;
+}
+
+.label-info{
+
+    -fx-border-radius:5px;
+    -fx-padding:4px 4px 4px 4px;
+-fx-background-color:linear-gradient(to right, #ffffff, #ffffff);
+
+}
+
+.label-info:hover{
+    -fx-background-color: #f3f3f3;
+}
+
+.label-info1{
+    -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5), 6,0,0,0);
+    -fx-background-radius:22px;
+    -fx-padding:4px 4px 4px 4px;
+-fx-background-color:linear-gradient(to right, #ffffff, #ffffff);
+
+}
+
+
+.label-info1:hover {
+    -fx-background-color: rgb(228, 228, 228);
+  }
+  .label-info1:pressed  {
+    -fx-background-color: linear-gradient(to left, #d3d3d3, #9c9c9c);
+    -fx-effect:dropshadow(three-pass-box, rgba(0, 0, 0, 0), 6,0,0,0);
+    -fx-text-fill:#fff;
+  }
+
+
+.list-view {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+}
+.scence1{
+
+    -fx-background-radius:8px;
+ -fx-background-color:
+ linear-gradient(to right, #ffffff, #fefaf5);
+
+}
+.profile{
+    -fx-background-radius:4px;
+-fx-background-color:linear-gradient(to right, #FF3308, #ffb029);
+
+}
+.profile12{
+    -fx-background-radius:2px;
+-fx-background-color:linear-gradient(to right, #FF3308, #ffb029);
+-fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5), 6,0,0,0);
+
+}
+.add_extra{
+   -fx-background-radius:30px;
+}
+.profile13{
+    -fx-background-radius:8px;
+ 
+ -fx-background-color:linear-gradient(to right, #fa3108, #faac26);
+
+}
+/* -fx-effect: dropshadow(three-pass-box, rgba(187, 187, 187, 0.397), 7, 0, 0, 0); */
+.sidemenu1{
+   -fx-background-radius:4px;
+   -fx-background-color:linear-gradient(to right, #ff5d22, #ffb029);
+   -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5), 6,0,0,0);
+}
+.desk{
+   -fx-background-radius:4px;
+   -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5), 6,0,0,0);
+   -fx-background-color:linear-gradient(to left, #ffb029, #ff5d22);
+}
+.header{
+-fx-background-color:linear-gradient(to right, #FF3308, #ffb029);
+}
+
+.sidebutton{
+ -fx-background-color:linear-gradient(to right, #00b4db, #0083b0);
+}
+.connect_but{
+    -fx-background-color:linear-gradient(to right, #edfcff, #e8e8e8);
+}
+
+.app_close{
+    -fx-background-color:linear-gradient(to right, #edfcff, #e8e8e8);
+    
+}
+
+.P_background_color{
+    -fx-background-color:linear-gradient(to right, #f7f7f7, #f7f7f7);
+}
+.p_lab_com_name{
+    -fx-font-size:17px;
+    -fx-font-family:"Arial";
+}
+.p_lab_address{
+-fx-font-size:7px;
+    -fx-font-family:"Arial";
+}
+
+.p_lab_email_ph{
+-fx-font-size:6px;
+}
+
+.p_lab_id_sr{
+  -fx-font-weight: bold;
+-fx-font-size:11px;
+    -fx-font-family:"Arial";
+}
+
+.P_lab_props{
+-fx-font-size:10px;
+    -fx-font-family:"Arial";
+}
+
+.P_lab_row{
+-fx-font-size:7px;
+}
+.p_lab_row1{
+-fx-font-family:"Airal";
+  -fx-font-weight: bold;
+-fx-font-size:8px;
+
+}
+
+
+.closewin{
+    -fx-background-color:#ffffff;
+    -fx-background-radius:8px;
+}
+
+ .closewin:hover {
+    -fx-text-fill:#fff;
+  -fx-background-color:linear-gradient(to right, #fd1111da, #ff0000c3)
+    }
+ .closewin:pressed  {
+    -fx-background-color:linear-gradient(to right, #ff3e3e, #ff5b5b);
+      -fx-text-fill:#ffffff;
+    }
+
+    .back_anchore_color{
+     -fx-background-color: #FFFFFF;
+    }
+
+
+
+
+
+
+
+
+
+
