@@ -75,6 +75,8 @@ MODULES=" java.compiler java.sql.rowset java.se java.smartcardio jdk.accessibili
 
 -> then click on “Build wrapper” to create .exe file on assigned output path.
 
+-> put both jre folder and .exe file in same folder to run .exe file.
+
 # Tools and Technology:
 
 IDEA: intelij IDEA 2023.1.3
