@@ -23,7 +23,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="1166.0" styleClass="gg" stylesheets="@../../../dashboardDesign.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dmmguivisible.DMContiguity">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="1166.0" styleClass="gg" stylesheets="@../../../dashboardDesign.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.dmmguivisible.DMContiguity">
     <top>
         <HBox focusTraversable="true" prefHeight="58.0" prefWidth="1166.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
             <children>
