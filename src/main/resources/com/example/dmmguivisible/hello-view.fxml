@@ -63,7 +63,7 @@
                         <Font name="Microsoft Sans Serif" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="119.0" layoutY="566.0" prefHeight="17.0" prefWidth="388.0" text="Measured in Digital Moisture Meter by Innovative Instruments PVT. LTD. , Vadodara, Gujarat, India">
+                  <Label layoutX="119.0" layoutY="566.0" prefHeight="17.0" prefWidth="388.0" text="Measured in Digital Moisture Meter by Innovative Instruments , Vadodara, Gujarat, India">
                      <font>
                         <Font size="7.0" />
                      </font>
