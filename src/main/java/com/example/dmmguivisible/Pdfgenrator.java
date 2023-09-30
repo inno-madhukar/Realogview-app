@@ -32,6 +32,7 @@ public class Pdfgenrator {
     String[] otherinformation;
     String data_r_time;
     String[] v = new String[3];
+    String macid;
 
     public String Realogview= "Realogview";
     public String DMM10= "DMM1.0";
@@ -43,7 +44,7 @@ public class Pdfgenrator {
     public String PDF="PDF";
     public String EXCEL="EXCEL";
 
-    Pdfgenrator(String[] Dmmdata, String data_r_time, String comname, String adress, String comphone, String comemail, String[] otherinfo) throws IOException {
+    Pdfgenrator(String macid, String[] Dmmdata, String data_r_time, String comname, String adress, String comphone, String comemail, String[] otherinfo) throws IOException {
         this.fruits = Dmmdata;
         this.comName = comname;
         this.address = adress;
@@ -51,6 +52,7 @@ public class Pdfgenrator {
         this.comEmail = comemail;
         this.otherinformation = otherinfo;
         this.data_r_time=data_r_time;
+        this.macid=macid;
 
     }
 
@@ -255,7 +257,7 @@ public class Pdfgenrator {
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx2, loopyDmm);
-            contentStream.showText(fruits[0]);
+            contentStream.showText(macid);
             contentStream.endText();
 
             System.out.println(fruits[0]);

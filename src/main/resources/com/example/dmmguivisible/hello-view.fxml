@@ -92,7 +92,7 @@
                      </font>
                   </Label>
                   <Line endX="239.39999389648438" layoutX="224.0" layoutY="107.0" startX="-171.00001525878906" strokeWidth="0.5" />
-                  <Label layoutX="77.0" layoutY="330.0" text="Mac id :">
+                  <Label layoutX="77.0" layoutY="330.0" text="Mac ID :">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

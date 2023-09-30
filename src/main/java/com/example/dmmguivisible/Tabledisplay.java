@@ -240,7 +240,7 @@ System.out.println("333333333333333333333333333333333333333333333333333333333333
         int columnCount = metaData.getColumnCount();
 
         Row headerRow = sheet.createRow(0);
-        String[] colname={"0","ID","MAC ID","Serial No","Commodity Name","Moisture %","Sample Temperature (°C) ","Time","Sample Quantity Required (gram)","Other information"};
+        String[] colname={"0","ID","Serial No","MAC ID","Commodity Name","Moisture %","Sample Temperature (°C) ","Time","Sample Quantity Required (gram)","Other information"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             System.out.println(columnName);

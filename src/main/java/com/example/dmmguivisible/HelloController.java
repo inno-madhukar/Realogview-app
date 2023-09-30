@@ -65,7 +65,7 @@ public String[] array1;
         return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
     }
 
-    public  void setData(String[] fruits, String printtime, String[] ddata,String comname,String Address,String cemail,String cphone1) {
+    public  void setData(String mid1,String[] fruits, String printtime, String[] ddata,String comname,String Address,String cemail,String cphone1) {
         lab1.setVisible(false);
         lab2.setVisible(false);
         lab3.setVisible(false);
@@ -79,7 +79,7 @@ public String[] array1;
        String defaultPath = System.getProperty("user.home");
         System.out.println(fruits[0]);
             psrn.setText(fruits[0]);
-        mid.setText(fruits[0]);
+        mid.setText(mid1);
         pcomodityname.setText(fruits[1]);
         pmoisture.setText(fruits[2]+ " %" );
         ptempr.setText(fruits[3]+ " °C" );

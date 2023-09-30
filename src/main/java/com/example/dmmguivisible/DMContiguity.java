@@ -193,6 +193,7 @@ public class DMContiguity {
     public  String FromDateForEm_Ex;
     public  String ToDateForEm_Ex;
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    public String MAC_ID="";
 
     private boolean isImageFile(File file) {
         String name = file.getName().toLowerCase();
@@ -848,10 +849,10 @@ public class DMContiguity {
             informationarray[9] = Tfd10.getText().trim() + "|";
         }
 
-        secondController.setData(fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
+        secondController.setData(MAC_ID,fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
 
         System.out.println("array  " + informationarray);
-        a1.setData(fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
+        a1.setData(MAC_ID,fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
         AnchorPane v1 = new AnchorPane(scene12.getRoot());
         Stage stage = null;
         printAnchorPane(v1, stage);
@@ -860,7 +861,7 @@ public class DMContiguity {
         String formattedDateTime00 = formatter12.format(now);
 if(bit0==1){
 //}
-            Pdfgenrator Pdf1 = new Pdfgenrator(fruits, time_of_recived_data, comName, address, comphon, comemail, informationarray);
+            Pdfgenrator Pdf1 = new Pdfgenrator(MAC_ID, fruits, time_of_recived_data, comName, address, comphon, comemail, informationarray);
             Pdf1.genratepdf(formattedDateTime00);    //get image from imageview of fxml
             String array2 = Arrays.toString(informationarray);
             String newTemp_info2 = array2.replace("|,", "|");
@@ -1222,8 +1223,10 @@ else {
             String response = new String(buf, 0, bytesRead).trim();
         System.out.println("re len "+response.length());
             String[] response1=response.split(",");
+
             System.out.println("ble len "+response1[0].length());
             if(response1[0].equals("BLE_READER")){
+                MAC_ID=response1[1].trim();
                 String[] ab=response.split(",");
                 statusbit=2;
                 Connectedstatus.setText(ab[1]+" is Connected");
@@ -1239,6 +1242,25 @@ else {
                 outputStream.close();
                 inputStream.close();
                 showAlertinfo(" ",ab[1]+" is connected on "+ Portname +".");
+            }
+            else if(response1[0].equals("DMM_PRINT_")){
+
+                    MAC_ID="";
+                String[] ab=response.split(",");
+                statusbit=2;
+                Connectedstatus.setText("20"+ab[1]+" is Connected");
+                Disconnectedstatus.setText("20"+ab[1]+" is Disconnected");
+                disconnect_value=ab[1];
+                deviceCon();
+                portdisCoAle();
+                System.out.println("yess logger1");
+                data1.setText("");data2.setText("");data3.setText("");
+                data4.setText("");data5.setText("");
+                data7.setText("");data8.setText("");
+                conectionwindow.setVisible(false);
+                outputStream.close();
+                inputStream.close();
+                showAlertinfo(" ","20"+ab[1]+" is connected on "+ Portname +".");
             }
             else {
                 disconnect_value=null;
@@ -1342,7 +1364,7 @@ else {
                 System.out.println("hee "+response);
                 fruits=response.split(",");
 //                _serialPort.closePort();
-                data1.setText(fruits[0]);  //data from
+                data1.setText(MAC_ID);  //data from
                 data2.setText(fruits[0]);   //sr no
                 data3.setText(fruits[1] );    //comodi
                 data4.setText(fruits[2] +" %");  //mistur
@@ -1448,6 +1470,21 @@ else {
              outputStream.close();
                  return true;
          }
+        else if(response1[0].equals("DMM_PRINT_")){
+                MAC_ID="";
+            String[] ab=response.split(",");
+//                Blemodulename=ab[1];
+            Connectedstatus.setText("20"+ab[1]+" is Connected");
+            Disconnectedstatus.setText("20"+ab[1]+" is Disconnected");
+            disconnect_value=ab[1];
+            statusbit=2;
+            deviceCon();
+            portdisCoAle();
+            System.out.println("yess logger");
+            inputStream.close();
+            outputStream.close();
+            return true;
+        }
         else {
             deviceDisCon();
             _serialPort.closePort();
@@ -1881,7 +1918,7 @@ void indivipdfsend(String mail2,String mail11 ,byte[] pdfContent) throws Messagi
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx2, loopyDmm);
-            contentStream.showText(fruits[0]);
+            contentStream.showText(MAC_ID);
             contentStream.endText();
 
             System.out.println(fruits[0]);
@@ -2072,7 +2109,7 @@ void indivipdfsend(String mail2,String mail11 ,byte[] pdfContent) throws Messagi
             }
             PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO DMM"+year+"  (SerialNo,MACId,CommodityName,Moisture,Temperature,DateTime,SaQunReqid,OtherInfo) VALUES (?,?,?,?,?,?,?,?)");
             insertStatement.setString(1, data[0]);
-            insertStatement.setString(2, data[0]);
+            insertStatement.setString(2, MAC_ID);
             insertStatement.setString(3, data[1]);
             insertStatement.setString(4, data[2]);
             insertStatement.setString(5, data[3]);
@@ -3492,7 +3529,7 @@ void sendselectedfiles(String filemail ,String filemail2){
         int columnCount = metaData.getColumnCount();
         String infcolumnName = metaData.getColumnName(8);
         Row headerRow = sheet.createRow(0);
-        String[] colname={"0","ID","MAC ID","Serial No","Commodity Name","Moisture %","Sample Temperature (°C) ","Time","Sample Quantity Required(gram)","Other information"};
+        String[] colname={"0","ID","Serial No","MAC ID","Commodity Name","Moisture %","Sample Temperature (°C) ","Time","Sample Quantity Required(gram)","Other information"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             Cell cell = headerRow.createCell(i - 1);
