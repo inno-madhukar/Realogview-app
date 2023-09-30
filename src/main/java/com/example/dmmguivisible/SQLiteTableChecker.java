@@ -10,18 +10,20 @@ import java.sql.SQLException;
 public class SQLiteTableChecker {
     private static boolean isDBtFile(File file) {
         String name = file.getName();
-        System.out.println("name "+name);
+        System.out.println("name " + name);
         return name.equals("realogview.db");
     }
-    public static String Realogview= "Realogview";
-    public static String DMM10= "DMM1.0";
-    public static String Data_Base= "DataBase";
-    static String  defaultPath = System.getProperty("user.home");
 
-    static String  DBpath = defaultPath+"/"+Realogview+"/"+DMM10+"/"+Data_Base+"/Realogview.db";
-    static String  DBfolder = defaultPath+"/"+Realogview+"/"+DMM10+"/"+Data_Base;
+    public static String Realogview = "Realogview";
+    public static String DMM10 = "DMM1.0";
+    public static String Data_Base = "DataBase";
+    static String defaultPath = System.getProperty("user.home");
+
+    static String DBpath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Data_Base + "/Realogview.db";
+    static String DBfolder = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Data_Base;
+
     public static boolean hasTables() {
-        String url = "jdbc:sqlite:"+DBpath; // Replace with the path to your SQLite database file
+        String url = "jdbc:sqlite:" + DBpath; // Replace with the path to your SQLite database file
 
         try (Connection conn = DriverManager.getConnection(url)) {
             DatabaseMetaData meta = conn.getMetaData();
@@ -36,16 +38,15 @@ public class SQLiteTableChecker {
 
     }
 
-    public static boolean hasDatabase(){
+    public static boolean hasDatabase() {
         boolean des1 = false;
         File folder = new File(DBfolder);
         File[] files = folder.listFiles();
-        for(File file:files){
-            des1=isDBtFile(file);
-            if(des1){
+        for (File file : files) {
+            des1 = isDBtFile(file);
+            if (des1) {
                 break;
-            }
-            else{
+            } else {
                 System.out.println("not database");
             }
         }

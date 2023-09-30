@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
@@ -20,7 +21,9 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import javafx.embed.swing.SwingFXUtils;
+
 public class Pdfgenrator {
     DateTimeFormatter globeldtformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
     String defaultPath = System.getProperty("user.home");
@@ -34,15 +37,15 @@ public class Pdfgenrator {
     String[] v = new String[3];
     String macid;
 
-    public String Realogview= "Realogview";
-    public String DMM10= "DMM1.0";
-    public String Data_Base= "DataBase";
-    public String User_Profile= "User Profile";
-    public String Data= "Data";
-    public String IPDF="PDF";
-    public String Records= "Records";
-    public String PDF="PDF";
-    public String EXCEL="EXCEL";
+    public String Realogview = "Realogview";
+    public String DMM10 = "DMM1.0";
+    public String Data_Base = "DataBase";
+    public String User_Profile = "User Profile";
+    public String Data = "Data";
+    public String IPDF = "PDF";
+    public String Records = "Records";
+    public String PDF = "PDF";
+    public String EXCEL = "EXCEL";
 
     Pdfgenrator(String macid, String[] Dmmdata, String data_r_time, String comname, String adress, String comphone, String comemail, String[] otherinfo) throws IOException {
         this.fruits = Dmmdata;
@@ -51,8 +54,8 @@ public class Pdfgenrator {
         this.comPhone = comphone;
         this.comEmail = comemail;
         this.otherinformation = otherinfo;
-        this.data_r_time=data_r_time;
-        this.macid=macid;
+        this.data_r_time = data_r_time;
+        this.macid = macid;
 
     }
 
@@ -60,7 +63,7 @@ public class Pdfgenrator {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.getDialogPane().setMinSize(300,150);
+        alert.getDialogPane().setMinSize(300, 150);
         alert.setContentText(message);
         alert.showAndWait();
     }
@@ -69,6 +72,7 @@ public class Pdfgenrator {
         String name = file.getName().toLowerCase();
         return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
     }
+
     public void genratepdf(String idatetime) throws IOException {
 //        String imagePath12 = "images/white_Image.png";
 //        String absoluteImagePath12 = String.valueOf(new File(imagePath12).getAbsolutePath());
@@ -76,7 +80,7 @@ public class Pdfgenrator {
 //        showAlertinfo("",absoluteImagePath12);
         System.out.println(otherinformation[0]);
         Image image0 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
-        BufferedImage bufferedImage1 = SwingFXUtils.fromFXImage(image0,null);
+        BufferedImage bufferedImage1 = SwingFXUtils.fromFXImage(image0, null);
 //        BufferedImage image1 = ImageIO.read(new File("src/main/resources/images/dmmlogo.jpg"));
 
         float ix1 = 20; // X-coordinate
@@ -106,18 +110,17 @@ public class Pdfgenrator {
             contentStream.addRect(borderWidth / 2, borderWidth / 2, pageWidth - borderWidth, pageHeight - borderWidth);
             contentStream.stroke();
             //add image
-            File folder = new File(defaultPath+"/"+Realogview+"/"+DMM10+"/"+User_Profile);
+            File folder = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile);
             File[] files = folder.listFiles();
-            for(File file:files){
-                if(isImageFile(file)){
+            for (File file : files) {
+                if (isImageFile(file)) {
                     BufferedImage image = ImageIO.read(file);
                     PDImageXObject pdImage = LosslessFactory.createFromImage(document, image);
                     contentStream.drawImage(pdImage, x, y, width, height);
                     break;
-                }
-                else{
+                } else {
                     Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
-                    BufferedImage image = SwingFXUtils.fromFXImage(image00,null);
+                    BufferedImage image = SwingFXUtils.fromFXImage(image00, null);
                     PDImageXObject pdImage01 = LosslessFactory.createFromImage(document, image);
                     contentStream.drawImage(pdImage01, x, y, width, height);
                 }
@@ -204,7 +207,7 @@ public class Pdfgenrator {
                     contentStream.setFont(PDType1Font.HELVETICA, 10);
                     contentStream.beginText();
                     contentStream.newLineAtOffset(120, loopy4);
-                    contentStream.showText(line.replace("|",",").trim());
+                    contentStream.showText(line.replace("|", ",").trim());
                     contentStream.endText();
                     loopy4 -= 14;
                     otherinfoIncre += 1;
@@ -222,8 +225,7 @@ public class Pdfgenrator {
                 loopy = 490;
                 loopyDmm = 490;
 
-            }
-            else {
+            } else {
 
             }
             //line2mid
@@ -277,14 +279,14 @@ public class Pdfgenrator {
             System.out.println(fruits[2]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2+15, loopyDmm - 72);
+            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 72);
             contentStream.showText(fruits[2] + " %");
             contentStream.endText();
 //
             System.out.println(fruits[3]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2+60, loopyDmm - 96);
+            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm - 96);
             contentStream.showText(fruits[3] + " °C");
             contentStream.endText();
 //
@@ -292,18 +294,17 @@ public class Pdfgenrator {
             String formattedDateTime2 = currentDateTime2.format(globeldtformatter);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2-10, loopyDmm - 120);
+            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm - 120);
             contentStream.showText(data_r_time);
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(290, loopyDmm - 144);
-            if(fruits[4].equals("FULL")){
+            if (fruits[4].equals("FULL")) {
                 contentStream.showText(fruits[4]);
                 contentStream.endText();
-            }
-            else{
+            } else {
                 contentStream.showText(fruits[4] + " gram");
                 contentStream.endText();
             }
@@ -337,7 +338,7 @@ public class Pdfgenrator {
 
             contentStream.close();
             String pdffilename = fruits[0] + "_" + idatetime;
-            document.save(defaultPath+"/"+Realogview+"/"+DMM10+"/"+Data+"/"+IPDF+"/"+ pdffilename + ".pdf");
+            document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Data + "/" + IPDF + "/" + pdffilename + ".pdf");
             System.out.println("PDF created successfully.");
 
         } catch (IOException e) {
@@ -345,9 +346,9 @@ public class Pdfgenrator {
         }
     }
 
-byte[] pdfbytesend(ResultSet resultSet){
+    byte[] pdfbytesend(ResultSet resultSet) {
 
-return null;
-}
+        return null;
+    }
 
 }

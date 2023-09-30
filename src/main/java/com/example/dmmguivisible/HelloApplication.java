@@ -1,4 +1,5 @@
 package com.example.dmmguivisible;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,32 +7,34 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 
-public class  HelloApplication extends Application {
+public class HelloApplication extends Application {
 
 
     private double x = 0;
     private double y = 0;
-public Stage primstage;
+    public Stage primstage;
+
     @Override
-    public void start(Stage stage) throws IOException ,Exception {
+    public void start(Stage stage) throws IOException, Exception {
         // Get a list of all the available serial ports
-primstage=stage;
+        primstage = stage;
         Parent fxmlLoader = FXMLLoader.load(getClass().getResource("DMMguicont.fxml"));
         Scene scene = new Scene(fxmlLoader, 1166, 665);
-        fxmlLoader.setOnMousePressed((MouseEvent event) ->{
+        fxmlLoader.setOnMousePressed((MouseEvent event) -> {
             x = event.getSceneX();
             y = event.getSceneY();
         });
-        fxmlLoader.setOnMouseDragged((MouseEvent event) ->{
+        fxmlLoader.setOnMouseDragged((MouseEvent event) -> {
             stage.setX(event.getScreenX() - x);
             stage.setY(event.getScreenY() - y);
             stage.setOpacity(.8);
         });
 
-        fxmlLoader.setOnMouseReleased((MouseEvent event) ->{
+        fxmlLoader.setOnMouseReleased((MouseEvent event) -> {
             stage.setOpacity(1);
         });
 //        Image image00 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());

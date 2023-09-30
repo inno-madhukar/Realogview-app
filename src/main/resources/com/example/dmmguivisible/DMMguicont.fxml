@@ -23,29 +23,41 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="1166.0" styleClass="gg" stylesheets="@../../../dashboardDesign.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.dmmguivisible.DMContiguity">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0"
+            prefWidth="1166.0" styleClass="gg" stylesheets="@../../../dashboardDesign.css"
+            xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.dmmguivisible.DMContiguity">
     <top>
-        <HBox focusTraversable="true" prefHeight="58.0" prefWidth="1166.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <HBox focusTraversable="true" prefHeight="58.0" prefWidth="1166.0" style="-fx-background-color: white;"
+              BorderPane.alignment="CENTER">
             <children>
 
-                                <AnchorPane id="imagebox" focusTraversable="true" prefHeight="47.0" prefWidth="223.0" HBox.hgrow="NEVER">
-                                    <children>
-                                        <ImageView fx:id="headerimage" fitHeight="47.0" fitWidth="197.0" focusTraversable="true" layoutX="1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane id="imagebox" focusTraversable="true" prefHeight="47.0" prefWidth="223.0"
+                            HBox.hgrow="NEVER">
+                    <children>
+                        <ImageView fx:id="headerimage" fitHeight="47.0" fitWidth="197.0" focusTraversable="true"
+                                   layoutX="1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true"
+                                   AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0"
+                                   AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
 
-                                        </ImageView>
-                                    </children>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="7.0" top="5.0" />
-                           </HBox.margin></AnchorPane>
-
-                <AnchorPane id="appname" focusTraversable="true" prefHeight="46.0" prefWidth="944.0" styleClass="profile12" HBox.hgrow="ALWAYS">
+                        </ImageView>
+                    </children>
                     <HBox.margin>
-                        <Insets bottom="6.0" left="-20.0" right="6.0" top="6.0" />
+                        <Insets bottom="5.0" left="7.0" top="5.0"/>
+                    </HBox.margin>
+                </AnchorPane>
+
+                <AnchorPane id="appname" focusTraversable="true" prefHeight="46.0" prefWidth="944.0"
+                            styleClass="profile12" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets bottom="6.0" left="-20.0" right="6.0" top="6.0"/>
                     </HBox.margin>
                     <children>
-                        <Label fx:id="headercompanyname" layoutX="75.0" layoutY="5.0" prefHeight="34.0" prefWidth="581.0" stylesheets="@../../../dashboardDesign.css" text="Company Name" textFill="WHITE">
+                        <Label fx:id="headercompanyname" layoutX="75.0" layoutY="5.0" prefHeight="34.0"
+                               prefWidth="581.0" stylesheets="@../../../dashboardDesign.css" text="Company Name"
+                               textFill="WHITE">
                             <font>
-                                <Font name="Segoe UI Black" size="21.0" />
+                                <Font name="Segoe UI Black" size="21.0"/>
                             </font>
                         </Label>
                     </children>
@@ -56,555 +68,696 @@
     <left>
         <VBox prefHeight="576.0" prefWidth="208.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane id="sidebox" prefHeight="576.0" prefWidth="193.0" styleClass="sidemenu1" stylesheets="@../../../dashboardDesign.css" VBox.vgrow="ALWAYS">
+                <AnchorPane id="sidebox" prefHeight="576.0" prefWidth="193.0" styleClass="sidemenu1"
+                            stylesheets="@../../../dashboardDesign.css" VBox.vgrow="ALWAYS">
                     <VBox.margin>
-                        <Insets bottom="25.0" left="6.0" right="7.0" top="1.0" />
+                        <Insets bottom="25.0" left="6.0" right="7.0" top="1.0"/>
                     </VBox.margin>
                     <children>
-                        <Button fx:id="ConnectButton" layoutX="24.0" layoutY="38.0" mnemonicParsing="false" onAction="#populateSerialPortList" prefHeight="32.0" prefWidth="148.0" styleClass="label-info1" stylesheets="@../../../dashboardDesign.css" text="Connect">
+                        <Button fx:id="ConnectButton" layoutX="24.0" layoutY="38.0" mnemonicParsing="false"
+                                onAction="#populateSerialPortList" prefHeight="32.0" prefWidth="148.0"
+                                styleClass="label-info1" stylesheets="@../../../dashboardDesign.css" text="Connect">
                             <effect>
                                 <DropShadow>
                                     <color>
-                                        <Color opacity="0.41370558738708496" />
+                                        <Color opacity="0.41370558738708496"/>
                                     </color>
                                 </DropShadow>
                             </effect>
                             <font>
-                                <Font name="Franklin Gothic Medium" size="19.0" />
+                                <Font name="Franklin Gothic Medium" size="19.0"/>
                             </font>
                         </Button>
-                        <Button layoutX="24.0" layoutY="88.0" mnemonicParsing="false" onAction="#portgetdata" prefHeight="32.0" prefWidth="148.0" styleClass="label-info1" text="Get Data">
+                        <Button layoutX="24.0" layoutY="88.0" mnemonicParsing="false" onAction="#portgetdata"
+                                prefHeight="32.0" prefWidth="148.0" styleClass="label-info1" text="Get Data">
                             <effect>
-                                <DropShadow />
+                                <DropShadow/>
                             </effect>
                             <font>
-                                <Font name="Franklin Gothic Medium" size="19.0" />
+                                <Font name="Franklin Gothic Medium" size="19.0"/>
                             </font>
                         </Button>
-                        <Button fx:id="historyButton" layoutX="25.0" layoutY="172.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="32.0" prefWidth="146.0" styleClass="label-info" text="Records">
+                        <Button fx:id="historyButton" layoutX="25.0" layoutY="172.0" mnemonicParsing="false"
+                                onAction="#switchForm" prefHeight="32.0" prefWidth="146.0" styleClass="label-info"
+                                text="Records">
                             <font>
-                                <Font name="Yu Gothic Bold" size="16.0" />
+                                <Font name="Yu Gothic Bold" size="16.0"/>
                             </font>
-                     <effect>
-                        <DropShadow height="11.64" radius="5.905" width="13.98">
-                           <color>
-                              <Color red="0.3263157904148102" green="0.3263157904148102" blue="0.3263157904148102" />
-                           </color>
-                        </DropShadow>
-                     </effect>
+                            <effect>
+                                <DropShadow height="11.64" radius="5.905" width="13.98">
+                                    <color>
+                                        <Color red="0.3263157904148102" green="0.3263157904148102"
+                                               blue="0.3263157904148102"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
                         </Button>
-                        <Button fx:id="gernaralinfoButton" layoutX="25.0" layoutY="267.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="32.0" prefWidth="146.0" styleClass="label-info" text="Help">
+                        <Button fx:id="gernaralinfoButton" layoutX="25.0" layoutY="267.0" mnemonicParsing="false"
+                                onAction="#switchForm" prefHeight="32.0" prefWidth="146.0" styleClass="label-info"
+                                text="Help">
                             <font>
-                                <Font name="Yu Gothic Bold" size="16.0" />
+                                <Font name="Yu Gothic Bold" size="16.0"/>
                             </font>
-                     <effect>
-                        <DropShadow height="9.3" radius="5.32" width="13.98">
-                           <color>
-                              <Color red="0.378947377204895" green="0.378947377204895" blue="0.378947377204895" />
-                           </color>
-                        </DropShadow>
-                     </effect>
+                            <effect>
+                                <DropShadow height="9.3" radius="5.32" width="13.98">
+                                    <color>
+                                        <Color red="0.378947377204895" green="0.378947377204895"
+                                               blue="0.378947377204895"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
                         </Button>
-                        <Button fx:id="profileButton" layoutX="25.0" layoutY="220.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="32.0" prefWidth="146.0" styleClass="label-info" text="User Profile">
+                        <Button fx:id="profileButton" layoutX="25.0" layoutY="220.0" mnemonicParsing="false"
+                                onAction="#switchForm" prefHeight="32.0" prefWidth="146.0" styleClass="label-info"
+                                text="User Profile">
                             <font>
-                                <Font name="Yu Gothic Bold" size="16.0" />
+                                <Font name="Yu Gothic Bold" size="16.0"/>
                             </font>
-                     <effect>
-                        <DropShadow height="9.3" radius="5.32" width="13.98">
-                           <color>
-                              <Color red="0.43157893419265747" green="0.43157893419265747" blue="0.43157893419265747" />
-                           </color>
-                        </DropShadow>
-                     </effect>
+                            <effect>
+                                <DropShadow height="9.3" radius="5.32" width="13.98">
+                                    <color>
+                                        <Color red="0.43157893419265747" green="0.43157893419265747"
+                                               blue="0.43157893419265747"/>
+                                    </color>
+                                </DropShadow>
+                            </effect>
                         </Button>
-                  <AnchorPane layoutX="4.0" layoutY="440.0" prefHeight="90.0" prefWidth="187.0" style="-fx-background-color: white;" styleClass="white-bg" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
-                     <children>
-                        <AnchorPane prefHeight="27.0" prefWidth="186.5" styleClass="status">
-                           <children>
-                                    <Label layoutX="60.0" layoutY="3.0" prefHeight="20.0" prefWidth="55.0" text="Status " textFill="WHITE">
-                                        <font>
-                                            <Font name="Arial Bold" size="16.0" />
-                                        </font>
-                                    </Label>
-                           </children>
+                        <AnchorPane layoutX="4.0" layoutY="440.0" prefHeight="90.0" prefWidth="187.0"
+                                    style="-fx-background-color: white;" styleClass="white-bg"
+                                    AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
+                            <children>
+                                <AnchorPane prefHeight="27.0" prefWidth="186.5" styleClass="status">
+                                    <children>
+                                        <Label layoutX="60.0" layoutY="3.0" prefHeight="20.0" prefWidth="55.0"
+                                               text="Status " textFill="WHITE">
+                                            <font>
+                                                <Font name="Arial Bold" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <ProgressIndicator fx:id="progressindicator2" layoutX="69.0" layoutY="32.0"
+                                                   prefHeight="41.0" prefWidth="48.0" progress="0.0" visible="false"/>
+                                <Label id="lab1" fx:id="Connectedstatus" contentDisplay="CENTER" layoutX="15.0"
+                                       layoutY="49.0" text="Device is connected  " textAlignment="CENTER"
+                                       visible="false">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="Disconnectedstatus" layoutX="5.0" layoutY="49.0" prefHeight="17.0"
+                                       prefWidth="178.0" text="   Device is not Connected">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="ConnectedstatusSYB" layoutX="77.0" layoutY="28.0" prefHeight="25.0"
+                                       prefWidth="25.0" text="✅" textFill="#00ff51" visible="false">
+                                    <font>
+                                        <Font size="16.0"/>
+                                    </font>
+                                    <effect>
+                                        <Glow/>
+                                    </effect>
+                                </Label>
+                                <Label fx:id="DisconnectedstatusSYB" layoutX="77.0" layoutY="28.0" prefHeight="25.0"
+                                       prefWidth="23.0" text="❌" textFill="RED">
+                                    <font>
+                                        <Font name="Arial" size="16.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow/>
+                            </effect>
                         </AnchorPane>
-                              <ProgressIndicator fx:id="progressindicator2" layoutX="69.0" layoutY="32.0" prefHeight="41.0" prefWidth="48.0" progress="0.0" visible="false" />
-                        <Label id="lab1" fx:id="Connectedstatus" contentDisplay="CENTER" layoutX="15.0" layoutY="49.0" text="Device is connected  " textAlignment="CENTER" visible="false">
-                           <font>
-                              <Font name="Bookman Old Style Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="Disconnectedstatus" layoutX="5.0" layoutY="49.0" prefHeight="17.0" prefWidth="178.0" text="   Device is not Connected">
-                           <font>
-                              <Font name="Bookman Old Style Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="ConnectedstatusSYB" layoutX="77.0" layoutY="28.0" prefHeight="25.0" prefWidth="25.0" text="✅" textFill="#00ff51" visible="false">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <effect>
-                              <Glow />
-                           </effect>
-                        </Label>
-                        <Label fx:id="DisconnectedstatusSYB" layoutX="77.0" layoutY="28.0" prefHeight="25.0" prefWidth="23.0" text="❌" textFill="RED">
-                           <font>
-                              <Font name="Arial" size="16.0" />
-                           </font></Label>
-                     </children>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </AnchorPane>
                     </children>
                 </AnchorPane>
             </children>
         </VBox>
     </left>
     <center>
-        <HBox alignment="CENTER" focusTraversable="true" prefHeight="585.0" prefWidth="945.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" focusTraversable="true" prefHeight="585.0" prefWidth="945.0"
+              style="-fx-background-color: white;" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane id="mainbox" focusTraversable="true" prefHeight="609.0" prefWidth="958.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                <AnchorPane id="mainbox" focusTraversable="true" prefHeight="609.0" prefWidth="958.0"
+                            style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets />
+                        <Insets/>
                     </HBox.margin>
                     <children>
-                        <AnchorPane id="submainbox" focusTraversable="true" layoutX="14.0" layoutY="10.0" styleClass="desk" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="1.0">
+                        <AnchorPane id="submainbox" focusTraversable="true" layoutX="14.0" layoutY="10.0"
+                                    styleClass="desk" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="1.0"
+                                    AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="1.0">
                             <children>
-                                <AnchorPane id="GDbox1" fx:id="dmmdatarivecerwindow" focusTraversable="true" layoutX="80.0" layoutY="23.0" prefHeight="563.0" prefWidth="930.0" styleClass="profile13" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
+                                <AnchorPane id="GDbox1" fx:id="dmmdatarivecerwindow" focusTraversable="true"
+                                            layoutX="80.0" layoutY="23.0" prefHeight="563.0" prefWidth="930.0"
+                                            styleClass="profile13" visible="false" AnchorPane.bottomAnchor="10.0"
+                                            AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0"
+                                            AnchorPane.topAnchor="10.0">
                                     <children>
-                                        <Label layoutX="43.0" layoutY="67.0" prefHeight="14.0" prefWidth="79.0" text="Serial No :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="67.0" prefHeight="14.0" prefWidth="79.0"
+                                               text="Serial No :" textFill="WHITE">
                                             <font>
-                                                <Font name="Corbel" size="16.0" />
+                                                <Font name="Corbel" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="163.0" prefHeight="19.0" prefWidth="173.0" text="Sample Temperature :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="163.0" prefHeight="19.0" prefWidth="173.0"
+                                               text="Sample Temperature :" textFill="WHITE">
                                             <font>
-                                                <Font name="Corbel" size="16.0" />
+                                                <Font name="Corbel" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="131.0" prefHeight="14.0" prefWidth="106.0" text="Moisture :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="131.0" prefHeight="14.0" prefWidth="106.0"
+                                               text="Moisture :" textFill="WHITE">
                                             <font>
-                                                <Font name="Corbel" size="16.0" />
+                                                <Font name="Corbel" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="99.0" prefHeight="16.0" prefWidth="165.0" text="Commodity Name :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="99.0" prefHeight="16.0" prefWidth="165.0"
+                                               text="Commodity Name :" textFill="WHITE">
                                             <font>
-                                                <Font name="Corbel" size="16.0" />
+                                                <Font name="Corbel" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="195.0" prefHeight="7.0" prefWidth="51.0" text="Time : " textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="195.0" prefHeight="7.0" prefWidth="51.0"
+                                               text="Time : " textFill="WHITE">
                                             <font>
-                                                <Font name="Corbel" size="16.0" />
+                                                <Font name="Corbel" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="227.0" prefHeight="0.0" prefWidth="218.0" text="Sample Quantity Required :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="227.0" prefHeight="0.0" prefWidth="218.0"
+                                               text="Sample Quantity Required :" textFill="WHITE">
                                             <font>
-                                                <Font name="Corbel" size="16.0" />
+                                                <Font name="Corbel" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="35.0" prefHeight="13.0" prefWidth="72.0" text="MAC ID :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="35.0" prefHeight="13.0" prefWidth="72.0"
+                                               text="MAC ID :" textFill="WHITE">
                                             <font>
-                                                <Font name="Corbel" size="16.0" />
+                                                <Font name="Corbel" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="data1" layoutX="126.0" layoutY="35.0" prefHeight="13.0" prefWidth="218.0" text="1" textFill="BLACK">
+                                        <Label fx:id="data1" layoutX="126.0" layoutY="35.0" prefHeight="13.0"
+                                               prefWidth="218.0" text="1" textFill="BLACK">
                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
+                                                <Font name="Segoe UI" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="data2" layoutX="134.0" layoutY="67.0" prefHeight="17.0" prefWidth="171.0" text="2" textFill="BLACK">
+                                        <Label fx:id="data2" layoutX="134.0" layoutY="67.0" prefHeight="17.0"
+                                               prefWidth="171.0" text="2" textFill="BLACK">
                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
+                                                <Font name="Segoe UI" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="data3" layoutX="194.0" layoutY="99.0" prefHeight="12.0" prefWidth="106.0" text="3" textFill="BLACK">
+                                        <Label fx:id="data3" layoutX="194.0" layoutY="99.0" prefHeight="12.0"
+                                               prefWidth="106.0" text="3" textFill="BLACK">
                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
+                                                <Font name="Segoe UI" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="data4" layoutX="137.0" layoutY="131.0" prefHeight="15.0" prefWidth="100.0" text="4" textFill="BLACK">
+                                        <Label fx:id="data4" layoutX="137.0" layoutY="131.0" prefHeight="15.0"
+                                               prefWidth="100.0" text="4" textFill="BLACK">
                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
+                                                <Font name="Segoe UI" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="data5" layoutX="220.0" layoutY="164.0" prefHeight="19.0" prefWidth="87.0" text="5" textFill="BLACK">
+                                        <Label fx:id="data5" layoutX="220.0" layoutY="164.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="5" textFill="BLACK">
                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
+                                                <Font name="Segoe UI" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="data7" layoutX="105.0" layoutY="196.0" prefHeight="3.0" prefWidth="224.0" text="7" textFill="BLACK">
+                                        <Label fx:id="data7" layoutX="105.0" layoutY="196.0" prefHeight="3.0"
+                                               prefWidth="224.0" text="7" textFill="BLACK">
                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
+                                                <Font name="Segoe UI" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="data8" layoutX="249.0" layoutY="227.0" prefHeight="19.0" prefWidth="110.0" text="8" textFill="BLACK">
+                                        <Label fx:id="data8" layoutX="249.0" layoutY="227.0" prefHeight="19.0"
+                                               prefWidth="110.0" text="8" textFill="BLACK">
                                             <font>
-                                                <Font name="Segoe UI" size="15.0" />
+                                                <Font name="Segoe UI" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="pdfemail1" layoutX="147.0" layoutY="296.0" prefHeight="25.0" prefWidth="180.0" />
-                                        <TextField fx:id="pdfemail2" layoutX="147.0" layoutY="335.0" prefHeight="25.0" prefWidth="180.0" />
+                                        <TextField fx:id="pdfemail1" layoutX="147.0" layoutY="296.0" prefHeight="25.0"
+                                                   prefWidth="180.0"/>
+                                        <TextField fx:id="pdfemail2" layoutX="147.0" layoutY="335.0" prefHeight="25.0"
+                                                   prefWidth="180.0"/>
                                         <Label layoutX="47.0" layoutY="300.0" text="Email Id :" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="14.0" />
+                                                <Font name="System Bold" size="14.0"/>
                                             </font>
                                         </Label>
                                         <Label layoutX="49.0" layoutY="337.0" text="Cc :" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="14.0" />
+                                                <Font name="System Bold" size="14.0"/>
                                             </font>
                                         </Label>
-                                        <Label layoutX="336.0" layoutY="339.0" text="(Optional)" textFill="WHITE" />
-                                        <Line endX="19.33331298828125" endY="403.0" layoutX="445.0" layoutY="144.0" startX="19.33331298828125" startY="-127.66666412353516" stroke="WHITE" />
-                                        <Label layoutX="515.0" layoutY="15.0" prefHeight="25.0" prefWidth="286.0" text="Add Extra Information  :" textFill="WHITE" underline="true">
+                                        <Label layoutX="336.0" layoutY="339.0" text="(Optional)" textFill="WHITE"/>
+                                        <Line endX="19.33331298828125" endY="403.0" layoutX="445.0" layoutY="144.0"
+                                              startX="19.33331298828125" startY="-127.66666412353516" stroke="WHITE"/>
+                                        <Label layoutX="515.0" layoutY="15.0" prefHeight="25.0" prefWidth="286.0"
+                                               text="Add Extra Information  :" textFill="WHITE" underline="true">
                                             <font>
-                                                <Font name="Segoe UI Bold" size="17.0" />
+                                                <Font name="Segoe UI Bold" size="17.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="Tfd1" layoutX="611.0" layoutY="56.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd2" layoutX="611.0" layoutY="100.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd3" layoutX="611.0" layoutY="140.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd4" layoutX="611.0" layoutY="181.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd5" layoutX="611.0" layoutY="221.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd6" layoutX="611.0" layoutY="321.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
-                                        <TextField fx:id="Tfd7" layoutX="611.0" layoutY="362.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
-                                        <TextField fx:id="Tfd8" layoutX="611.0" layoutY="402.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
-                                        <TextField fx:id="Tfd9" layoutX="612.0" layoutY="441.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
-                                        <TextField fx:id="Tfd10" layoutX="612.0" layoutY="481.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
-                                        <Label fx:id="tfl1" layoutX="521.0" layoutY="60.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 1 :" textFill="WHITE">
+                                        <TextField fx:id="Tfd1" layoutX="611.0" layoutY="56.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"/>
+                                        <TextField fx:id="Tfd2" layoutX="611.0" layoutY="100.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"/>
+                                        <TextField fx:id="Tfd3" layoutX="611.0" layoutY="140.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"/>
+                                        <TextField fx:id="Tfd4" layoutX="611.0" layoutY="181.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"/>
+                                        <TextField fx:id="Tfd5" layoutX="611.0" layoutY="221.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"/>
+                                        <TextField fx:id="Tfd6" layoutX="611.0" layoutY="321.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"
+                                                   visible="false"/>
+                                        <TextField fx:id="Tfd7" layoutX="611.0" layoutY="362.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"
+                                                   visible="false"/>
+                                        <TextField fx:id="Tfd8" layoutX="611.0" layoutY="402.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"
+                                                   visible="false"/>
+                                        <TextField fx:id="Tfd9" layoutX="612.0" layoutY="441.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"
+                                                   visible="false"/>
+                                        <TextField fx:id="Tfd10" layoutX="612.0" layoutY="481.0" prefHeight="25.0"
+                                                   prefWidth="233.0" promptText="Write Max 80 Characters"
+                                                   visible="false"/>
+                                        <Label fx:id="tfl1" layoutX="521.0" layoutY="60.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 1 :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl4" layoutX="519.0" layoutY="185.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 4 :" textFill="WHITE">
+                                        <Label fx:id="tfl4" layoutX="519.0" layoutY="185.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 4 :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl3" layoutX="520.0" layoutY="143.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 3 :" textFill="WHITE">
+                                        <Label fx:id="tfl3" layoutX="520.0" layoutY="143.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 3 :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl2" layoutX="521.0" layoutY="103.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 2 :" textFill="WHITE">
+                                        <Label fx:id="tfl2" layoutX="521.0" layoutY="103.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 2 :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl5" layoutX="520.0" layoutY="224.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 5 :" textFill="WHITE">
+                                        <Label fx:id="tfl5" layoutX="520.0" layoutY="224.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 5 :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Button fx:id="addtextfield" layoutX="753.0" layoutY="265.0" mnemonicParsing="false" onAction="#addtextfieldFunc" prefHeight="26.0" prefWidth="115.0" styleClass="white-bg" text="+ Add TextField">
+                                        <Button fx:id="addtextfield" layoutX="753.0" layoutY="265.0"
+                                                mnemonicParsing="false" onAction="#addtextfieldFunc" prefHeight="26.0"
+                                                prefWidth="115.0" styleClass="white-bg" text="+ Add TextField">
                                             <effect>
-                                                <DropShadow />
+                                                <DropShadow/>
                                             </effect>
                                         </Button>
-                                        <Label fx:id="tfl6" layoutX="522.0" layoutY="325.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 6 :" textFill="WHITE" visible="false">
+                                        <Label fx:id="tfl6" layoutX="522.0" layoutY="325.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 6 :" textFill="WHITE" visible="false">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl7" layoutX="521.0" layoutY="365.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 7 :" textFill="WHITE" visible="false">
+                                        <Label fx:id="tfl7" layoutX="521.0" layoutY="365.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 7 :" textFill="WHITE" visible="false">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl8" layoutX="521.0" layoutY="405.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 8 :" textFill="WHITE" visible="false">
+                                        <Label fx:id="tfl8" layoutX="521.0" layoutY="405.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 8 :" textFill="WHITE" visible="false">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl10" layoutX="521.0" layoutY="483.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 10 :" textFill="WHITE" visible="false">
+                                        <Label fx:id="tfl10" layoutX="521.0" layoutY="483.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 10 :" textFill="WHITE" visible="false">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl9" layoutX="521.0" layoutY="444.0" prefHeight="19.0" prefWidth="87.0" text="Text Data 9 :" textFill="WHITE" visible="false">
+                                        <Label fx:id="tfl9" layoutX="521.0" layoutY="444.0" prefHeight="19.0"
+                                               prefWidth="87.0" text="Text Data 9 :" textFill="WHITE" visible="false">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Button layoutX="94.0" layoutY="413.0" mnemonicParsing="false" onAction="#printPDF" prefHeight="29.0" prefWidth="106.0" styleClass="white-bg" text="Print">
+                                        <Button layoutX="94.0" layoutY="413.0" mnemonicParsing="false"
+                                                onAction="#printPDF" prefHeight="29.0" prefWidth="106.0"
+                                                styleClass="white-bg" text="Print">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.42105263471603394" green="0.42105263471603394" blue="0.42105263471603394" />
+                                                        <Color red="0.42105263471603394" green="0.42105263471603394"
+                                                               blue="0.42105263471603394"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <Button layoutX="251.0" layoutY="414.0" mnemonicParsing="false" onAction="#sendemailpdf" prefHeight="30.0" prefWidth="106.0" styleClass="white-bg" text="Send">
+                                        <Button layoutX="251.0" layoutY="414.0" mnemonicParsing="false"
+                                                onAction="#sendemailpdf" prefHeight="30.0" prefWidth="106.0"
+                                                styleClass="white-bg" text="Send">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.4000000059604645" green="0.4000000059604645" blue="0.4000000059604645" />
+                                                        <Color red="0.4000000059604645" green="0.4000000059604645"
+                                                               blue="0.4000000059604645"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane id="Cobox2" fx:id="conectionwindow" focusTraversable="true" layoutX="112.0" layoutY="85.0" prefHeight="310.0" prefWidth="487.0" styleClass="scence1" visible="false">
+                                <AnchorPane id="Cobox2" fx:id="conectionwindow" focusTraversable="true" layoutX="112.0"
+                                            layoutY="85.0" prefHeight="310.0" prefWidth="487.0" styleClass="scence1"
+                                            visible="false">
                                     <effect>
-                                        <DropShadow />
+                                        <DropShadow/>
                                     </effect>
                                     <children>
-                                        <Label layoutX="40.0" layoutY="20.0" prefHeight="17.0" prefWidth="163.0" text="Port Selection :">
+                                        <Label layoutX="40.0" layoutY="20.0" prefHeight="17.0" prefWidth="163.0"
+                                               text="Port Selection :">
                                             <font>
-                                                <Font name="Arial Bold" size="19.0" />
+                                                <Font name="Arial Bold" size="19.0"/>
                                             </font>
                                         </Label>
-                                        <Button fx:id="portselectcancle" layoutX="430.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancleportfu" prefHeight="34.0" prefWidth="40.0" styleClass="closewin" text="X">
+                                        <Button fx:id="portselectcancle" layoutX="430.0" layoutY="14.0"
+                                                mnemonicParsing="false" onAction="#cancleportfu" prefHeight="34.0"
+                                                prefWidth="40.0" styleClass="closewin" text="X">
                                             <effect>
-                                                <DropShadow />
+                                                <DropShadow/>
                                             </effect>
                                         </Button>
                                         <ScrollPane layoutX="92.0" layoutY="59.0" prefHeight="226.0" prefWidth="150.0">
                                             <content>
-                                                <ListView fx:id="portListView" onMouseClicked="#porthandleMouseClick" prefHeight="278.0" prefWidth="168.0">
+                                                <ListView fx:id="portListView" onMouseClicked="#porthandleMouseClick"
+                                                          prefHeight="278.0" prefWidth="168.0">
                                                     <padding>
-                                                        <Insets left="10.0" right="10.0" top="10.0" />
+                                                        <Insets left="10.0" right="10.0" top="10.0"/>
                                                     </padding>
                                                     <cursor>
-                                                        <Cursor fx:constant="HAND" />
+                                                        <Cursor fx:constant="HAND"/>
                                                     </cursor>
                                                 </ListView>
                                             </content>
                                         </ScrollPane>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane id="UPbox3" fx:id="companyProfile" focusTraversable="true" layoutX="9.0" layoutY="10.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
+                                <AnchorPane id="UPbox3" fx:id="companyProfile" focusTraversable="true" layoutX="9.0"
+                                            layoutY="10.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk"
+                                            visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0"
+                                            AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
                                     <children>
-                                        <Button fx:id="proedit" layoutX="157.0" layoutY="429.0" mnemonicParsing="false" onAction="#editProf" prefHeight="26.0" prefWidth="94.0" styleClass="white-bg" text="Edit">
+                                        <Button fx:id="proedit" layoutX="157.0" layoutY="429.0" mnemonicParsing="false"
+                                                onAction="#editProf" prefHeight="26.0" prefWidth="94.0"
+                                                styleClass="white-bg" text="Edit">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.42105263471603394" green="0.42105263471603394" blue="0.42105263471603394" />
+                                                        <Color red="0.42105263471603394" green="0.42105263471603394"
+                                                               blue="0.42105263471603394"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <Button fx:id="proupdate" disable="true" layoutX="306.0" layoutY="429.0" mnemonicParsing="false" onAction="#updateprofile" prefHeight="26.0" prefWidth="104.0" styleClass="white-bg" text="Save">
+                                        <Button fx:id="proupdate" disable="true" layoutX="306.0" layoutY="429.0"
+                                                mnemonicParsing="false" onAction="#updateprofile" prefHeight="26.0"
+                                                prefWidth="104.0" styleClass="white-bg" text="Save">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.4736842215061188" green="0.4736842215061188" blue="0.4736842215061188" />
+                                                        <Color red="0.4736842215061188" green="0.4736842215061188"
+                                                               blue="0.4736842215061188"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <Button fx:id="proeditlogo" layoutX="319.0" layoutY="74.0" mnemonicParsing="false" onAction="#changelogofun" styleClass="white-bg" text="Browse Logo">
+                                        <Button fx:id="proeditlogo" layoutX="319.0" layoutY="74.0"
+                                                mnemonicParsing="false" onAction="#changelogofun" styleClass="white-bg"
+                                                text="Browse Logo">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.4842105209827423" green="0.4842105209827423" blue="0.4842105209827423" />
+                                                        <Color red="0.4842105209827423" green="0.4842105209827423"
+                                                               blue="0.4842105209827423"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
                                         <AnchorPane layoutX="49.0" layoutY="47.0" prefHeight="128.0" prefWidth="172.0">
                                             <children>
-                                                <ImageView fx:id="tr" fitHeight="128.0" fitWidth="171.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="tr" fitHeight="128.0" fitWidth="171.0" layoutX="2.0"
+                                                           pickOnBounds="true" preserveRatio="true"/>
                                             </children>
-                                 <effect>
-                                    <DropShadow height="9.73" radius="3.29" width="5.43">
-                                       <color>
-                                          <Color red="0.3070175349712372" green="0.3070175349712372" blue="0.3070175349712372" />
-                                       </color></DropShadow>
-                                 </effect>
+                                            <effect>
+                                                <DropShadow height="9.73" radius="3.29" width="5.43">
+                                                    <color>
+                                                        <Color red="0.3070175349712372" green="0.3070175349712372"
+                                                               blue="0.3070175349712372"/>
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
                                         </AnchorPane>
-                                        <Label layoutX="28.0" layoutY="10.0" prefHeight="30.0" prefWidth="180.0" text="User Profile : " textFill="WHITE">
+                                        <Label layoutX="28.0" layoutY="10.0" prefHeight="30.0" prefWidth="180.0"
+                                               text="User Profile : " textFill="WHITE">
                                             <font>
-                                                <Font name="Arial Black" size="16.0" />
+                                                <Font name="Arial Black" size="16.0"/>
                                             </font>
                                         </Label>
                                         <Label layoutX="66.0" layoutY="200.0" text="Company Name :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
                                         <Label layoutX="90.0" layoutY="241.0" text="Email Id :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
                                         <Label layoutX="84.0" layoutY="284.0" text="Phone No :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="proCoNmae" disable="true" layoutX="223.0" layoutY="197.0" prefHeight="26.0" prefWidth="251.0" />
-                                        <TextField fx:id="proEmId" disable="true" layoutX="223.0" layoutY="238.0" prefHeight="26.0" prefWidth="251.0" />
-                                        <TextField fx:id="proPhoNo" disable="true" layoutX="223.0" layoutY="281.0" prefHeight="26.0" prefWidth="251.0" />
+                                        <TextField fx:id="proCoNmae" disable="true" layoutX="223.0" layoutY="197.0"
+                                                   prefHeight="26.0" prefWidth="251.0"/>
+                                        <TextField fx:id="proEmId" disable="true" layoutX="223.0" layoutY="238.0"
+                                                   prefHeight="26.0" prefWidth="251.0"/>
+                                        <TextField fx:id="proPhoNo" disable="true" layoutX="223.0" layoutY="281.0"
+                                                   prefHeight="26.0" prefWidth="251.0"/>
                                         <Label layoutX="90.0" layoutY="325.0" text="Address :" textFill="WHITE">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                         </Label>
-                                        <TextArea fx:id="proAddress" disable="true" layoutX="223.0" layoutY="325.0" prefHeight="74.0" prefWidth="251.0" wrapText="true" />
+                                        <TextArea fx:id="proAddress" disable="true" layoutX="223.0" layoutY="325.0"
+                                                  prefHeight="74.0" prefWidth="251.0" wrapText="true"/>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane id="Hbox4" fx:id="generalinfoBox" focusTraversable="true" layoutX="8.0" layoutY="7.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
+                                <AnchorPane id="Hbox4" fx:id="generalinfoBox" focusTraversable="true" layoutX="8.0"
+                                            layoutY="7.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk"
+                                            visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0"
+                                            AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
                                     <children>
-                                        <Label layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="299.0" text="Help :" textFill="WHITE">
+                                        <Label layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="299.0"
+                                               text="Help :" textFill="WHITE">
                                             <font>
-                                                <Font name="Arial Black" size="16.0" />
+                                                <Font name="Arial Black" size="16.0"/>
                                             </font>
                                         </Label>
-                                        <Button layoutX="74.0" layoutY="90.0" mnemonicParsing="false" onAction="#getquickguid" prefHeight="41.0" prefWidth="179.0" styleClass="white-bg" text="Quick Guide ">
+                                        <Button layoutX="74.0" layoutY="90.0" mnemonicParsing="false"
+                                                onAction="#getquickguid" prefHeight="41.0" prefWidth="179.0"
+                                                styleClass="white-bg" text="Quick Guide ">
                                             <graphic>
-                                                <ImageView fx:id="quick_guiad" fitHeight="49.0" fitWidth="55.0" />
+                                                <ImageView fx:id="quick_guiad" fitHeight="49.0" fitWidth="55.0"/>
                                             </graphic>
                                             <effect>
-                                                <DropShadow />
+                                                <DropShadow/>
                                             </effect>
-                                 <font>
-                                    <Font name="Constantia" size="12.0" />
-                                 </font>
-                                        </Button>
-                              <Label layoutX="82.0" layoutY="54.0" prefHeight="19.0" prefWidth="365.0" text="(Click Below Button To View Quick Guide)" textFill="WHITE">
-                                 <font>
-                                    <Font name="Cambria Italic" size="13.0" />
-                                 </font>
-                              </Label>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane id="Rebox5" fx:id="historyDataBox" focusTraversable="true" layoutX="12.0" layoutY="14.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
-                                    <children>
-                                        <Label layoutX="17.0" layoutY="10.0" prefHeight="30.0" prefWidth="180.0" text="Records :" textFill="WHITE">
                                             <font>
-                                                <Font name="Arial Black" size="16.0" />
+                                                <Font name="Constantia" size="12.0"/>
+                                            </font>
+                                        </Button>
+                                        <Label layoutX="82.0" layoutY="54.0" prefHeight="19.0" prefWidth="365.0"
+                                               text="(Click Below Button To View Quick Guide)" textFill="WHITE">
+                                            <font>
+                                                <Font name="Cambria Italic" size="13.0"/>
                                             </font>
                                         </Label>
-                                        <DatePicker fx:id="DateFrom" editable="false" layoutX="181.0" layoutY="78.0" prefHeight="0.0" prefWidth="137.0" promptText="Select Date" showWeekNumbers="true">
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane id="Rebox5" fx:id="historyDataBox" focusTraversable="true" layoutX="12.0"
+                                            layoutY="14.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk"
+                                            visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0"
+                                            AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
+                                    <children>
+                                        <Label layoutX="17.0" layoutY="10.0" prefHeight="30.0" prefWidth="180.0"
+                                               text="Records :" textFill="WHITE">
+                                            <font>
+                                                <Font name="Arial Black" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                        <DatePicker fx:id="DateFrom" editable="false" layoutX="181.0" layoutY="78.0"
+                                                    prefHeight="0.0" prefWidth="137.0" promptText="Select Date"
+                                                    showWeekNumbers="true">
                                             <effect>
-                                                <DropShadow />
+                                                <DropShadow/>
                                             </effect>
                                         </DatePicker>
-                                        <DatePicker fx:id="DateTo" editable="false" layoutX="376.0" layoutY="78.0" prefHeight="9.0" prefWidth="137.0" promptText="Select Date" showWeekNumbers="true">
+                                        <DatePicker fx:id="DateTo" editable="false" layoutX="376.0" layoutY="78.0"
+                                                    prefHeight="9.0" prefWidth="137.0" promptText="Select Date"
+                                                    showWeekNumbers="true">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.08771929889917374" green="0.07228720188140869" blue="0.07228720188140869" />
+                                                        <Color red="0.08771929889917374" green="0.07228720188140869"
+                                                               blue="0.07228720188140869"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </DatePicker>
-                                        <Label layoutX="336.0" layoutY="82.0" prefHeight="17.0" prefWidth="23.0" text="To :" textFill="WHITE">
+                                        <Label layoutX="336.0" layoutY="82.0" prefHeight="17.0" prefWidth="23.0"
+                                               text="To :" textFill="WHITE">
                                             <font>
-                                                <Font size="14.0" />
+                                                <Font size="14.0"/>
                                             </font>
                                         </Label>
-                                        <RadioButton fx:id="RedBtn1" layoutX="88.0" layoutY="81.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="87.0" selected="true" text="From :" textFill="WHITE">
+                                        <RadioButton fx:id="RedBtn1" layoutX="88.0" layoutY="81.0"
+                                                     mnemonicParsing="false" prefHeight="17.0" prefWidth="87.0"
+                                                     selected="true" text="From :" textFill="WHITE">
                                             <toggleGroup>
-                                                <ToggleGroup fx:id="toggleGroup1" />
+                                                <ToggleGroup fx:id="toggleGroup1"/>
                                             </toggleGroup>
                                             <font>
-                                                <Font size="14.0" />
+                                                <Font size="14.0"/>
                                             </font>
                                         </RadioButton>
                                         <Label layoutX="616.0" layoutY="83.0" text="(Max Duration : 60 Days)">
                                             <font>
-                                                <Font name="Yu Gothic Regular" size="13.0" />
+                                                <Font name="Yu Gothic Regular" size="13.0"/>
                                             </font>
                                         </Label>
-                                        <Button fx:id="maxdatechecker" layoutX="536.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="29.0" text="0" />
+                                        <Button fx:id="maxdatechecker" layoutX="536.0" layoutY="78.0"
+                                                mnemonicParsing="false" prefHeight="25.0" prefWidth="29.0" text="0"/>
                                         <Label layoutX="570.0" layoutY="82.0" text="Days " textFill="WHITE">
                                             <font>
-                                                <Font name="Arial Black" size="12.0" />
+                                                <Font name="Arial Black" size="12.0"/>
                                             </font>
                                         </Label>
-                                        <RadioButton fx:id="RedBtn2" layoutX="88.0" layoutY="123.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="76.0" text="Today :" textFill="WHITE" toggleGroup="$toggleGroup1">
+                                        <RadioButton fx:id="RedBtn2" layoutX="88.0" layoutY="123.0"
+                                                     mnemonicParsing="false" prefHeight="17.0" prefWidth="76.0"
+                                                     text="Today :" textFill="WHITE" toggleGroup="$toggleGroup1">
 
                                             <font>
-                                                <Font size="14.0" />
+                                                <Font size="14.0"/>
                                             </font>
                                         </RadioButton>
-                                        <RadioButton fx:id="RedBtn3" layoutX="88.0" layoutY="165.0" mnemonicParsing="false" text="Choose File :" textFill="WHITE" toggleGroup="$toggleGroup1">
+                                        <RadioButton fx:id="RedBtn3" layoutX="88.0" layoutY="165.0"
+                                                     mnemonicParsing="false" text="Choose File :" textFill="WHITE"
+                                                     toggleGroup="$toggleGroup1">
 
                                             <font>
-                                                <Font size="14.0" />
+                                                <Font size="14.0"/>
                                             </font>
                                         </RadioButton>
-                                        <Button fx:id="browsefile" disable="true" layoutX="502.0" layoutY="162.0" mnemonicParsing="false" onAction="#viewfilefunc" prefHeight="17.0" prefWidth="72.0" styleClass="white-bg" text="Browse">
+                                        <Button fx:id="browsefile" disable="true" layoutX="502.0" layoutY="162.0"
+                                                mnemonicParsing="false" onAction="#viewfilefunc" prefHeight="17.0"
+                                                prefWidth="72.0" styleClass="white-bg" text="Browse">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.6315789222717285" green="0.6315789222717285" blue="0.6315789222717285" />
+                                                        <Color red="0.6315789222717285" green="0.6315789222717285"
+                                                               blue="0.6315789222717285"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <TextField fx:id="browsepath" editable="false" layoutX="218.0" layoutY="162.0" prefHeight="25.0" prefWidth="273.0" />
-                                        <TextField fx:id="exmail1" layoutX="162.0" layoutY="244.0" prefHeight="26.0" prefWidth="192.0" text="" />
-                                        <TextField fx:id="exmail2" layoutX="162.0" layoutY="284.0" prefHeight="26.0" prefWidth="192.0" />
-                                        <Label layoutX="97.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0" text="Email Id :" textFill="WHITE" />
-                                        <Label layoutX="126.0" layoutY="289.0" text="Cc :" textFill="WHITE" />
-                                        <Label layoutX="366.0" layoutY="288.0" text="(optional)" textFill="WHITE" />
-                                        <Button fx:id="shwtab" layoutX="137.0" layoutY="363.0" mnemonicParsing="false" onAction="#ViewDataFunc" prefHeight="27.0" prefWidth="96.0" styleClass="white-bg" text="View Data ">
+                                        <TextField fx:id="browsepath" editable="false" layoutX="218.0" layoutY="162.0"
+                                                   prefHeight="25.0" prefWidth="273.0"/>
+                                        <TextField fx:id="exmail1" layoutX="162.0" layoutY="244.0" prefHeight="26.0"
+                                                   prefWidth="192.0" text=""/>
+                                        <TextField fx:id="exmail2" layoutX="162.0" layoutY="284.0" prefHeight="26.0"
+                                                   prefWidth="192.0"/>
+                                        <Label layoutX="97.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0"
+                                               text="Email Id :" textFill="WHITE"/>
+                                        <Label layoutX="126.0" layoutY="289.0" text="Cc :" textFill="WHITE"/>
+                                        <Label layoutX="366.0" layoutY="288.0" text="(optional)" textFill="WHITE"/>
+                                        <Button fx:id="shwtab" layoutX="137.0" layoutY="363.0" mnemonicParsing="false"
+                                                onAction="#ViewDataFunc" prefHeight="27.0" prefWidth="96.0"
+                                                styleClass="white-bg" text="View Data ">
                                             <font>
-                                                <Font size="13.0" />
+                                                <Font size="13.0"/>
                                             </font>
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.24705882370471954" green="0.22745098173618317" blue="0.22745098173618317" />
+                                                        <Color red="0.24705882370471954" green="0.22745098173618317"
+                                                               blue="0.22745098173618317"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <Button fx:id="sendEmail" disable="true" layoutX="258.0" layoutY="364.0" mnemonicParsing="false" onAction="#sharechoosenfile" prefHeight="25.0" prefWidth="112.0" styleClass="white-bg" text="Send File">
+                                        <Button fx:id="sendEmail" disable="true" layoutX="258.0" layoutY="364.0"
+                                                mnemonicParsing="false" onAction="#sharechoosenfile" prefHeight="25.0"
+                                                prefWidth="112.0" styleClass="white-bg" text="Send File">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.24705882370471954" green="0.22745098173618317" blue="0.22745098173618317" />
+                                                        <Color red="0.24705882370471954" green="0.22745098173618317"
+                                                               blue="0.22745098173618317"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <Button fx:id="sendasPDF" layoutX="509.0" layoutY="364.0" mnemonicParsing="false" onAction="#sendasPDF" prefHeight="25.0" prefWidth="100.0" styleClass="white-bg" text="Send as Pdf">
+                                        <Button fx:id="sendasPDF" layoutX="509.0" layoutY="364.0"
+                                                mnemonicParsing="false" onAction="#sendasPDF" prefHeight="25.0"
+                                                prefWidth="100.0" styleClass="white-bg" text="Send as Pdf">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.24705882370471954" green="0.22745098173618317" blue="0.22745098173618317" />
+                                                        <Color red="0.24705882370471954" green="0.22745098173618317"
+                                                               blue="0.22745098173618317"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                                        <Button fx:id="sendasEXCEL" layoutX="392.0" layoutY="364.0" mnemonicParsing="false" onAction="#sendasEXCEL" prefHeight="25.0" prefWidth="96.0" styleClass="white-bg" text="Send as Excel">
+                                        <Button fx:id="sendasEXCEL" layoutX="392.0" layoutY="364.0"
+                                                mnemonicParsing="false" onAction="#sendasEXCEL" prefHeight="25.0"
+                                                prefWidth="96.0" styleClass="white-bg" text="Send as Excel">
                                             <effect>
                                                 <DropShadow>
                                                     <color>
-                                                        <Color red="0.24705882370471954" green="0.22745098173618317" blue="0.22745098173618317" />
+                                                        <Color red="0.24705882370471954" green="0.22745098173618317"
+                                                               blue="0.22745098173618317"/>
                                                     </color>
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                              <Label fx:id="AvailableRecData" layoutX="180.0" layoutY="43.0" prefHeight="24.0" prefWidth="515.0" text="" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Bold" size="14.0" />
-                                 </font>
-                              </Label>
+                                        <Label fx:id="AvailableRecData" layoutX="180.0" layoutY="43.0" prefHeight="24.0"
+                                               prefWidth="515.0" text="" textFill="WHITE">
+                                            <font>
+                                                <Font name="Arial Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
                                     </children>
                                 </AnchorPane>
                             </children>
                         </AnchorPane>
                     </children>
                 </AnchorPane>
-
-
-
-
-
-
-
-
-
-
-
 
 
             </children>

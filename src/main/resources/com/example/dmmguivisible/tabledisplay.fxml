@@ -8,49 +8,55 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.dmmguivisible.Tabledisplay">
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#print_table_data" prefHeight="25.0" prefWidth="131.0" text="Print">
-               <HBox.margin>
-                  <Insets right="29.0" top="5.0" />
-               </HBox.margin>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#exportpdf" prefHeight="25.0" prefWidth="129.0" text="Export to pdf" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets right="29.0" top="5.0" />
-               </HBox.margin>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
-            <Button fx:id="onclickexcel" mnemonicParsing="false" onAction="#exportexcel" prefHeight="25.0" prefWidth="136.0" text="Export to Excel">
-               <HBox.margin>
-                  <Insets top="5.0" />
-               </HBox.margin>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
-         </children></HBox>
-   </bottom>
-   <center>
-      <TableView fx:id="TableView1" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-           <TableColumn fx:id="Tid" prefWidth="85.99996948242188" text="ID" />
-           <TableColumn fx:id="Tsrno" prefWidth="113.99999237060547" text="Serial No" />
-           <TableColumn fx:id="Tmacid" prefWidth="120.66670227050781" text="MAC Id" />
-           <TableColumn fx:id="Tcomname" prefWidth="114.66668701171875" text="Commodity Name" />
-           <TableColumn fx:id="Tmois" prefWidth="93.33340454101562" text="Moisture %" />
-           <TableColumn fx:id="Ttemp" prefWidth="148.6666259765625" text="Sample Temperature (°C)" />
-           <TableColumn fx:id="Ttime" prefWidth="167.33331298828125" text="Time" />
-           <TableColumn fx:id="sqrequired" prefWidth="138.6666259765625" text="Sample Quantity Required (gram)" />
-           <TableColumn fx:id="othinfo" prefWidth="209.3333740234375" text="Other Information" />
-        </columns>
-      </TableView>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.dmmguivisible.Tabledisplay">
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" onAction="#print_table_data" prefHeight="25.0" prefWidth="131.0"
+                        text="Print">
+                    <HBox.margin>
+                        <Insets right="29.0" top="5.0"/>
+                    </HBox.margin>
+                    <effect>
+                        <DropShadow/>
+                    </effect>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#exportpdf" prefHeight="25.0" prefWidth="129.0"
+                        text="Export to pdf" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets right="29.0" top="5.0"/>
+                    </HBox.margin>
+                    <effect>
+                        <DropShadow/>
+                    </effect>
+                </Button>
+                <Button fx:id="onclickexcel" mnemonicParsing="false" onAction="#exportexcel" prefHeight="25.0"
+                        prefWidth="136.0" text="Export to Excel">
+                    <HBox.margin>
+                        <Insets top="5.0"/>
+                    </HBox.margin>
+                    <effect>
+                        <DropShadow/>
+                    </effect>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+    <center>
+        <TableView fx:id="TableView1" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="Tid" prefWidth="85.99996948242188" text="ID"/>
+                <TableColumn fx:id="Tsrno" prefWidth="113.99999237060547" text="Serial No"/>
+                <TableColumn fx:id="Tmacid" prefWidth="120.66670227050781" text="MAC Id"/>
+                <TableColumn fx:id="Tcomname" prefWidth="114.66668701171875" text="Commodity Name"/>
+                <TableColumn fx:id="Tmois" prefWidth="93.33340454101562" text="Moisture %"/>
+                <TableColumn fx:id="Ttemp" prefWidth="148.6666259765625" text="Sample Temperature (°C)"/>
+                <TableColumn fx:id="Ttime" prefWidth="167.33331298828125" text="Time"/>
+                <TableColumn fx:id="sqrequired" prefWidth="138.6666259765625" text="Sample Quantity Required (gram)"/>
+                <TableColumn fx:id="othinfo" prefWidth="209.3333740234375" text="Other Information"/>
+            </columns>
+        </TableView>
+    </center>
 </BorderPane>

@@ -14,19 +14,20 @@ public class Hoder {
 
     private String[] resultdatafortoday;
 
-    public String[] getComNmae(){
+    public String[] getComNmae() {
         return comNmae;
     }
 
-    public void setComNmae(String[] comNmae){
-        this.comNmae=comNmae;
+    public void setComNmae(String[] comNmae) {
+        this.comNmae = comNmae;
     }
 
-    public ResultSet getResultSetall(){
+    public ResultSet getResultSetall() {
         return resultSetall;
     }
-    public void setResultSetall(ResultSet resultset){
-        this.resultSetall=resultset;
+
+    public void setResultSetall(ResultSet resultset) {
+        this.resultSetall = resultset;
     }
 
     public void setResultdataforOneyear(String[] resultdataforOneyear) {
