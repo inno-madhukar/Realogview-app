@@ -14,6 +14,6 @@ module com.example.dmmguivisible {
     requires javafx.swing;
 //    requires java.prefs;
 
-    opens com.example.dmmguivisible to javafx.fxml;
-    exports com.example.dmmguivisible;
+    opens com.example.ReaLogViewDMM to javafx.fxml;
+    exports com.example.ReaLogViewDMM;
 }
