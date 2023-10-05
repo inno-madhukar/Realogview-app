@@ -10,6 +10,7 @@ public class Customize_Date_Cell extends DateCell {
     public Customize_Date_Cell(DatePicker datePicker) {
     }
 
+    //disable all date from today to further.
     @Override
     public void updateItem(LocalDate item, boolean empty) {
         super.updateItem(item, empty);

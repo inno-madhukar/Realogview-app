@@ -205,28 +205,17 @@ public class DMM_APP_GUI_Controller {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     public String MAC_ID = "";
 
+    // Check that , selected file is image or not.
     private boolean isImageFile(File file) {
         String name = file.getName().toLowerCase();
         return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
     }
 
+    //Check that , selected file is "UserProfileData.txt" or not.
     private boolean isUserTxtFile(File file) {
         String name = file.getName();
         System.out.println("name " + name);
         return name.equals("UserProfileData.txt");
-    }
-
-    void getTotalRecordData() {
-
-        String firstRecordDate = GetFirstTableDate();
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(firstRecordDate, formatter1);
-        LocalDate date = dateTime.toLocalDate();
-
-        String lastRecordDate = GetlastTableDate();
-        LocalDateTime dateTime1 = LocalDateTime.parse(lastRecordDate, formatter1);
-        LocalDate date1 = dateTime1.toLocalDate();
-
     }
 
     private int counter = 0;
@@ -528,6 +517,7 @@ public class DMM_APP_GUI_Controller {
 
     }
 
+    //check that is internet is connected or not.
     public static boolean isInternetConnected() throws IOException, InterruptedException {
         Process process = java.lang.Runtime.getRuntime().exec("ping www.google.org");
         int x = process.waitFor();
@@ -546,6 +536,7 @@ public class DMM_APP_GUI_Controller {
 //        }
     }
 
+    // handling radio button in "Records" section.
     private void handleOptionSelected(RadioButton redBtn3) {
         String ab = redBtn3.getText();
         if (ab.equals("From :")) {
@@ -576,6 +567,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // to get first data from database table.
     public String GetFirstTableDate() {
         String DateName;
         try {
@@ -604,6 +596,7 @@ public class DMM_APP_GUI_Controller {
         return DateName;
     }
 
+    // to get last data from database table
     public String GetlastTableDate() {
         String DateName;
         try {
@@ -695,6 +688,7 @@ public class DMM_APP_GUI_Controller {
     DateTimeFormatter FromAndToFormatter = DateTimeFormatter.ofPattern("ddMMyyyy");
     public String[] informationarray = new String[10];
 
+    //event handling for menu items
     @FXML
     public void switchForm(ActionEvent event) throws IOException {
         if (event.getSource() == profileButton) {
@@ -746,6 +740,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // view all pdf files on "view Data " click
     @FXML
     public void viewfilefunc(ActionEvent actionEvent) {
         String defaultPath = System.getProperty("user.home");
@@ -797,6 +792,7 @@ public class DMM_APP_GUI_Controller {
 
     //.........................................................................................
 
+    // print data and convert into pdf
     @FXML
     private void printPDF() throws IOException, SQLException, PrinterException {
 
@@ -879,10 +875,12 @@ public class DMM_APP_GUI_Controller {
 
     }
 
+    // ckecking that field is empty or not.
     private boolean isFieldEmpty(TextField textField) {
         return textField.getText().trim().isEmpty();
     }
 
+    //
     private boolean isFieldEmptytextarea(TextArea textField) {
         return textField.getText().trim().isEmpty();
     }
@@ -995,6 +993,7 @@ public class DMM_APP_GUI_Controller {
 
     }
 
+    // update profile
     @FXML
     void updateprofile() throws IOException {
         int phl = proPhoNo.getText().length();
@@ -1036,6 +1035,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // changing logo of client company
     @FXML
     public void changelogofun(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -1077,6 +1077,7 @@ public class DMM_APP_GUI_Controller {
 
 
     // email function was static why???
+    // email sending of excel data.
     public void EXsendEmailWithAttachment(String smtpHost, String senderEmail, String senderPassword, String recipientEmail, String subject, String body, byte[] EXattachmentContent) throws MessagingException {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", smtpHost);
@@ -1130,6 +1131,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // conversion of hex to byte
     private static byte[] hexStringToByteArray(String hexString) {
         int len = hexString.length();
         byte[] data = new byte[len / 2];
@@ -1140,6 +1142,7 @@ public class DMM_APP_GUI_Controller {
         return data;
     }
 
+    // open comport  connection window
     @FXML
     private void populateSerialPortList() throws IOException {
 
@@ -1154,15 +1157,14 @@ public class DMM_APP_GUI_Controller {
         historyButton.setStyle("-fx-background-color:linear-gradient(to right, #ffffff, #ffffff);");
     }
 
-
+// to hide connection window.
     public void cancleportfu(ActionEvent event) {
         portListView.getItems().clear();
         dmmdatarivecerwindow.setVisible(false);
         conectionwindow.setVisible(false);
-
     }
 
-
+// this will call on port selection.
     public void porthandleMouseClick(MouseEvent mouseEvent) throws InterruptedException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
 
         Portname = (String) portListView.getSelectionModel().getSelectedItem();
@@ -1177,6 +1179,7 @@ public class DMM_APP_GUI_Controller {
 
     }
 
+    // to select comport
     void onclickselection() throws InterruptedException, IOException {
 
         if (Portname != null) {
@@ -1282,6 +1285,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // get data from serial port devices.
     public void portgetdata(ActionEvent event) throws InterruptedException, IOException {
         bit0 = 1;
         fild_inc_val = 5;
@@ -1431,6 +1435,7 @@ public class DMM_APP_GUI_Controller {
 
     boolean butClick = false;
 
+    // check on fetching data that it is our dmm device or not.
     boolean isrightdeviceport() throws InterruptedException, IOException {
         byte[] buf = new byte[200];
 
@@ -1496,6 +1501,7 @@ public class DMM_APP_GUI_Controller {
 
     public String disconnect_value;
 
+    // this function will call on port desconnect.
     void portdisCoAle() {
         _serialPort.addDataListener(new SerialPortDataListener() {
             @Override
@@ -1579,6 +1585,7 @@ public class DMM_APP_GUI_Controller {
 
         progressindicator2.setVisible(false);
     }
+
 
     void invisibleall() {
 
@@ -1720,7 +1727,7 @@ public class DMM_APP_GUI_Controller {
 
     }
 
-
+// convert fetch mesured data , onvert into pdf , then send to user email
     void indivipdfsend(String mail2, String mail11, byte[] pdfContent) throws MessagingException {
         String smtpHost = "smtp.gmail.com";
         String senderEmail = gmailid_of_II;
@@ -1735,6 +1742,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // get byte fromat of pdf file
     public byte[] generatePDFContent(String[] fruits, String comName, String address, String comPhone, String comEmail, String[] otherinformation) throws IOException {
         System.out.println(otherinformation[0]);
         Image image00 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
@@ -2000,6 +2008,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+
     public void sendEmailWithAttachment(String smtpHost, String senderEmail, String senderPassword, String recipientEmail, String subject, String body, byte[] attachmentContent) throws MessagingException {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", smtpHost);
@@ -2094,6 +2103,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // to add data in database table
     private void addDataToTable(String[] data, String DT, String OthInfo) throws SQLException {
 
         LocalDate currentDate = LocalDate.now();
@@ -2119,6 +2129,7 @@ public class DMM_APP_GUI_Controller {
 
     }
 
+    // get duration between selected dates.
     public int getduration() {
         LocalDate startDate = DateFrom.getValue();
         LocalDate endDate = DateTo.getValue();
@@ -2128,6 +2139,7 @@ public class DMM_APP_GUI_Controller {
 
     }
 
+    // add textfield on screen after 5 textfield
     public void addtextfieldFunc(ActionEvent actionEvent) {
 
         if (fild_inc_val == 5) {
@@ -2165,6 +2177,7 @@ public class DMM_APP_GUI_Controller {
         return dateTime.toString();
     }
 
+    // check data is available in table of selected dates.
     boolean checkDataisAvailable(int matchyear, String fdate, String fdate1) throws SQLException {
         String sql = "SELECT * FROM DMM" + matchyear + " WHERE DateTime >= ? AND DateTime <= ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -2179,7 +2192,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
-
+// check
     boolean checkDataisAvailableforTwo(int matchyear, int matchyear1, String fdate, String fdate1) throws SQLException {
         ResultSet result2;
         ResultSet result21;
@@ -2205,6 +2218,9 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+
+
+    // Readio button selection decision.
     @FXML
     public void ViewDataFunc(ActionEvent actionEvent) throws SQLException, IOException {
 //        System.out.println("from  555  "+DateFrom.getValue());
@@ -2571,6 +2587,7 @@ public class DMM_APP_GUI_Controller {
         return date.toString();
     }
 
+    // get data from database
     public ResultSet getallresultdata(String year, String fdate1, String fdate) throws SQLException {
 
 //        List<DataModel> dataList = new ArrayList<>();
@@ -2684,6 +2701,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
+    // validating that multiple email is valid or not.
     private boolean validateEmails(String ccEmails) {
         String[] emailAddresses = ccEmails.split(",");
         for (String email : emailAddresses) {
@@ -2694,6 +2712,7 @@ public class DMM_APP_GUI_Controller {
         return true;
     }
 
+    // email validation function which return true if email valid or false if email is not valid.
     private boolean validateEmail(String email) {
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);
@@ -2709,27 +2728,11 @@ public class DMM_APP_GUI_Controller {
         alert.showAndWait();
     }
 
-    private void showAlertwarning(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     private void showAlertinfo(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.getDialogPane().setMinSize(300, 150);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void showAlertconf(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
