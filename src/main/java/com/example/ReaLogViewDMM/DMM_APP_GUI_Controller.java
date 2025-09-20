@@ -38,6 +38,7 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.imageio.ImageIO;
 import javax.mail.*;
+import org.json.JSONObject;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -614,8 +615,7 @@ public class DMM_APP_GUI_Controller {
             ResultSet resultSet1 = statement.executeQuery(query);
 
             DateName = resultSet1.getString("DateTime");
-//            System.out.println("ID: " + ", Name: " + DateName);
-            // Close the resources
+
             resultSet.close();
             statement.close();
 
@@ -819,19 +819,19 @@ public class DMM_APP_GUI_Controller {
         // Replace this with the path to your generated PDF file
 
         if (!isFieldEmpty(Tfd1)) {
-            informationarray[0] = Tfd1.getText().trim() + "|";
+            informationarray[0] = Tfd1.getText().trim() ;
         }
         if (!isFieldEmpty(Tfd2)) {
-            informationarray[1] = Tfd2.getText().trim() + "|";
+            informationarray[1] = Tfd2.getText().trim();
         }
         if (!isFieldEmpty(Tfd3)) {
-            informationarray[2] = Tfd3.getText().trim() + "|";
+            informationarray[2] = Tfd3.getText().trim();
         }
         if (!isFieldEmpty(Tfd4)) {
-            informationarray[3] = Tfd4.getText().trim() + "|";
+            informationarray[3] = Tfd4.getText().trim() ;
         }
         if (!isFieldEmpty(Tfd5)) {
-            informationarray[4] = Tfd5.getText().trim() + "|";
+            informationarray[4] = Tfd5.getText().trim() ;
         }
         if (!isFieldEmpty(Tfd6)) {
             informationarray[5] = Tfd6.getText().trim() + "|";
@@ -852,7 +852,7 @@ public class DMM_APP_GUI_Controller {
         secondController.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
 
         System.out.println("array  " + informationarray);
-        a1.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
+//        a1.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
         AnchorPane v1 = new AnchorPane(scene12.getRoot());
         Stage stage = null;
         printAnchorPane(v1, stage);
@@ -868,7 +868,7 @@ public class DMM_APP_GUI_Controller {
             String new_arr3 = newTemp_info2.replace("null,", "");
             String new_arr4 = new_arr3.replace("null", "");
             System.out.println("new array   " + new_arr4);
-            addDataToTable(fruits, formate24hourse, new_arr4);
+            addDataToTable(fruits, formate24hourse, informationarray);
             bit0 = 0;
         }
         showAlertinfo("", "PDF File is saved at " + defaultPath + "\\Realogview\\DMM1.0\\Data\\PDF\\ \n" + fruits[0] + "_" + formattedDateTime00 + ".pdf");
@@ -1313,7 +1313,8 @@ public class DMM_APP_GUI_Controller {
         Tfd9.setText("");
         Tfd5.setText("");
         Tfd10.setText("");
-        addtextfield.setDisable(false);
+        addtextfield.setDisable(true);
+        addtextfield.setVisible(false);
 
         if (Portname != null) {
 
@@ -1622,21 +1623,22 @@ public class DMM_APP_GUI_Controller {
 
 
         String[] informationarray1 = new String[10];
+        JSONObject clientjson = new JSONObject();
         Arrays.fill(informationarray1, null);
         if (!isFieldEmpty(Tfd1)) {
-            informationarray1[0] = Tfd1.getText().trim() + "|";
+            informationarray1[0] = Tfd1.getText().trim() ;
         }
         if (!isFieldEmpty(Tfd2)) {
-            informationarray1[1] = Tfd2.getText().trim() + "|";
+            informationarray1[1] = Tfd2.getText().trim();
         }
         if (!isFieldEmpty(Tfd3)) {
-            informationarray1[2] = Tfd3.getText().trim() + "|";
+            informationarray1[2] = Tfd3.getText().trim() ;
         }
         if (!isFieldEmpty(Tfd4)) {
-            informationarray1[3] = Tfd4.getText().trim() + "|";
+            informationarray1[3] = Tfd4.getText().trim() ;
         }
         if (!isFieldEmpty(Tfd5)) {
-            informationarray1[4] = Tfd5.getText().trim() + "|";
+            informationarray1[4] = Tfd5.getText().trim() ;
         }
         if (!isFieldEmpty(Tfd6)) {
             informationarray1[5] = Tfd6.getText().trim() + "|";
@@ -1744,15 +1746,16 @@ public class DMM_APP_GUI_Controller {
 
     // get byte fromat of pdf file
     public byte[] generatePDFContent(String[] fruits, String comName, String address, String comPhone, String comEmail, String[] otherinformation) throws IOException {
+//        showAlertinfo("",absoluteImagePath12);
         System.out.println(otherinformation[0]);
-        Image image00 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
-        BufferedImage image1 = SwingFXUtils.fromFXImage(image00, null);
+        Image image0 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
+        BufferedImage bufferedImage1 = SwingFXUtils.fromFXImage(image0, null);
 //        BufferedImage image1 = ImageIO.read(new File("src/main/resources/images/dmmlogo.jpg"));
+
         float ix1 = 20; // X-coordinate
         float iy1 = 20; // Y-coordinate
         float iwidth1 = 80; // Width
         float iheight1 = 30; // Height
-
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
@@ -1763,7 +1766,7 @@ public class DMM_APP_GUI_Controller {
             float height = 80; // Height
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            PDImageXObject pdImage1 = LosslessFactory.createFromImage(document, image1);
+            PDImageXObject pdImage1 = LosslessFactory.createFromImage(document, bufferedImage1);
             contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
             //border
             PDRectangle pageSize = page.getMediaBox();
@@ -1777,7 +1780,6 @@ public class DMM_APP_GUI_Controller {
             contentStream.stroke();
             //add image
             File folder = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile);
-
             File[] files = folder.listFiles();
             for (File file : files) {
                 if (isImageFile(file)) {
@@ -1786,13 +1788,13 @@ public class DMM_APP_GUI_Controller {
                     contentStream.drawImage(pdImage, x, y, width, height);
                     break;
                 } else {
-                    Image image02 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
-                    BufferedImage image01 = SwingFXUtils.fromFXImage(image02, null);
-//                    BufferedImage image01 = ImageIO.read(new File("src/main/resources/images/white_Image.png"));
-                    PDImageXObject pdImage01 = LosslessFactory.createFromImage(document, image01);
+                    Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
+                    BufferedImage image = SwingFXUtils.fromFXImage(image00, null);
+                    PDImageXObject pdImage01 = LosslessFactory.createFromImage(document, image);
                     contentStream.drawImage(pdImage01, x, y, width, height);
                 }
             }
+
             //lines
             float startX = 30; // X-coordinate of the starting point
             float startY = 660; // Y-coordinate of the starting point
@@ -1860,58 +1862,12 @@ public class DMM_APP_GUI_Controller {
             contentStream.endText();
 
 
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(100, 630);
-            contentStream.showText("Other Information:");
-            contentStream.endText();
-
-            int otherinfoIncre = 0;
-            float loopy4 = 610;
-            for (String line : otherinformation) {
-                if (line != null) {
-                    System.out.println("lines   " + line);
-                    contentStream.setFont(PDType1Font.HELVETICA, 10);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(120, loopy4);
-                    contentStream.showText(line.replace("|", ",").trim());
-                    contentStream.endText();
-                    loopy4 -= 14;
-                    otherinfoIncre += 1;
-                }
-            }
-            System.out.println(otherinfoIncre);
-
-            float mstartY1 = 460;
-            float mendY1 = 460;
-            float loopy = 430;
-            float loopyDmm = 430;
-            if (otherinfoIncre <= 5) {
-                mstartY1 = 520;
-                mendY1 = 520;
-                loopy = 490;
-                loopyDmm = 490;
-
-            } else {
-
-            }
-            //line2mid
-            float mstartX1 = 200; // X-coordinate of the starting point
-            // Y-coordinate of the starting point
-            float mendX1 = 450; // X-coordinate of the ending point
-            // Y-coordinate of the ending point
-            float mlineWidth1 = 0.4F;
-            float[] mlineColor1 = {0, 0, 0}; //
-            contentStream.setLineWidth(mlineWidth1);
-            contentStream.setStrokingColor(mlineColor1[0], mlineColor1[1], mlineColor1[2]);
-            contentStream.moveTo(mstartX1, mstartY1);
-            contentStream.lineTo(mendX1, mendY1);
-            contentStream.stroke();
-
+            float loopy = 600;
+            float loopyDmm = 600;
             //device mesured data
             float loopx = 110;
 
-            String[] cars = {"Mac ID :", "Serial No :", "Commodity Name :", "Moisture  :", "Sample Temperature :", "Time :", "Sample Quantity Required :"};
+            String[] cars = {"Serial No :", "Commodity Name :", "Moisture  :", "Sample Temperature :", "Time :", "Sample Quantity Required :"};
             for (String i : cars) {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
                 contentStream.beginText();
@@ -1920,40 +1876,52 @@ public class DMM_APP_GUI_Controller {
                 contentStream.endText();
                 loopy -= 24;
             }
+            loopy-=10;
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx, loopy);
+            contentStream.showText("Other Information");
+            contentStream.endText();
+            loopy-=24;
+            String[] cars1 = {"Client Name :","Location :","Truck Number :","Total Weight :","Remarks :"};
+            for (String i : cars1) {
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx, loopy);
+                contentStream.showText(i);
+                contentStream.endText();
+                loopy -= 24;
+            }
+
 //            // serial data printing
             float loopx2 = 185;
-            System.out.println(fruits[0]);
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2, loopyDmm);
-            contentStream.showText(MAC_ID);
-            contentStream.endText();
+
 
             System.out.println(fruits[0]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2, loopyDmm - 24);
+            contentStream.newLineAtOffset(loopx2, loopyDmm );
             contentStream.showText(fruits[0]);
             contentStream.endText();
 
             System.out.println(fruits[1]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(240, loopyDmm - 48);
+            contentStream.newLineAtOffset(240, loopyDmm - 24);
             contentStream.showText(fruits[1]);
             contentStream.endText();
 //
             System.out.println(fruits[2]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 72);
+            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 48);
             contentStream.showText(fruits[2] + " %");
             contentStream.endText();
 //
             System.out.println(fruits[3]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm - 96);
+            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm - 72);
             contentStream.showText(fruits[3] + " °C");
             contentStream.endText();
 //
@@ -1961,13 +1929,13 @@ public class DMM_APP_GUI_Controller {
             String formattedDateTime2 = currentDateTime2.format(globeldtformatter);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm - 120);
+            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm - 96);
             contentStream.showText(time_of_recived_data);
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(290, loopyDmm - 144);
+            contentStream.newLineAtOffset(290, loopyDmm - 120);
             if (fruits[4].equals("FULL")) {
                 contentStream.showText(fruits[4]);
                 contentStream.endText();
@@ -1975,6 +1943,44 @@ public class DMM_APP_GUI_Controller {
                 contentStream.showText(fruits[4] + " gram");
                 contentStream.endText();
             }
+
+
+            System.out.println(fruits[0]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2+15, loopyDmm - 179 );
+            contentStream.showText(otherinformation[0]);
+            contentStream.endText();
+
+            System.out.println(fruits[1]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2+15, loopyDmm - 203);
+            contentStream.showText(otherinformation[1]);
+            contentStream.endText();
+//
+            System.out.println(fruits[2]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm - 227);
+            contentStream.showText(otherinformation[2] );
+            contentStream.endText();
+//
+            System.out.println(fruits[3]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm - 251);
+            contentStream.showText(otherinformation[3] );
+            contentStream.endText();
+
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 275);
+            contentStream.showText(otherinformation[4] );
+            contentStream.endText();
+
+//
+
 
             contentStream.setFont(PDType1Font.HELVETICA, 8);
             contentStream.beginText();
@@ -2104,28 +2110,30 @@ public class DMM_APP_GUI_Controller {
     }
 
     // to add data in database table
-    private void addDataToTable(String[] data, String DT, String OthInfo) throws SQLException {
+    private void addDataToTable(String[] data, String DT, String[] OthInfo) throws SQLException {
 
         LocalDate currentDate = LocalDate.now();
         String year = String.valueOf(currentDate.getYear());
-        String tablecreate = "CREATE TABLE IF NOT EXISTS DMM" + year + " (id INTEGER PRIMARY KEY AUTOINCREMENT, SerialNo TEXT,MACId TEXT,CommodityName TEXT ,Moisture Text,Temperature Text, DateTime TEXT, SaQunReqid TEXT,OtherInfo TEXT)";
+        String tablecreate = "CREATE TABLE IF NOT EXISTS DMM" + year + " (id INTEGER PRIMARY KEY AUTOINCREMENT, SerialNo TEXT,CommodityName TEXT ,Moisture Text,Temperature Text, DateTime TEXT, SaQunReqid TEXT,ClientName TEXT,Location TEXT,TruckNumber TEXT,TotalWeight TEXT,Remarks TEXT)";
         try (PreparedStatement statement = connection.prepareStatement(tablecreate)) {
             statement.execute();
             System.out.println("User table created successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO DMM" + year + "  (SerialNo,MACId,CommodityName,Moisture,Temperature,DateTime,SaQunReqid,OtherInfo) VALUES (?,?,?,?,?,?,?,?)");
+        PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO DMM" + year + "  (SerialNo,CommodityName,Moisture,Temperature,DateTime,SaQunReqid,ClientName,Location,TruckNumber,TotalWeight,Remarks) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
         insertStatement.setString(1, data[0]);
-        insertStatement.setString(2, MAC_ID);
-        insertStatement.setString(3, data[1]);
-        insertStatement.setString(4, data[2]);
-        insertStatement.setString(5, data[3]);
-        insertStatement.setString(6, DT);
-        insertStatement.setString(7, data[4]);
-        insertStatement.setString(8, OthInfo);
+        insertStatement.setString(2, data[1]);
+        insertStatement.setString(3, data[2]);
+        insertStatement.setString(4, data[3]);
+        insertStatement.setString(5, DT);
+        insertStatement.setString(6, data[4]);
+        insertStatement.setString(7, OthInfo[0]);
+        insertStatement.setString(8, OthInfo[1]);
+        insertStatement.setString(9, OthInfo[2]);
+        insertStatement.setString(10, OthInfo[3]);
+        insertStatement.setString(11, OthInfo[4]);
         insertStatement.execute();
-
 
     }
 
@@ -2326,21 +2334,20 @@ public class DMM_APP_GUI_Controller {
 
                             while (result1.next()) {
                                 String r1 = result1.getString("SerialNo");
-                                System.out.println("srno----   " + r1);
-                                String r2 = result1.getString("MACId");
-                                String r3 = result1.getString("CommodityName");
-                                String r4 = result1.getString("Moisture");
-                                String r5 = result1.getString("Temperature");
-                                String r6 = result1.getString("DateTime");
-                                LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
-                                String nr6 = localDateTime.format(globeldtformatter);
-                                String r7 = result1.getString("SaQunReqid");
-                                String r8 = result1.getString("OtherInfo");
+                                String r2 = result1.getString("CommodityName");
+                                String r3 = result1.getString("Moisture");
+                                String r4 = result1.getString("Temperature");
+                                String r5 = result1.getString("DateTime");
+                                LocalDateTime localDateTime = LocalDateTime.parse(r5, formattor24Hours);
+                                String nr5 = localDateTime.format(globeldtformatter);
+                                String r6 = result1.getString("SaQunReqid");
+                                String r7 = result1.getString("ClientName");/**/
+                                String r8 = result1.getString("Location");
+                                String r9 = result1.getString("TruckNumber");
+                                String r10 = result1.getString("TotalWeight");
+                                String r11 = result1.getString("Remarks");
 
-                                String ab2 = r8.substring(0, r8.length() - 1);
-                                String modifiedString = ab2.substring(1);
-                                String newr8 = modifiedString.replace("|", ",\n");
-                                TableModels.add(new TableModel(Tid + "", r1 + "", r2 + "", r3 + "", r4 + "", r5 + "", nr6 + "", r7 + "", newr8 + ""));
+                                TableModels.add(new TableModel(Tid + "", r1 + "", r2 + "", r3 + "", r4 + "", nr5 + "", r6 + "", r7 + "", r8 + "", r9 + "", r10 + "", r11 + ""));
                                 Tid += 1;
                             }
                             secondController.TableView1.setItems(TableModels);
@@ -2406,20 +2413,20 @@ public class DMM_APP_GUI_Controller {
 
                             while (combinedResultSet.next()) {
                                 String r1 = combinedResultSet.getString("SerialNo");
-                                String r2 = combinedResultSet.getString("MACId");
-                                String r3 = combinedResultSet.getString("CommodityName");
-                                String r4 = combinedResultSet.getString("Moisture");
-                                String r5 = combinedResultSet.getString("Temperature");
-                                String r6 = combinedResultSet.getString("DateTime");
-                                LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
-                                String nr6 = localDateTime.format(globeldtformatter);
-                                String r7 = combinedResultSet.getString("SaQunReqid");
-                                String r8 = combinedResultSet.getString("OtherInfo");
+                                String r2 = combinedResultSet.getString("CommodityName");
+                                String r3 = combinedResultSet.getString("Moisture");
+                                String r4 = combinedResultSet.getString("Temperature");
+                                String r5 = combinedResultSet.getString("DateTime");
+                                LocalDateTime localDateTime = LocalDateTime.parse(r5, formattor24Hours);
+                                String nr5 = localDateTime.format(globeldtformatter);
+                                String r6 = combinedResultSet.getString("SaQunReqid");
+                                String r7 = combinedResultSet.getString("ClientName");/**/
+                                String r8 = combinedResultSet.getString("Location");
+                                String r9 = combinedResultSet.getString("TruckNumber");
+                                String r10 = combinedResultSet.getString("TotalWeight");
+                                String r11 = combinedResultSet.getString("Remarks");
 
-                                String ab2 = r8.substring(0, r8.length() - 1);
-                                String modifiedString = ab2.substring(1);
-                                String newr8 = modifiedString.replace("|", ",\n");
-                                TableModels.add(new TableModel(Tid + "", r1 + "", r2 + "", r3 + "", r4 + "", r5 + "", nr6 + "", r7 + "", newr8 + ""));
+                                TableModels.add(new TableModel(Tid + "", r1 + "", r2 + "", r3 + "", r4 + "", nr5 + "", r6 + "", r7 + "", r8 + "", r9 + "", r10 + "", r11 + ""));
                                 Tid += 1;
                             }
                             secondController.TableView1.setItems(TableModels);
@@ -2526,20 +2533,20 @@ public class DMM_APP_GUI_Controller {
                     while (resultSet1.next()) {
 
                         String r1 = resultSet1.getString("SerialNo");
-                        String r2 = resultSet1.getString("MACId");
-                        String r3 = resultSet1.getString("CommodityName");
-                        String r4 = resultSet1.getString("Moisture");
-                        String r5 = resultSet1.getString("Temperature");
-                        String r6 = resultSet1.getString("DateTime");
-                        LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
-                        String nr6 = localDateTime.format(globeldtformatter);
-                        String r7 = resultSet1.getString("SaQunReqid");/**/
-                        String r8 = resultSet1.getString("OtherInfo");
+                        String r2 = resultSet1.getString("CommodityName");
+                        String r3 = resultSet1.getString("Moisture");
+                        String r4 = resultSet1.getString("Temperature");
+                        String r5 = resultSet1.getString("DateTime");
+                        LocalDateTime localDateTime = LocalDateTime.parse(r5, formattor24Hours);
+                        String nr5 = localDateTime.format(globeldtformatter);
+                        String r6 = resultSet1.getString("SaQunReqid");
+                        String r7 = resultSet1.getString("ClientName");/**/
+                        String r8 = resultSet1.getString("Location");
+                        String r9 = resultSet1.getString("TruckNumber");
+                        String r10 = resultSet1.getString("TotalWeight");
+                        String r11 = resultSet1.getString("Remarks");
 
-                        String ab2 = r8.substring(0, r8.length() - 1);
-                        String modifiedString = ab2.substring(1);
-                        String newr8 = modifiedString.replace("|", ",\n");
-                        TableModels.add(new TableModel(Tid + "", r1 + "", r2 + "", r3 + "", r4 + "", r5 + "", nr6 + "", r7 + "", newr8 + ""));
+                        TableModels.add(new TableModel(Tid + "", r1 + "", r2 + "", r3 + "", r4 + "", nr5 + "", r6 + "", r7 + "", r8 + "", r9 + "", r10 + "", r11 + ""));
                         Tid += 1;
                     }
 //            System.out.println("dgddfg    "+TableModels.get(1));

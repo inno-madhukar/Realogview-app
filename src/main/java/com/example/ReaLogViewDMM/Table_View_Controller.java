@@ -23,13 +23,16 @@ import java.time.format.DateTimeFormatter;
 public class Table_View_Controller {
     public TableColumn<TableModel, String> Tid;
     public TableColumn<TableModel, String> Tsrno;
-    public TableColumn<TableModel, String> Tmacid;
     public TableColumn<TableModel, String> Tcomname;
     public TableColumn<TableModel, String> Tmois;
     public TableColumn<TableModel, String> Ttemp;
     public TableColumn<TableModel, String> Ttime;
     public TableColumn<TableModel, String> sqrequired;
-    public TableColumn<TableModel, String> othinfo;
+    public TableColumn<TableModel, String> ClientName;
+    public TableColumn<TableModel, String> Location;
+    public TableColumn<TableModel, String> TruckNumber;
+    public TableColumn<TableModel, String> TotalWeight;
+    public TableColumn<TableModel, String> Remarks;
     @FXML
     public TableView<TableModel> TableView1;
     public Button onclickexcel;
@@ -45,6 +48,7 @@ public class Table_View_Controller {
     public Data_Holder comdata;
     public Data_Holder comdata1;
 
+
     ResultSet resultsetdata = null;
     ObservableList<String> dataList = FXCollections.observableArrayList();
 
@@ -55,14 +59,17 @@ public class Table_View_Controller {
     public void initialize() {
         Tid.setCellValueFactory(cellData -> cellData.getValue().nameProperty0());
         Tsrno.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        Tmacid.setCellValueFactory(cellData -> cellData.getValue().nameProperty2());
-        Tcomname.setCellValueFactory(cellData -> cellData.getValue().nameProperty3());
-        Tmois.setCellValueFactory(cellData -> cellData.getValue().nameProperty4());
+        Tcomname.setCellValueFactory(cellData -> cellData.getValue().nameProperty2());
+        Tmois.setCellValueFactory(cellData -> cellData.getValue().nameProperty3());
+        Ttemp.setCellValueFactory(cellData -> cellData.getValue().nameProperty4());
+        Ttime.setCellValueFactory(cellData -> cellData.getValue().nameProperty5());
+        sqrequired.setCellValueFactory(cellData -> cellData.getValue().nameProperty6());
+        ClientName.setCellValueFactory(cellData -> cellData.getValue().nameProperty7());
+        Location.setCellValueFactory(cellData -> cellData.getValue().nameProperty8());
+        TruckNumber.setCellValueFactory(cellData -> cellData.getValue().nameProperty9());
+        TotalWeight.setCellValueFactory(cellData -> cellData.getValue().nameProperty10());
+        Remarks.setCellValueFactory(cellData -> cellData.getValue().nameProperty11());
 
-        Ttemp.setCellValueFactory(cellData -> cellData.getValue().nameProperty5());
-        Ttime.setCellValueFactory(cellData -> cellData.getValue().nameProperty6());
-        sqrequired.setCellValueFactory(cellData -> cellData.getValue().nameProperty7());
-        othinfo.setCellValueFactory(cellData -> cellData.getValue().nameProperty9());
 
     }
 
@@ -88,7 +95,6 @@ public class Table_View_Controller {
     void print_table_data() throws SQLException, InterruptedException, IOException {
 
         if (oneyearArray != null) {
-            System.out.print("777777777777777777777777777777777777777777777777777777777777777777777777777777777777" + oneyearArray.length);
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(oneyearArray[0], oneyearArray[1], oneyearArray[2]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
@@ -99,7 +105,6 @@ public class Table_View_Controller {
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
             printAndPdfOfTableRecords.printtable(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2]);
         } else if (todayArray != null) {
-            System.out.println("333333333333333333333333333333333333333333333333333333333333333333333333333333333333333");
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(todayArray[0], todayArray[1], todayArray[2]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
@@ -123,7 +128,6 @@ public class Table_View_Controller {
         } else if (towyearArray != null) {
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdatafortowyears(towyearArray[0], towyearArray[1], towyearArray[2], towyearArray[3]);
-
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
             printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], towyearArray[4], towyearArray[5]);
         } else if (todayArray != null) {
@@ -290,33 +294,34 @@ public class Table_View_Controller {
 class TableModel {
     private SimpleStringProperty Tid;
     private SimpleStringProperty Tsrno;
-    private SimpleStringProperty Tmacid;
     private SimpleStringProperty commname;
     private SimpleStringProperty moist;
     private SimpleStringProperty Ttemp;
     private SimpleStringProperty Ttime;
     private SimpleStringProperty sqrequire;
-    private SimpleStringProperty waight;
-    private SimpleStringProperty othinfom;
+    private SimpleStringProperty ClientName;
+    private SimpleStringProperty Location;
+    private SimpleStringProperty TruckNumber;
+    private SimpleStringProperty TotalWeight;
+    private SimpleStringProperty Remarks;
 
-    public TableModel(String Tid, String srno, String MACId, String commname, String moist, String Ttemp, String Ttime, String sqreqd, String othinf) {
+    public TableModel(String Tid, String srno, String commname, String moist, String Ttemp, String Ttime, String sqreqd, String ClientName,String Location,String TruckNumber,String TotalWeight,String Remarks) {
         this.Tid = new SimpleStringProperty(Tid);
         this.Tsrno = new SimpleStringProperty(srno);
-        this.Tmacid = new SimpleStringProperty(MACId);
         this.commname = new SimpleStringProperty(commname);
         this.moist = new SimpleStringProperty(moist);
         this.Ttemp = new SimpleStringProperty(Ttemp);
         this.Ttime = new SimpleStringProperty(Ttime);
         this.sqrequire = new SimpleStringProperty(sqreqd);
-        this.othinfom = new SimpleStringProperty(othinf);
+        this.ClientName = new SimpleStringProperty(ClientName);
+        this.Location = new SimpleStringProperty(Location);
+        this.TruckNumber = new SimpleStringProperty(TruckNumber);
+        this.TotalWeight = new SimpleStringProperty(TotalWeight);
+        this.Remarks = new SimpleStringProperty(Remarks);
     }
 
     public String getrno() {
         return Tsrno.get();
-    }
-
-    public String getr12() {
-        return Tmacid.get();
     }
 
     public String getcommname() {
@@ -339,12 +344,20 @@ class TableModel {
         return sqrequire.get();
     }
 
-    public String getWeight() {
-        return waight.get();
+    public String getClientName() {
+        return ClientName.get();
     }
-
-    public String getInfo() {
-        return othinfom.get();
+    public String getLocation() {
+        return Location.get();
+    }
+    public String getTurckNumber() {
+        return TruckNumber.get();
+    }
+    public String getTotalWeight() {
+        return TotalWeight.get();
+    }
+    public String getRemarks() {
+        return Remarks.get();
     }
 
     public SimpleStringProperty nameProperty0() {
@@ -356,31 +369,38 @@ class TableModel {
     }
 
     public SimpleStringProperty nameProperty2() {
-        return Tmacid;
-    }
-
-    public SimpleStringProperty nameProperty3() {
         return commname;
     }
 
-    public SimpleStringProperty nameProperty4() {
+    public SimpleStringProperty nameProperty3() {
         return moist;
     }
 
-    public SimpleStringProperty nameProperty5() {
+    public SimpleStringProperty nameProperty4() {
         return Ttemp;
     }
 
-    public SimpleStringProperty nameProperty6() {
+    public SimpleStringProperty nameProperty5() {
         return Ttime;
     }
 
-    public SimpleStringProperty nameProperty7() {
+    public SimpleStringProperty nameProperty6() {
         return sqrequire;
     }
-
+    public SimpleStringProperty nameProperty7() {
+        return ClientName;
+    }
+    public SimpleStringProperty nameProperty8() {
+        return Location;
+    }
     public SimpleStringProperty nameProperty9() {
-        return othinfom;
+        return TruckNumber;
+    }
+    public SimpleStringProperty nameProperty10() {
+        return TotalWeight;
+    }
+    public SimpleStringProperty nameProperty11() {
+        return Remarks;
     }
 
 }

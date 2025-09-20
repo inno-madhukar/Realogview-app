@@ -12,6 +12,7 @@ module com.example.dmmguivisible {
     requires java.sql;
     requires java.mail;
     requires javafx.swing;
+    requires org.json;
 //    requires java.prefs;
 
     opens com.example.ReaLogViewDMM to javafx.fxml;

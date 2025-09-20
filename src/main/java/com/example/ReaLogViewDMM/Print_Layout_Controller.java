@@ -103,23 +103,43 @@ public class Print_Layout_Controller {
             lab1.setVisible(true);
         } else {
             if (ddata[0] != null) {
-                lab1.setText(ddata[0].replace("|", ","));
+                lab1.setText(ddata[0]);
+                lab1.setVisible(true);
+            }
+            else{
+                lab1.setText(" - ");
                 lab1.setVisible(true);
             }
             if (ddata[1] != null) {
-                lab2.setText(ddata[1].replace("|", ","));
+                lab2.setText(ddata[1]);
+                lab2.setVisible(true);
+            }
+            else{
+                lab2.setText(" - ");
                 lab2.setVisible(true);
             }
             if (ddata[2] != null) {
-                lab3.setText(ddata[2].replace("|", ","));
+                lab3.setText(ddata[2]);
+                lab3.setVisible(true);
+            }
+            else{
+                lab3.setText(" - ");
                 lab3.setVisible(true);
             }
             if (ddata[3] != null) {
-                lab4.setText(ddata[3].replace("|", ","));
+                lab4.setText(ddata[3]);
+                lab4.setVisible(true);
+            }
+            else{
+                lab4.setText(" - ");
                 lab4.setVisible(true);
             }
             if (ddata[4] != null) {
-                lab5.setText(ddata[4].replace("|", ","));
+                lab5.setText(ddata[4]);
+                lab5.setVisible(true);
+            }
+            else{
+                lab5.setText(" - ");
                 lab5.setVisible(true);
             }
             if (ddata[5] != null) {

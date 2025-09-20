@@ -55,6 +55,7 @@ public class Pdf_Generate_With_Print_Operation {
         this.otherinformation = otherinfo;
         this.data_r_time = data_r_time;
         this.macid = macid;
+        String[] clientData={"Client Name","Location","Truck Number","Total Weight","Remarks"};
 
     }
 
@@ -192,58 +193,12 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.endText();
 
 
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(100, 630);
-            contentStream.showText("Other Information:");
-            contentStream.endText();
-
-            int otherinfoIncre = 0;
-            float loopy4 = 610;
-            for (String line : otherinformation) {
-                if (line != null) {
-                    System.out.println("lines   " + line);
-                    contentStream.setFont(PDType1Font.HELVETICA, 10);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(120, loopy4);
-                    contentStream.showText(line.replace("|", ",").trim());
-                    contentStream.endText();
-                    loopy4 -= 14;
-                    otherinfoIncre += 1;
-                }
-            }
-            System.out.println(otherinfoIncre);
-
-            float mstartY1 = 460;
-            float mendY1 = 460;
-            float loopy = 430;
-            float loopyDmm = 430;
-            if (otherinfoIncre <= 5) {
-                mstartY1 = 520;
-                mendY1 = 520;
-                loopy = 490;
-                loopyDmm = 490;
-
-            } else {
-
-            }
-            //line2mid
-            float mstartX1 = 200; // X-coordinate of the starting point
-            // Y-coordinate of the starting point
-            float mendX1 = 450; // X-coordinate of the ending point
-            // Y-coordinate of the ending point
-            float mlineWidth1 = 0.4F;
-            float[] mlineColor1 = {0, 0, 0}; //
-            contentStream.setLineWidth(mlineWidth1);
-            contentStream.setStrokingColor(mlineColor1[0], mlineColor1[1], mlineColor1[2]);
-            contentStream.moveTo(mstartX1, mstartY1);
-            contentStream.lineTo(mendX1, mendY1);
-            contentStream.stroke();
-
+            float loopy = 600;
+            float loopyDmm = 600;
             //device mesured data
             float loopx = 110;
 
-            String[] cars = {"Mac ID :", "Serial No :", "Commodity Name :", "Moisture  :", "Sample Temperature :", "Time :", "Sample Quantity Required :"};
+            String[] cars = {"Serial No :", "Commodity Name :", "Moisture  :", "Sample Temperature :", "Time :", "Sample Quantity Required :"};
             for (String i : cars) {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
                 contentStream.beginText();
@@ -252,40 +207,52 @@ public class Pdf_Generate_With_Print_Operation {
                 contentStream.endText();
                 loopy -= 24;
             }
+            loopy-=10;
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx, loopy);
+            contentStream.showText("Other Information");
+            contentStream.endText();
+            loopy-=24;
+            String[] cars1 = {"Client Name :","Location :","Truck Number :","Total Weight :","Remarks :"};
+            for (String i : cars1) {
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx, loopy);
+                contentStream.showText(i);
+                contentStream.endText();
+                loopy -= 24;
+            }
+
 //            // serial data printing
             float loopx2 = 185;
-            System.out.println(fruits[0]);
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2, loopyDmm);
-            contentStream.showText(macid);
-            contentStream.endText();
+
 
             System.out.println(fruits[0]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2, loopyDmm - 24);
+            contentStream.newLineAtOffset(loopx2, loopyDmm );
             contentStream.showText(fruits[0]);
             contentStream.endText();
 
             System.out.println(fruits[1]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(240, loopyDmm - 48);
+            contentStream.newLineAtOffset(240, loopyDmm - 24);
             contentStream.showText(fruits[1]);
             contentStream.endText();
 //
             System.out.println(fruits[2]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 72);
+            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 48);
             contentStream.showText(fruits[2] + " %");
             contentStream.endText();
 //
             System.out.println(fruits[3]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm - 96);
+            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm - 72);
             contentStream.showText(fruits[3] + " °C");
             contentStream.endText();
 //
@@ -293,13 +260,13 @@ public class Pdf_Generate_With_Print_Operation {
             String formattedDateTime2 = currentDateTime2.format(globeldtformatter);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm - 120);
+            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm - 96);
             contentStream.showText(data_r_time);
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(290, loopyDmm - 144);
+            contentStream.newLineAtOffset(290, loopyDmm - 120);
             if (fruits[4].equals("FULL")) {
                 contentStream.showText(fruits[4]);
                 contentStream.endText();
@@ -307,6 +274,41 @@ public class Pdf_Generate_With_Print_Operation {
                 contentStream.showText(fruits[4] + " gram");
                 contentStream.endText();
             }
+
+
+            System.out.println(fruits[0]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2+15, loopyDmm - 179 );
+            contentStream.showText(otherinformation[0]);
+            contentStream.endText();
+
+            System.out.println(fruits[1]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2+15, loopyDmm - 203);
+            contentStream.showText(otherinformation[1]);
+            contentStream.endText();
+//
+            System.out.println(fruits[2]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm - 227);
+            contentStream.showText(otherinformation[2] );
+            contentStream.endText();
+//
+            System.out.println(fruits[3]);
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm - 251);
+            contentStream.showText(otherinformation[3] );
+            contentStream.endText();
+
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 275);
+            contentStream.showText(otherinformation[4] );
+            contentStream.endText();
 
 //
 

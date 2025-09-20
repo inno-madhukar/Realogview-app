@@ -349,31 +349,31 @@
                                                    prefWidth="233.0" promptText="Write Max 80 Characters"
                                                    visible="false"/>
                                         <Label fx:id="tfl1" layoutX="521.0" layoutY="60.0" prefHeight="19.0"
-                                               prefWidth="87.0" text="Text Data 1 :" textFill="WHITE">
+                                               prefWidth="87.0" text="Client Name :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0"/>
                                             </font>
                                         </Label>
                                         <Label fx:id="tfl4" layoutX="519.0" layoutY="185.0" prefHeight="19.0"
-                                               prefWidth="87.0" text="Text Data 4 :" textFill="WHITE">
+                                               prefWidth="87.0" text="Total Weight :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0"/>
                                             </font>
                                         </Label>
                                         <Label fx:id="tfl3" layoutX="520.0" layoutY="143.0" prefHeight="19.0"
-                                               prefWidth="87.0" text="Text Data 3 :" textFill="WHITE">
+                                               prefWidth="87.0" text="Truck Number :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0"/>
                                             </font>
                                         </Label>
                                         <Label fx:id="tfl2" layoutX="521.0" layoutY="103.0" prefHeight="19.0"
-                                               prefWidth="87.0" text="Text Data 2 :" textFill="WHITE">
+                                               prefWidth="87.0" text="Location :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0"/>
                                             </font>
                                         </Label>
                                         <Label fx:id="tfl5" layoutX="520.0" layoutY="224.0" prefHeight="19.0"
-                                               prefWidth="87.0" text="Text Data 5 :" textFill="WHITE">
+                                               prefWidth="87.0" text="Remarks :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0"/>
                                             </font>
