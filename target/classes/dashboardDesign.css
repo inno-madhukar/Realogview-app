@@ -361,7 +361,38 @@ and open the template in the editor.
     }
 
 
+.faq-box {
+    -fx-padding: 10;
+}
 
+/* Individual TitledPane styling */
+.faq-item {
+    -fx-background-color: #2c3e50;   /* dark background */
+    -fx-text-fill: white;            /* question text color */
+    -fx-border-color: #34495e;       /* subtle border */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* The label inside the TitledPane (answer) */
+.faq-item .content {
+    -fx-background-color: #34495e;   /* slightly lighter for answer */
+    -fx-text-fill: white;            /* answer text color */
+    -fx-padding: 8;
+    -fx-font-size: 13px;
+    -fx-font-family: "Cambria";
+}
+
+/* Expand/collapse arrow color */
+.faq-item .arrow {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+/* Hover effect on question */
+.faq-item:hover {
+    -fx-background-color: #3d566e;
+}
 
 
 

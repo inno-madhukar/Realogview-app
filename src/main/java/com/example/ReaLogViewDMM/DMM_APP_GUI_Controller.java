@@ -21,12 +21,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.transform.Scale;
 import javafx.stage.*;
 
 import java.awt.image.BufferedImage;
@@ -79,6 +85,8 @@ import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DMM_APP_GUI_Controller {
 
@@ -123,6 +131,7 @@ public class DMM_APP_GUI_Controller {
     public DatePicker DateFrom;
     public DatePicker DateTo;
     public Button browsefile;
+    @FXML
     public TextField Tfd1;
     public TextField Tfd2;
     public TextField Tfd3;
@@ -163,6 +172,8 @@ public class DMM_APP_GUI_Controller {
 
     public Label ConnectedstatusSYB;
     public Label DisconnectedstatusSYB;
+    public VBox faqBox;
+    public Button clientsbutton;
     @FXML
     private ToggleGroup toggleGroup1;
     private Data_Holder dataHolder;
@@ -205,6 +216,30 @@ public class DMM_APP_GUI_Controller {
     public String ToDateForEm_Ex;
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     public String MAC_ID = "";
+    private Map<String, Map<String, Object>> allClients1 = new HashMap<>();
+    private ContextMenu suggestions = new ContextMenu();
+    private static class FAQItem {
+        String question;
+        String answer;
+
+        FAQItem(String question, String answer) {
+            this.question = question;
+            this.answer = answer;
+        }
+    }
+    private final FAQItem[] faqData = new FAQItem[]{
+            new FAQItem("How do I connect a new device?",
+                    "Go to the Home tab, press the Scan Device button, and select your device from the list."),
+            new FAQItem("Does Auto-connection possible?",
+                    "Yes, the Saved device connected automatically when you send measurement from DMM Machine."),
+            new FAQItem("Where are my CSV files stored?",
+                    "CSV files are stored in System Storage -> Download -> Innovative_instruments -> Data Folder."),
+            new FAQItem("How do I filter data?",
+                    "Use the dropdown filter above the table to view records for a specific client or column."),
+            new FAQItem("Can I export the filtered data only?",
+                    "Yes. After applying a filter, click the Print/Share icon to export only the filtered rows.")
+    };
+
 
     // Check that , selected file is image or not.
     private boolean isImageFile(File file) {
@@ -218,9 +253,121 @@ public class DMM_APP_GUI_Controller {
         System.out.println("name " + name);
         return name.equals("UserProfileData.txt");
     }
+    private void loadClients() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            File file = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile + "/Client.json");
+            if (file.exists()) {
+                allClients1 = mapper.readValue(file, new TypeReference<Map<String, Map<String, Object>>>() {});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private int counter = 0;
     public String ConPortname;
+    public void saveClientsToFile() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            // Path to Client.json
+            File file = Paths.get(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile + "/Client.json").toFile();
+
+            // Ensure parent directories exist
+            file.getParentFile().mkdirs();
+
+            // Write allClients map to JSON file
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, allClients1);
+
+            System.out.println("Clients saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void showClientListModal() {
+        Stage modal = new Stage();
+        modal.initModality(Modality.APPLICATION_MODAL);
+        modal.setTitle("Clients");
+
+        VBox vbox = new VBox(10);
+//        vbox.setPadding(new Insets(10));
+
+        for (String clientName : allClients1.keySet()) {
+            HBox row = new HBox(10);
+
+            // Client name as clickable button
+            Button nameBtn = new Button(clientName);
+            nameBtn.setOnAction(e -> showClientDetailsModal(clientName));
+
+            // Delete button
+            Button deleteBtn = new Button("Delete");
+            deleteBtn.setOnAction(e -> {
+                allClients1.remove(clientName);
+                saveClientsToFile(); // your existing save method
+                vbox.getChildren().remove(row); // remove row from modal
+            });
+
+            row.getChildren().addAll(nameBtn, deleteBtn);
+            row.setSpacing(10);                  // optional, spacing between buttons
+//            row.setAlignment(Pos.CENTER_LEFT);   // optional, vertical center alignment
+//            row.setPadding(new Insets(5, 10, 5, 10)); // optional if not using CSS padding
+            vbox.getChildren().add(row);
+        }
+
+        ScrollPane scrollPane = new ScrollPane(vbox);
+        scrollPane.setFitToWidth(true);
+
+        Scene scene = new Scene(scrollPane, 300, 400);
+        scene.getStylesheets().add(getClass().getResource("/dashboardDesign.css").toExternalForm());
+        modal.setScene(scene);
+        modal.showAndWait();
+    }
+
+    public void showClientDetailsModal(String clientName) {
+        Map<String, Object> clientData = allClients1.get(clientName);
+        if (clientData == null) return;
+
+        Stage detailModal = new Stage();
+        detailModal.initModality(Modality.APPLICATION_MODAL);
+        detailModal.setTitle("Client Details: " + clientName);
+
+        GridPane grid = new GridPane();
+        grid.setVgap(10);
+        grid.setHgap(10);
+//        grid.setPadding(new Insets(10));
+
+        int row = 0;
+
+        grid.add(new Label("Client Name:"), 0, row);
+        grid.add(new Label((String) clientData.get("Client Name")), 1, row++);
+
+        grid.add(new Label("Location:"), 0, row);
+        grid.add(new Label((String) clientData.get("Location")), 1, row++);
+//        valueLabel.getStyleClass().add("value"); // <-- styled as value
+
+        grid.add(new Label("Total Weight:"), 0, row);
+        grid.add(new Label((String) clientData.get("Total Weight")), 1, row++);
+
+        grid.add(new Label("Remarks:"), 0, row);
+        grid.add(new Label((String) clientData.get("Remarks")), 1, row++);
+
+        grid.add(new Label("Truck Numbers:"), 0, row);
+        Object trucksObj = clientData.get("Truck Numbers");
+        String truckText = "";
+        if (trucksObj instanceof java.util.List) {
+            @SuppressWarnings("unchecked")
+            java.util.List<String> trucks = (java.util.List<String>) trucksObj;
+            truckText = String.join(", ", trucks);
+        }
+        grid.add(new Label(truckText), 1, row);
+
+        Scene scene = new Scene(grid, 400, 300);
+        scene.getStylesheets().add(getClass().getResource("/dashboardDesign.css").toExternalForm());
+        detailModal.setScene(scene);
+        detailModal.showAndWait();
+    }
+
 
     public void initialize() throws IOException, SQLException, ClassNotFoundException, SQLException {
 
@@ -245,7 +392,7 @@ public class DMM_APP_GUI_Controller {
                 }
             }
         };
-
+        clientsbutton.setOnAction(e -> showClientListModal());
         DateFrom.setConverter(converter);
         DateTo.setConverter(converter);
 
@@ -278,9 +425,6 @@ public class DMM_APP_GUI_Controller {
         timeline.setCycleCount(Timeline.INDEFINITE);
         // Start the timeline
         timeline.play();
-
-        // Set the tooltip for the button
-//        ConnectButton.setTooltip(tooltip);
 
         DateFrom.setDayCellFactory(picker -> new Customize_Date_Cell(DateFrom));
         DateTo.setDayCellFactory(picker -> new Customize_Date_Cell(DateTo));
@@ -324,6 +468,22 @@ public class DMM_APP_GUI_Controller {
             }
 
         });
+
+        for (FAQItem item : faqData) {
+            TitledPane tp = new TitledPane();
+            tp.setText(item.question);
+
+            // Create a Label for the answer
+            Label answerLabel = new Label(item.answer);
+            answerLabel.setWrapText(true);           // allow text to wrap
+            answerLabel.setMinHeight(80);            // minimum height of answer box
+            answerLabel.setStyle("-fx-padding: 10;"); // optional padding
+
+            tp.setContent(answerLabel);
+            tp.setExpanded(false); // collapsed by default
+            faqBox.getChildren().add(tp);
+        }
+
         DateTo.setOnAction(event -> {
             boolean hasTables = SQLiteTableChecker.hasTables();
             if (DateFrom.getValue() != null && DateTo.getValue() != null) {
@@ -515,12 +675,66 @@ public class DMM_APP_GUI_Controller {
             quick_guiad.setImage(image9);
 
         }
+        loadClients();
 
+        // Listen to text changes for autocomplete
+        Tfd1.textProperty().addListener((obs, oldText, newText) -> {
+            if (newText.isEmpty()) {
+                suggestions.hide();
+            } else {
+                List<String> matches = new ArrayList<>();
+                for (String name : allClients1.keySet()) {
+                    if (name.toLowerCase().contains(newText.toLowerCase())) {
+                        matches.add(name);
+                    }
+                }
+                if (!matches.isEmpty()) {
+                    showSuggestions(matches);
+                } else {
+                    suggestions.hide();
+                }
+            }
+        });
+
+    }
+    private void showSuggestions(List<String> matches) {
+        suggestions.getItems().clear();
+        for (String match : matches) {
+            MenuItem item = new MenuItem(match);
+            item.setOnAction(e -> {
+
+                Tfd1.setText(match);
+                suggestions.hide();
+                fillClientData(match);
+            });
+            suggestions.getItems().add(item);
+        }
+        if (!suggestions.isShowing()) {
+            suggestions.show(Tfd1,
+                    Tfd1.getScene().getWindow().getX() + Tfd1.localToScene(0,0).getX() + Tfd1.getScene().getX(),
+                    Tfd1.getScene().getWindow().getY() + Tfd1.localToScene(0,0).getY() + Tfd1.getScene().getY() + Tfd1.getHeight()
+            );
+        }
+    }
+    private void fillClientData(String clientName) {
+        Map<String, Object> clientData = allClients1.get(clientName);
+        if (clientData != null) {
+            Tfd2.setText((String) clientData.getOrDefault("Location", ""));
+            Tfd4.setText((String) clientData.getOrDefault("Total Weight", ""));
+            Tfd5.setText((String) clientData.getOrDefault("Remarks", ""));
+
+            Object trucksObj = clientData.get("Truck Numbers");
+            if (trucksObj instanceof List) {
+                @SuppressWarnings("unchecked")
+                List<String> trucks = (List<String>) trucksObj;
+                Tfd3.setText(String.join(", ", trucks));
+            }
+        }
     }
 
     //check that is internet is connected or not.
     public static boolean isInternetConnected() throws IOException, InterruptedException {
-        Process process = java.lang.Runtime.getRuntime().exec("ping www.google.org");
+        Process process = Runtime.getRuntime().exec("ping www.google.org");
         int x = process.waitFor();
         if (x == 0) {
             return true;
@@ -653,19 +867,19 @@ public class DMM_APP_GUI_Controller {
     @FXML
     private AnchorPane sharepastDataBox;
     @FXML
-    private javafx.scene.control.Label data1;
+    private Label data1;
     @FXML
-    private javafx.scene.control.Label data2;
+    private Label data2;
     @FXML
-    private javafx.scene.control.Label data3;
+    private Label data3;
     @FXML
-    private javafx.scene.control.Label data4;
+    private Label data4;
     @FXML
-    private javafx.scene.control.Label data5;
+    private Label data5;
     @FXML
-    private javafx.scene.control.Label data7;
+    private Label data7;
     @FXML
-    private javafx.scene.control.Label data8;
+    private Label data8;
     public String printtime;
     public String[] fruits;
     private final Label jobStatus = new Label();
@@ -853,12 +1067,14 @@ public class DMM_APP_GUI_Controller {
 
         System.out.println("array  " + informationarray);
 //        a1.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
-        AnchorPane v1 = new AnchorPane(scene12.getRoot());
+        AnchorPane v1 = new AnchorPane(newStage.getScene().getRoot());
         Stage stage = null;
         printAnchorPane(v1, stage);
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
         String formattedDateTime00 = formatter12.format(now);
+        saveClientJson(informationarray);
+        loadClients();
         if (bit0 == 1) {
 //}
             Pdf_Generate_With_Print_Operation Pdf1 = new Pdf_Generate_With_Print_Operation(MAC_ID, fruits, time_of_recived_data, comName, address, comphon, comemail, informationarray);
@@ -869,12 +1085,68 @@ public class DMM_APP_GUI_Controller {
             String new_arr4 = new_arr3.replace("null", "");
             System.out.println("new array   " + new_arr4);
             addDataToTable(fruits, formate24hourse, informationarray);
+
             bit0 = 0;
         }
         showAlertinfo("", "PDF File is saved at " + defaultPath + "\\Realogview\\DMM1.0\\Data\\PDF\\ \n" + fruits[0] + "_" + formattedDateTime00 + ".pdf");
 
-    }
+    } public void saveClientJson(String[] clientArray) {
+        Path path005 = Paths.get(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile + "/" + "Client.json");
+        ObjectMapper mapper = new ObjectMapper();
 
+        if (clientArray == null || clientArray.length < 5) {
+            System.out.println("Array must have at least 5 elements.");
+            return;
+        }
+
+        // Replace null with space
+        for (int i = 0; i < 5; i++) {
+            if (clientArray[i] == null) {
+                clientArray[i] = " ";
+            }
+        }
+
+        String clientName = clientArray[0]; // unique key
+
+        // Read existing file (if present)
+        Map<String, Map<String, Object>> allClients = new HashMap<>();
+        if (Files.exists(path005)) {
+            try {
+                allClients = mapper.readValue(path005.toFile(),
+                        new TypeReference<Map<String, Map<String, Object>>>() {});
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Get existing client data or create new
+        Map<String, Object> clientData = allClients.getOrDefault(clientName, new LinkedHashMap<>());
+
+        clientData.put("Client Name", clientArray[0]);
+        clientData.put("Location", clientArray[1]);
+
+        // Handle Truck Numbers as a list
+        List<String> trucks = (List<String>) clientData.getOrDefault("Truck Numbers", new ArrayList<>());
+        String newTruck = clientArray[2];
+        if (!newTruck.trim().isEmpty() && !trucks.contains(newTruck)) {
+            trucks.add(newTruck);
+        }
+        clientData.put("Truck Numbers", trucks);
+
+        clientData.put("Total Weight", clientArray[3]);
+        clientData.put("Remarks", clientArray[4]);
+
+        // Save/Update client
+        allClients.put(clientName, clientData);
+
+        // Save JSON back to file
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(path005.toFile(), allClients);
+            System.out.println("Saved/Updated client: " + clientName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     // ckecking that field is empty or not.
     private boolean isFieldEmpty(TextField textField) {
         return textField.getText().trim().isEmpty();
@@ -922,7 +1194,7 @@ public class DMM_APP_GUI_Controller {
                 double scaleFactor = Math.min(scaleX, scaleY);
 
                 // Apply the scale transformation to the AnchorPane
-                anchorPane.getTransforms().add(new javafx.scene.transform.Scale(scaleFactor, scaleFactor));
+                anchorPane.getTransforms().add(new Scale(scaleFactor, scaleFactor));
                 System.out.println("hirifht " + scaleFactor);
                 // Set the page layout for the print job
                 job.getJobSettings().setPageLayout(pageLayout);
@@ -3484,15 +3756,14 @@ public class DMM_APP_GUI_Controller {
         sheet.protectSheet("realogview");
         ResultSetMetaData metaData = resultSet.getMetaData();
         int columnCount = metaData.getColumnCount();
-        String infcolumnName = metaData.getColumnName(8);
         Row headerRow = sheet.createRow(0);
-        String[] colname = {"0", "ID", "Serial No", "MAC ID", "Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required(gram)", "Other information"};
+        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required (gram)", "Client Name","Location","Truck Number","Total Weight","Remarks"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
+            System.out.println(columnName);
             Cell cell = headerRow.createCell(i - 1);
             cell.setCellValue(colname[i]);
         }
-
         int firstColumnWidth = 10; // You can adjust the width as needed
         sheet.setColumnWidth(0, firstColumnWidth * 256);
         sheet.setColumnWidth(1, firstColumnWidth + 20 * 256);
@@ -3503,27 +3774,23 @@ public class DMM_APP_GUI_Controller {
         sheet.setColumnWidth(6, firstColumnWidth + 30 * 256);
         sheet.setColumnWidth(7, firstColumnWidth + 30 * 256);
         sheet.setColumnWidth(8, firstColumnWidth + 40 * 256);
+        sheet.setColumnWidth(9, firstColumnWidth + 30 * 256);
+        sheet.setColumnWidth(10, firstColumnWidth + 40 * 256);
+        sheet.setColumnWidth(11, firstColumnWidth + 20 * 256);
 
 
         int rowNum = 1;
         int idvalue = 1;
         while (resultSet.next()) {
-
             Row row = sheet.createRow(rowNum++);
             for (int i = 1; i <= columnCount; i++) {
-                if (i == 9) {
-                    String r8 = resultSet.getString(9);
-                    String ab2 = r8.substring(0, r8.length() - 1);
-                    String modifiedString = ab2.substring(1);
-                    String newr8 = modifiedString.replace("|", ",\n");
-                    Cell cell = row.createCell(i - 1);
-                    cell.setCellValue(newr8);
-                } else if (i == 1) {
+
+                if (i == 1) {
                     Cell cell = row.createCell(i - 1);
                     cell.setCellValue(idvalue);
-                } else if (i == 7) {
+                } else if (i == 6) {
                     Cell cell = row.createCell(i - 1);
-                    String r6 = resultSet.getString(7);
+                    String r6 = resultSet.getString(6);
                     LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
                     String nr6 = localDateTime.format(globeldtformatter);
                     cell.setCellValue(nr6);
@@ -3531,6 +3798,7 @@ public class DMM_APP_GUI_Controller {
                     Cell cell = row.createCell(i - 1);
                     cell.setCellValue(resultSet.getString(i));
                 }
+
             }
             idvalue += 1;
         }

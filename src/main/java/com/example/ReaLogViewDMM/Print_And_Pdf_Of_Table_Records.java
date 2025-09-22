@@ -113,24 +113,29 @@ public class Print_And_Pdf_Of_Table_Records {
             Hdrawline(contentStream, 676);
             int idx = 36;
             int srnox = 60;
-            int macidx = 150;
-            int comdx = 270;
-            int Sqrx = 430;
-            int temx = 270;
-            int dattimex = 150;
-            int moisx = 430;
-            int othrinfox = 150;
-            int otherinfoarrax = 180;
+            int commx = 150;
+            int semqrx = 280;
+            int moistx = 440;
+            int timex = 150;
+            int tempx = 280;
+            int cnamex = 440;
+            int locax = 150;
+            int trunamex = 280;
+            int totweightx=440;
+            int remarkx=150;
 
-            int macVX = 180;
-            int comDVX = 345;
-            int samsizeVX = 535;
-            int dattimeVX = 175;
-            int tempVX = 355;
-            int moistVX = 470;
+            int commxv = 225;
+            int semqrxv = 385;
+            int moistxv= 480;
+            int timexv = 175;
+            int tempxv = 366;
+            int cnamexv = 490;
+            int locaxv = 190 ;
+            int trunamexv = 340;
+            int totweightxv=493;
+            int remarkxv=190;
 
             int y1 = 660;
-            int lasty2;
             int idv = 0;
             while (resultSet.next()) {
                 if (y1 <= 100) {
@@ -170,133 +175,124 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.newLineAtOffset(srnox, y1);
                 contentStream.showText(resultSet.getString(2));
                 contentStream.endText();
+
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(macidx, y1);
-                contentStream.showText("MAC ID :  ");
+                contentStream.newLineAtOffset(commx, y1);
+                contentStream.showText("Commodity Name :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(macVX, y1);
+                contentStream.newLineAtOffset(commxv, y1);
                 contentStream.showText("  " + resultSet.getString(3));
                 contentStream.endText();
+
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(comdx, y1);
-                contentStream.showText("Commodity Name :  ");
+                contentStream.newLineAtOffset(semqrx, y1);
+                contentStream.showText("Sample Quantity Required :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(comDVX, y1);
-                contentStream.showText("  " + resultSet.getString(4));
-                contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(Sqrx, y1);
-                contentStream.showText("Sample Quantity Required :  ");
-                contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA, 7);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(samsizeVX, y1);
-                if (resultSet.getString(8).equals("FULL")) {
-                    contentStream.showText("  " + resultSet.getString(8));
+                contentStream.newLineAtOffset(semqrxv, y1);
+                if (resultSet.getString(7).equals("FULL")) {
+                    contentStream.showText("  " + resultSet.getString(7));
                 } else {
-                    contentStream.showText("  " + resultSet.getString(8) + " gram");
+                    contentStream.showText("  " + resultSet.getString(7) + " gram");
                 }
                 contentStream.endText();
 
-                String r6 = resultSet.getString(7);
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(moistx, y1);
+                contentStream.showText("Moisture :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(moistxv, y1);
+                contentStream.showText("  " + resultSet.getString(4)+ " %");
+                contentStream.endText();
+                y1-=10;
+                String r6 = resultSet.getString(6);
                 LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
                 String nr6 = localDateTime.format(globeldtformatter);
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(dattimex, y1 - 10);
-                contentStream.showText("Time :  ");
+                contentStream.newLineAtOffset(timex, y1 );
+                contentStream.showText("Time :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(dattimeVX, y1 - 10);
+                contentStream.newLineAtOffset(timexv, y1);
                 contentStream.showText("  " + nr6);
                 contentStream.endText();
 
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(temx, y1 - 10);
-                contentStream.showText("Sample Temperature :  ");
+                contentStream.newLineAtOffset(tempx, y1 );
+                contentStream.showText("Sample Temperature :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(tempVX, y1 - 10);
-                contentStream.showText("  " + resultSet.getString(6) + " °C");
+                contentStream.newLineAtOffset(tempxv, y1 );
+                contentStream.showText("  " + resultSet.getString(5) + " °C");
                 contentStream.endText();
+
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(moisx, y1 - 10);
-                contentStream.showText("Moisture :  ");
+                contentStream.newLineAtOffset(cnamex, y1 );
+                contentStream.showText("Client Name :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(moistVX, y1 - 10);
-                contentStream.showText("  " + resultSet.getString(5) + " %");
+                contentStream.newLineAtOffset(cnamexv, y1 );
+                contentStream.showText("  " + resultSet.getString(8) );
                 contentStream.endText();
+                y1-=10;
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(othrinfox, y1 - 21);
-                contentStream.showText("Other Information : ");
+                contentStream.newLineAtOffset(locax, y1 );
+                contentStream.showText("Location :");
                 contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA, 7);
-                String otherinfo1 = resultSet.getString(9);
-                String[] otherinfoarray = getstringarray1(otherinfo1);
-                System.out.println("yee " + otherinfoarray.length);  //lenth 1 if no data.
-                lasty2 = y1 - 31;
-                if (otherinfoarray.length == 1) {
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(otherinfoarrax + 50, lasty2 + 10);
-                    contentStream.showText("---");
-                    contentStream.endText();
-                    Hdrawline(contentStream, lasty2);
-                    y1 = lasty2;
-                } else {
-                    for (int a = 0; a < otherinfoarray.length - 1; a++) {
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(locaxv, y1 );
+                contentStream.showText("  " + resultSet.getString(9) );
+                contentStream.endText();
 
-                        if (lasty2 <= 100) {
-                            y1 = 660;
-                            contentStream.close();
-                            PDPage newpage = new PDPage();
-                            document.addPage(newpage);
-                            contentStream = new PDPageContentStream(document, newpage);
-                            contentStream.drawImage(pdImage, ix, iy, iwidth, iheight);
-                            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
-                            pageNo += 1;
-                            contentStream.setFont(PDType1Font.HELVETICA, 7);
-                            contentStream.beginText();
-                            contentStream.newLineAtOffset(550, 20);
-                            contentStream.showText(String.valueOf("Page " + pageNo));
-                            contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(trunamex, y1 );
+                contentStream.showText("Truck Number :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(trunamexv, y1 );
+                contentStream.showText("  " + resultSet.getString(10) );
+                contentStream.endText();
 
-                            headerfooter(contentStream, Comname, Adress, Email, PNo);
-                            Hdrawline(contentStream, 700);
-                            Hdrawline(contentStream, 676);
-                            Vdrawline(contentStream, 130);
-                            Vdrawline(contentStream, 25);
-                            Vdrawline(contentStream, 590);
-                            Vdrawline(contentStream, 55);
-                            contentStream.setFont(PDType1Font.HELVETICA, 8);
-                            lasty2 = y1 + 20;
-                        }
-                        contentStream.beginText();
-                        contentStream.newLineAtOffset(otherinfoarrax, lasty2);
-                        contentStream.showText(otherinfoarray[a] + ",");
-                        contentStream.endText();
-                        lasty2 -= 10;
-
-                        if (a == otherinfoarray.length - 2) {
-                            y1 = lasty2;
-                            System.out.println("loop  " + y1);
-                            Hdrawline(contentStream, y1 - 5);
-                        }
-                    }
-                }
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(totweightx, y1 );
+                contentStream.showText("Total Weight :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(totweightxv, y1 );
+                contentStream.showText("  " + resultSet.getString(11) );
+                contentStream.endText();
+                y1-=10;
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkx, y1 );
+                contentStream.showText("Remarks :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkxv, y1);
+                contentStream.showText("  " + resultSet.getString(12) );
+                contentStream.endText();
+                Hdrawline(contentStream, y1-5);
                 y1 -= 20;
 
             }
@@ -381,28 +377,33 @@ public class Print_And_Pdf_Of_Table_Records {
             Hdrawline(contentStream, 676);
             int idx = 36;
             int srnox = 60;
-            int macidx = 150;
-            int comdx = 270;
-            int Sqrx = 430;
-            int temx = 270;
-            int dattimex = 150;
-            int moisx = 430;
-            int othrinfox = 150;
-            int otherinfoarrax = 180;
+            int commx = 150;
+            int semqrx = 280;
+            int moistx = 440;
+            int timex = 150;
+            int tempx = 280;
+            int cnamex = 440;
+            int locax = 150;
+            int trunamex = 280;
+            int totweightx=440;
+            int remarkx=150;
 
-            int macVX = 180;
-            int comDVX = 345;
-            int samsizeVX = 535;
-            int dattimeVX = 175;
-            int tempVX = 355;
-            int moistVX = 470;
+            int commxv = 225;
+            int semqrxv = 385;
+            int moistxv= 480;
+            int timexv = 175;
+            int tempxv = 366;
+            int cnamexv = 490;
+            int locaxv = 190 ;
+            int trunamexv = 340;
+            int totweightxv=493;
+            int remarkxv=190;
 
             int y1 = 660;
-            int lasty2;
             int idv = 0;
             while (resultSet.next()) {
                 if (y1 <= 100) {
-                    System.out.println("wht is dasf--------------------------------------------------------------------------------");
+                        System.out.println("wht is dasf--------------------------------------------------------------------------------");
                     y1 = 660;
                     contentStream.close();
                     PDPage newpage = new PDPage();
@@ -438,133 +439,124 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.newLineAtOffset(srnox, y1);
                 contentStream.showText(resultSet.getString(2));
                 contentStream.endText();
+
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(macidx, y1);
-                contentStream.showText("MAC ID :  ");
+                contentStream.newLineAtOffset(commx, y1);
+                contentStream.showText("Commodity Name :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(macVX, y1);
+                contentStream.newLineAtOffset(commxv, y1);
                 contentStream.showText("  " + resultSet.getString(3));
                 contentStream.endText();
+
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(comdx, y1);
-                contentStream.showText("Commodity Name :  ");
+                contentStream.newLineAtOffset(semqrx, y1);
+                contentStream.showText("Sample Quantity Required :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(comDVX, y1);
-                contentStream.showText("  " + resultSet.getString(4));
-                contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(Sqrx, y1);
-                contentStream.showText("Sample Quantity Required :  ");
-                contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA, 7);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(samsizeVX, y1);
-                if (resultSet.getString(8).equals("FULL")) {
-                    contentStream.showText("  " + resultSet.getString(8));
+                contentStream.newLineAtOffset(semqrxv, y1);
+                if (resultSet.getString(7).equals("FULL")) {
+                    contentStream.showText("  " + resultSet.getString(7));
                 } else {
-                    contentStream.showText("  " + resultSet.getString(8) + " gram");
+                    contentStream.showText("  " + resultSet.getString(7) + " gram");
                 }
                 contentStream.endText();
 
-                String r6 = resultSet.getString(7);
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(moistx, y1);
+                contentStream.showText("Moisture :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(moistxv, y1);
+                contentStream.showText("  " + resultSet.getString(4)+ " %");
+                contentStream.endText();
+                y1-=10;
+                String r6 = resultSet.getString(6);
                 LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
                 String nr6 = localDateTime.format(globeldtformatter);
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(dattimex, y1 - 10);
-                contentStream.showText("Time :  ");
+                contentStream.newLineAtOffset(timex, y1 );
+                contentStream.showText("Time :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(dattimeVX, y1 - 10);
+                contentStream.newLineAtOffset(timexv, y1);
                 contentStream.showText("  " + nr6);
                 contentStream.endText();
 
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(temx, y1 - 10);
-                contentStream.showText("Sample Temperature :  ");
+                contentStream.newLineAtOffset(tempx, y1 );
+                contentStream.showText("Sample Temperature :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(tempVX, y1 - 10);
-                contentStream.showText("  " + resultSet.getString(6) + " °C");
+                contentStream.newLineAtOffset(tempxv, y1 );
+                contentStream.showText("  " + resultSet.getString(5) + " °C");
                 contentStream.endText();
+
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(moisx, y1 - 10);
-                contentStream.showText("Moisture :  ");
+                contentStream.newLineAtOffset(cnamex, y1 );
+                contentStream.showText("Client Name :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(moistVX, y1 - 10);
-                contentStream.showText("  " + resultSet.getString(5) + " %");
+                contentStream.newLineAtOffset(cnamexv, y1 );
+                contentStream.showText("  " + resultSet.getString(8) );
                 contentStream.endText();
+                y1-=10;
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(othrinfox, y1 - 21);
-                contentStream.showText("Other Information : ");
+                contentStream.newLineAtOffset(locax, y1 );
+                contentStream.showText("Location :");
                 contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA, 7);
-                String otherinfo1 = resultSet.getString(9);
-                String[] otherinfoarray = getstringarray1(otherinfo1);
-                System.out.println("yee " + otherinfoarray.length);  //lenth 1 if no data.
-                lasty2 = y1 - 31;
-                if (otherinfoarray.length == 1) {
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(otherinfoarrax + 50, lasty2 + 10);
-                    contentStream.showText("---");
-                    contentStream.endText();
-                    Hdrawline(contentStream, lasty2);
-                    y1 = lasty2;
-                } else {
-                    for (int a = 0; a < otherinfoarray.length - 1; a++) {
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(locaxv, y1 );
+                contentStream.showText("  " + resultSet.getString(9) );
+                contentStream.endText();
 
-                        if (lasty2 <= 100) {
-                            y1 = 660;
-                            contentStream.close();
-                            PDPage newpage = new PDPage();
-                            document.addPage(newpage);
-                            contentStream = new PDPageContentStream(document, newpage);
-                            contentStream.drawImage(pdImage, ix, iy, iwidth, iheight);
-                            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
-                            pageNo += 1;
-                            contentStream.setFont(PDType1Font.HELVETICA, 7);
-                            contentStream.beginText();
-                            contentStream.newLineAtOffset(550, 20);
-                            contentStream.showText(String.valueOf("Page " + pageNo));
-                            contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(trunamex, y1 );
+                contentStream.showText("Truck Number :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(trunamexv, y1 );
+                contentStream.showText("  " + resultSet.getString(10) );
+                contentStream.endText();
 
-                            headerfooter(contentStream, Comname, Adress, Email, PNo);
-                            Hdrawline(contentStream, 700);
-                            Hdrawline(contentStream, 676);
-                            Vdrawline(contentStream, 130);
-                            Vdrawline(contentStream, 25);
-                            Vdrawline(contentStream, 590);
-                            Vdrawline(contentStream, 55);
-                            contentStream.setFont(PDType1Font.HELVETICA, 8);
-                            lasty2 = y1 + 20;
-                        }
-                        contentStream.beginText();
-                        contentStream.newLineAtOffset(otherinfoarrax, lasty2);
-                        contentStream.showText(otherinfoarray[a] + ",");
-                        contentStream.endText();
-                        lasty2 -= 10;
-
-                        if (a == otherinfoarray.length - 2) {
-                            y1 = lasty2;
-                            System.out.println("loop  " + y1);
-                            Hdrawline(contentStream, y1 - 5);
-                        }
-                    }
-                }
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(totweightx, y1 );
+                contentStream.showText("Total Weight :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(totweightxv, y1 );
+                contentStream.showText("  " + resultSet.getString(11) );
+                contentStream.endText();
+                y1-=10;
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkx, y1 );
+                contentStream.showText("Remarks :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkxv, y1);
+                contentStream.showText("  " + resultSet.getString(12) );
+                contentStream.endText();
+                Hdrawline(contentStream, y1-5);
                 y1 -= 20;
 
             }
@@ -812,6 +804,7 @@ public class Print_And_Pdf_Of_Table_Records {
 
         int otherinfox = 125;
         int lasty2;
+
         while (resultSet.next()) {
             id_value += 1;
 

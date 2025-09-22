@@ -233,7 +233,7 @@ public class Table_View_Controller {
         int columnCount = metaData.getColumnCount();
 
         Row headerRow = sheet.createRow(0);
-        String[] colname = {"0", "ID", "Serial No", "MAC ID", "Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required (gram)", "Other information"};
+        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required (gram)", "Client Name","Location","Truck Number","Total Weight","Remarks"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             System.out.println(columnName);
@@ -250,6 +250,9 @@ public class Table_View_Controller {
         sheet.setColumnWidth(6, firstColumnWidth + 30 * 256);
         sheet.setColumnWidth(7, firstColumnWidth + 30 * 256);
         sheet.setColumnWidth(8, firstColumnWidth + 40 * 256);
+        sheet.setColumnWidth(9, firstColumnWidth + 30 * 256);
+        sheet.setColumnWidth(10, firstColumnWidth + 40 * 256);
+        sheet.setColumnWidth(11, firstColumnWidth + 20 * 256);
 
         int rowNum = 1;
         int idvalue = 1;
@@ -257,19 +260,12 @@ public class Table_View_Controller {
             Row row = sheet.createRow(rowNum++);
             for (int i = 1; i <= columnCount; i++) {
 
-                if (i == 9) {
-                    String r8 = resultSet.getString(9);
-                    String ab2 = r8.substring(0, r8.length() - 1);
-                    String modifiedString = ab2.substring(1);
-                    String newr8 = modifiedString.replace("|", ",\n");
-                    Cell cell = row.createCell(i - 1);
-                    cell.setCellValue(newr8);
-                } else if (i == 1) {
+                 if (i == 1) {
                     Cell cell = row.createCell(i - 1);
                     cell.setCellValue(idvalue);
-                } else if (i == 7) {
+                } else if (i == 6) {
                     Cell cell = row.createCell(i - 1);
-                    String r6 = resultSet.getString(7);
+                    String r6 = resultSet.getString(6);
                     LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
                     String nr6 = localDateTime.format(globeldtformatter);
                     cell.setCellValue(nr6);
