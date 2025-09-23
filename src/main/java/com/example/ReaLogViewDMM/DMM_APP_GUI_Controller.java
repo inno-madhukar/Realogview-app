@@ -604,7 +604,7 @@ public class DMM_APP_GUI_Controller {
                 }
             }
 
-            headercompanyname.setText("ReaLogView DMM 1.0");
+            headercompanyname.setText("Digital Moisture Meter - DMM B18");
             System.out.println("yesssss here");
             String DBpath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Data_Base + "/Realogview.db";
             connection = DriverManager.getConnection("jdbc:sqlite:" + DBpath);
@@ -1088,8 +1088,14 @@ public class DMM_APP_GUI_Controller {
 
             bit0 = 0;
         }
-        showAlertinfo("", "PDF File is saved at " + defaultPath + "\\Realogview\\DMM1.0\\Data\\PDF\\ \n" + fruits[0] + "_" + formattedDateTime00 + ".pdf");
 
+
+        showAlertinfo("", "PDF File is saved at " + defaultPath + "\\Realogview\\DMM1.0\\Data\\PDF\\ \n" + fruits[0] + "_" + formattedDateTime00 + ".pdf");
+        Tfd1.setText("");
+        Tfd2.setText("");
+        Tfd3.setText("");
+        Tfd4.setText("");
+        Tfd5.setText("");
     } public void saveClientJson(String[] clientArray) {
         Path path005 = Paths.get(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile + "/" + "Client.json");
         ObjectMapper mapper = new ObjectMapper();

@@ -846,28 +846,28 @@ public class Print_And_Pdf_Of_Table_Records {
             page.getChildren().add(lablefunc1("Mac ID : ", macx, inc_y));
             page.getChildren().add(lablefunc(" " + resultSet.getString(3), macvx, inc_y + 1));
             page.getChildren().add(lablefunc1("Commodity Name : ", comdx, inc_y));
-            page.getChildren().add(lablefunc("  " + resultSet.getString(4), comdvx, inc_y + 1));
+            page.getChildren().add(lablefunc("  " + resultSet.getString(3), comdvx, inc_y + 1));
 
             page.getChildren().add(lablefunc1("Sample Quantity Required : ", sqrx, inc_y));
-            if (resultSet.getString(8).equals("FULL")) {
-                page.getChildren().add(lablefunc(" " + resultSet.getString(8), sqrvx, inc_y + 1));
+            if (resultSet.getString(7).equals("FULL")) {
+                page.getChildren().add(lablefunc(" " + resultSet.getString(7), sqrvx, inc_y + 1));
             } else {
-                page.getChildren().add(lablefunc(" " + resultSet.getString(8) + " gram", sqrvx, inc_y + 1));
+                page.getChildren().add(lablefunc(" " + resultSet.getString(7) + " gram", sqrvx, inc_y + 1));
             }
-            String r6 = resultSet.getString(7);
+            String r6 = resultSet.getString(6);
             LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
             String nr6 = localDateTime.format(globeldtformatter);
             page.getChildren().add(lablefunc1("Time : ", timdatex, inc_y + 11));
             page.getChildren().add(lablefunc(" " + nr6, timdatevx, inc_y + 11 + 1));
             page.getChildren().add(lablefunc1("Sample Temperature : ", tempx, inc_y + 11));
-            page.getChildren().add(lablefunc("  " + resultSet.getString(6) + " (°C)", tempvx, inc_y + 11 + 1));
+            page.getChildren().add(lablefunc("  " + resultSet.getString(5) + " (°C)", tempvx, inc_y + 11 + 1));
             page.getChildren().add(lablefunc1("Moisture  : ", moistx, inc_y + 11));
-            page.getChildren().add(lablefunc("  " + resultSet.getString(5) + " %", moistvx, inc_y + 11 + 1));
+            page.getChildren().add(lablefunc("  " + resultSet.getString(4) + " %", moistvx, inc_y + 11 + 1));
 
             page.getChildren().add(lablefunc1("Other Information : ", otherinfox, inc_y + 21));
 
-            String otherinfo1 = resultSet.getString(9);
-            String[] otherinfoarray = getstringarray1(otherinfo1);
+            String otherinfo1 = resultSet.getString(8);
+            String[] otherinfoarray = getstringarray1("otherinfo1");
             lasty2 = inc_y + 33;
             System.out.print("onterrrrrrr" + otherinfoarray[0]);
             if (otherinfoarray.length == 1) {
@@ -877,54 +877,6 @@ public class Print_And_Pdf_Of_Table_Records {
                 line2.setStrokeWidth(0.3);
                 page.getChildren().add(line2);
                 inc_y = lasty2;
-            } else {
-
-                for (int a = 0; a < otherinfoarray.length - 1; a++) {
-                    if (lasty2 >= 730) {
-                        inc_y = 130;
-
-                        page = new AnchorPane();
-                        page.getStyleClass().add("back_anchore_color");
-                        page.setPrefWidth(600);
-                        page.setPrefHeight(830);
-
-                        ImageView imageView1 = new ImageView(image);
-                        imageView1.setLayoutX(2);
-                        imageView1.setLayoutY(2);
-                        double desiredWidth1 = 80.0;
-                        double desiredHeight1 = 60.0;
-                        imageView1.setFitWidth(desiredWidth1);
-                        imageView1.setFitHeight(desiredHeight1);
-                        page.getChildren().add(imageView1);
-
-                        ImageView imageView3 = new ImageView(image1);
-                        imageView3.setLayoutX(10);
-                        imageView3.setLayoutY(780);
-                        double desiredWidth3 = 60.0;
-                        double desiredHeight3 = 30.0;
-                        imageView3.setFitWidth(desiredWidth3);
-                        imageView3.setFitHeight(desiredHeight3);
-                        page.getChildren().add(imageView3);
-
-                        pageNo += 1;
-                        Label label3 = lablefunc("Page " + pageNo, 545, 800);
-                        page.getChildren().add(label3);
-
-                        hederfooterfxml(page, Comname, Adress, Email, PNo);
-                        anchorPanes.add(page);
-                        lasty2 = inc_y - 20;
-                    }
-                    page.getChildren().add(lablefunc(otherinfoarray[a].trim() + ",", otherinfox + 5, lasty2));
-                    lasty2 += 11;
-
-                    if (a == otherinfoarray.length - 2) {
-                        inc_y = lasty2;
-                        Line line3 = new Line(10, lasty2 + 5, 575, lasty2 + 5);
-                        line3.setStrokeWidth(0.3);
-                        page.getChildren().add(line3);
-                        System.out.println("c");
-                    }
-                }
             }
             inc_y += 20;
         }
