@@ -103,11 +103,7 @@
                         <Label fx:id="lab3" layoutX="177.0" layoutY="392.0" prefHeight="17.0" prefWidth="302.0" text="Label3" />
                         <Label fx:id="lab4" layoutX="166.0" layoutY="417.0" prefHeight="17.0" prefWidth="313.0" text="Label4" />
                         <Label fx:id="lab5" layoutX="160.0" layoutY="440.0" prefHeight="17.0" prefWidth="319.0" text="Label5" />
-                        <Label fx:id="lab6" layoutX="234.0" layoutY="464.0" prefHeight="13.0" prefWidth="265.0" text="Label6">
-                            <font>
-                                <Font size="8.0" />
-                            </font>
-                        </Label>
+                        <Label fx:id="lab6" layoutX="159.0" layoutY="464.0" prefHeight="17.0" prefWidth="77.0" text="Label6" />
                         <Label fx:id="lab7" layoutX="233.0" layoutY="482.0" prefHeight="13.0" prefWidth="265.0" text="Label7">
                             <font>
                                 <Font size="8.0" />
@@ -160,6 +156,11 @@
                      </font>
                   </Label>
                   <Label layoutX="72.0" layoutY="437.0" text="Remarks">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="73.0" layoutY="464.0" text="Vendoe ID :">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

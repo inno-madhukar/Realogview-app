@@ -113,9 +113,9 @@ public class Print_And_Pdf_Of_Table_Records {
             Hdrawline(contentStream, 676);
             int idx = 36;
             int srnox = 60;
-            int commx = 150;
+            int commx = 440;
             int semqrx = 280;
-            int moistx = 440;
+            int moistx = 150;
             int timex = 150;
             int tempx = 280;
             int cnamex = 440;
@@ -124,9 +124,9 @@ public class Print_And_Pdf_Of_Table_Records {
             int totweightx=440;
             int remarkx=150;
 
-            int commxv = 225;
+            int commxv = 510;
             int semqrxv = 385;
-            int moistxv= 480;
+            int moistxv= 190;
             int timexv = 175;
             int tempxv = 366;
             int cnamexv = 490;
@@ -238,6 +238,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.showText("  " + resultSet.getString(5) + " °C");
                 contentStream.endText();
 
+
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(cnamex, y1 );
@@ -252,12 +253,12 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(locax, y1 );
-                contentStream.showText("Location :");
+                contentStream.showText("Vendor ID :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(locaxv, y1 );
-                contentStream.showText("  " + resultSet.getString(9) );
+                contentStream.showText("  " + resultSet.getString(13) );
                 contentStream.endText();
 
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
@@ -280,6 +281,17 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.beginText();
                 contentStream.newLineAtOffset(totweightxv, y1 );
                 contentStream.showText("  " + resultSet.getString(11) );
+                contentStream.endText();
+                y1-=10;
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkx, y1 );
+                contentStream.showText("Location :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkxv, y1);
+                contentStream.showText("  " + resultSet.getString(9) );
                 contentStream.endText();
                 y1-=10;
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
@@ -321,9 +333,10 @@ public class Print_And_Pdf_Of_Table_Records {
 
         return outputStream.toByteArray();
     }
-
-    void exportpdf(ResultSet resultSet, String Comname, String Adress, String Email, String PNo, String fromexem, String toexem) throws IOException {
+    String tableprintpath="";
+    String exportpdf(ResultSet resultSet, String Comname, String Adress, String Email, String PNo, String fromexem, String toexem, String print1) throws IOException {
 //
+        tableprintpath="";
         BufferedImage image = null;
         File folder = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile);
         File[] files = folder.listFiles();
@@ -377,9 +390,9 @@ public class Print_And_Pdf_Of_Table_Records {
             Hdrawline(contentStream, 676);
             int idx = 36;
             int srnox = 60;
-            int commx = 150;
+            int commx = 440;
             int semqrx = 280;
-            int moistx = 440;
+            int moistx = 150;
             int timex = 150;
             int tempx = 280;
             int cnamex = 440;
@@ -388,9 +401,9 @@ public class Print_And_Pdf_Of_Table_Records {
             int totweightx=440;
             int remarkx=150;
 
-            int commxv = 225;
+            int commxv = 510;
             int semqrxv = 385;
-            int moistxv= 480;
+            int moistxv= 190;
             int timexv = 175;
             int tempxv = 366;
             int cnamexv = 490;
@@ -516,12 +529,12 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(locax, y1 );
-                contentStream.showText("Location :");
+                contentStream.showText("Vendor ID :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(locaxv, y1 );
-                contentStream.showText("  " + resultSet.getString(9) );
+                contentStream.showText("  " + resultSet.getString(13) );
                 contentStream.endText();
 
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
@@ -544,6 +557,17 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.beginText();
                 contentStream.newLineAtOffset(totweightxv, y1 );
                 contentStream.showText("  " + resultSet.getString(11) );
+                contentStream.endText();
+                y1-=10;
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkx, y1 );
+                contentStream.showText("Location :");
+                contentStream.endText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(remarkxv, y1);
+                contentStream.showText("  " + resultSet.getString(9) );
                 contentStream.endText();
                 y1-=10;
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
@@ -578,31 +602,48 @@ public class Print_And_Pdf_Of_Table_Records {
             String formattedDateTime = formatter12.format(now);
             String pdffilename = formattedDateTime;
             if (fromexem.equals("today") && toexem.equals("today")) {
-                document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/" + pdffilename + ".pdf");
-                System.out.println("PDF created successfully.");
-                String filepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\" + pdffilename + ".pdf";
-                if (filepath1 != null) {
+
+                if (print1!="print") {
                     // Open the selected PDF file in a PDF viewer
+                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/" + pdffilename + ".pdf");
+                    String filepath2 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\" + pdffilename + ".pdf";
+
                     try {
-                        Desktop.getDesktop().open(new File(filepath1));
+                        Desktop.getDesktop().open(new File(filepath2));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    showAlertinfo("", "Pdf File is saved at " + filepath2);
+
                 }
-                showAlertinfo("", "Pdf File is saved at " + filepath1);
+                else{
+                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/" + "printing" + ".pdf");
+                    System.out.println("PDF created successfully.");
+                    String filepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\" +"printing"  + ".pdf";
+                    tableprintpath=filepath1;
+                }
+//                showAlertinfo("", "Pdf File is saved at " + filepath1);
             } else {
-                document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/From_" + fromexem + "_To_" + toexem + "_" + pdffilename + ".pdf");
-                System.out.println("PDF created successfully.");
-                String filepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\From_" + fromexem + "_To_" + toexem + "_" + pdffilename + ".pdf";
-                if (filepath1 != null) {
+
+                if ( print1!="print") {
                     // Open the selected PDF file in a PDF viewer
+                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/From_" + fromexem + "_To_" + toexem + "_" + pdffilename + ".pdf");
+                    System.out.println("PDF created successfully.");
+                    String filepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\From_" + fromexem + "_To_" + toexem + "_" + pdffilename + ".pdf";
                     try {
                         Desktop.getDesktop().open(new File(filepath1));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    showAlertinfo("", "Pdf File is saved at " + filepath1);
+
                 }
-                showAlertinfo("", "Pdf File is saved at " + filepath1);
+                else{
+                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF+ "/" + "printing1" + ".pdf");
+                    System.out.println("PDF created successfully.");
+                    String filepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\" +"printing1"  + ".pdf";
+                    tableprintpath=filepath1;
+                }
             }
 
 
@@ -611,7 +652,7 @@ public class Print_And_Pdf_Of_Table_Records {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return tableprintpath;
     }
 
     private void showAlertinfo(String title, String message) {

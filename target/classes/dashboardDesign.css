@@ -395,8 +395,114 @@ and open the template in the editor.
 }
 
 
+/* ScrollPane background */
+.client-scroll {
+    -fx-background: #fff;
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+}
+
+/* VBox container */
+.client-list {
+    -fx-padding: 10;
+    -fx-background-color: white;
+}
+
+/* Each row */
+.client-row {
+    -fx-background-color: #fff7f0;   /* light orange tint */
+    -fx-padding: 8 12;
+    -fx-alignment: CENTER;
+    -fx-spacing: 50;
+    -fx-border-color: #f2d3b6;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+.client-row:hover {
+    -fx-background-color: #ffe4c4;   /* hover effect */
+}
+
+/* Client name label */
+.client-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #444;
+    -fx-cursor: hand;
+}
+
+.client-name:hover {
+    -fx-text-fill: #e67e22; /* orange hover */
+}
+
+/* Delete button */
+.delete-btn {
+    -fx-background-color: #ff4d4d;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 12;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.delete-btn:hover {
+    -fx-background-color: #e67e22;
+}
 
 
 
 
 
+/* Grid styling */
+.client-detail-grid {
+    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-border-color: #f2d3b6;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* Field labels */
+.field-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e67e22;   /* orange accent */
+}
+
+/* Field values */
+.field-value {
+    -fx-font-size: 13px;
+    -fx-text-fill: #333;
+    -fx-background-color: #fff7f0; /* light orange highlight */
+    -fx-padding: 4 8;
+    -fx-background-radius: 4;
+}
+
+
+
+/* FAQ titled pane */
+.faq-pane {
+    -fx-background-color: #fff7f0;       /* light orange tint */
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 4;
+    -fx-border-color: #f2d3b6;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* When expanded */
+.faq-pane:expanded {
+    -fx-background-color: #ffe4c4;       /* slightly darker orange */
+}
+
+/* Answer text */
+.faq-answer {
+    -fx-font-size: 13px;
+    -fx-text-fill: #444;
+    -fx-padding: 5;
+    -fx-background-radius: 5;
+}

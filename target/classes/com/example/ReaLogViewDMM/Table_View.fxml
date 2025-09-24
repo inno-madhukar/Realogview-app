@@ -57,8 +57,10 @@
                 <TableColumn fx:id="ClientName" prefWidth="109.3333740234375" text="Client Name"/>
                 <TableColumn fx:id="Location" prefWidth="109.3333740234375" text="Location"/>
                 <TableColumn fx:id="TruckNumber" prefWidth="109.3333740234375" text="Truck Number"/>
+                <TableColumn fx:id="Vendorid" prefWidth="109.3333740234375" text="Vendor ID"/>
                 <TableColumn fx:id="TotalWeight" prefWidth="109.3333740234375" text="Total Weight"/>
                 <TableColumn fx:id="Remarks" prefWidth="109.3333740234375" text="Remarks"/>
+
             </columns>
         </TableView>
     </center>

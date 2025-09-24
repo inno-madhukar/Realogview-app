@@ -72,8 +72,8 @@ public class Pdf_Generate_With_Print_Operation {
         String name = file.getName().toLowerCase();
         return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
     }
-
-    public void genratepdf(String idatetime) throws IOException {
+    String pdfPath="";
+    public String genratepdf(String idatetime) throws IOException {
 //        String imagePath12 = "images/white_Image.png";
 //        String absoluteImagePath12 = String.valueOf(new File(imagePath12).getAbsolutePath());
 //        System.out.println("path  -  "+absoluteImagePath12);
@@ -214,7 +214,7 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.showText("Other Information");
             contentStream.endText();
             loopy-=24;
-            String[] cars1 = {"Client Name :","Location :","Truck Number :","Total Weight :","Remarks :"};
+            String[] cars1 = {"Client Name :","Location :","Truck Number :","Vendor ID","Total Weight :","Remarks :"};
             for (String i : cars1) {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
                 contentStream.beginText();
@@ -301,12 +301,18 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx2 + 20, loopyDmm - 251);
-            contentStream.showText(otherinformation[3] );
+            contentStream.showText(otherinformation[5] );
             contentStream.endText();
 
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 275);
+            contentStream.showText(otherinformation[3] );
+            contentStream.endText();
+
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 299);
             contentStream.showText(otherinformation[4] );
             contentStream.endText();
 
@@ -341,10 +347,13 @@ public class Pdf_Generate_With_Print_Operation {
             String pdffilename = fruits[0] + "_" + idatetime;
             document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Data + "/" + IPDF + "/" + pdffilename + ".pdf");
             System.out.println("PDF created successfully.");
+             pdfPath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Data + "/" + IPDF + "/" + pdffilename + ".pdf";
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return pdfPath;
+
     }
 
     byte[] pdfbytesend(ResultSet resultSet) {

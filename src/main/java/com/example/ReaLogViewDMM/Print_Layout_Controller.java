@@ -143,7 +143,11 @@ public class Print_Layout_Controller {
                 lab5.setVisible(true);
             }
             if (ddata[5] != null) {
-                lab6.setText(ddata[5].replace("|", ","));
+                lab6.setText(ddata[5]);
+                lab6.setVisible(true);
+            }
+            else{
+                lab6.setText(" - ");
                 lab6.setVisible(true);
             }
             if (ddata[6] != null) {

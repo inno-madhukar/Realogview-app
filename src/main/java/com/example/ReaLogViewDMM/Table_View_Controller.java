@@ -4,9 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 
@@ -31,6 +36,7 @@ public class Table_View_Controller {
     public TableColumn<TableModel, String> ClientName;
     public TableColumn<TableModel, String> Location;
     public TableColumn<TableModel, String> TruckNumber;
+    public TableColumn<TableModel, String> Vendorid;
     public TableColumn<TableModel, String> TotalWeight;
     public TableColumn<TableModel, String> Remarks;
     @FXML
@@ -47,6 +53,7 @@ public class Table_View_Controller {
 
     public Data_Holder comdata;
     public Data_Holder comdata1;
+
 
 
     ResultSet resultsetdata = null;
@@ -67,8 +74,9 @@ public class Table_View_Controller {
         ClientName.setCellValueFactory(cellData -> cellData.getValue().nameProperty7());
         Location.setCellValueFactory(cellData -> cellData.getValue().nameProperty8());
         TruckNumber.setCellValueFactory(cellData -> cellData.getValue().nameProperty9());
-        TotalWeight.setCellValueFactory(cellData -> cellData.getValue().nameProperty10());
-        Remarks.setCellValueFactory(cellData -> cellData.getValue().nameProperty11());
+        Vendorid.setCellValueFactory(cellData -> cellData.getValue().nameProperty10());
+        TotalWeight.setCellValueFactory(cellData -> cellData.getValue().nameProperty11());
+        Remarks.setCellValueFactory(cellData -> cellData.getValue().nameProperty12());
 
 
     }
@@ -95,20 +103,60 @@ public class Table_View_Controller {
     void print_table_data() throws SQLException, InterruptedException, IOException {
 
         if (oneyearArray != null) {
+            System.out.print("777777777777777777777777777777777777777777777777777777777777777777777777777777777777" + oneyearArray.length);
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(oneyearArray[0], oneyearArray[1], oneyearArray[2]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
-            printAndPdfOfTableRecords.printtable(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2]);
+          String printpath=  printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], oneyearArray[3], oneyearArray[4],"print");
+          if (printpath.isEmpty()){
+              return;
+          }
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UTILITY); // small utility window
+            stage.setWidth(1);
+            stage.setHeight(1);
+            // Add a minimal empty scene
+            stage.setScene(new Scene(new StackPane()));
+            stage.show(); // must show to get a valid window handle
+            DMMAPPGUIController.printPdfWithJob(printpath,stage);
+            stage.close(); // o
         } else if (towyearArray != null) {
+
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdatafortowyears(towyearArray[0], towyearArray[1], towyearArray[2], towyearArray[3]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
-            printAndPdfOfTableRecords.printtable(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2]);
+           String printpath= printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], towyearArray[4], towyearArray[5],"print");
+            if (printpath.isEmpty()){
+                return;
+            }
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UTILITY); // small utility window
+            stage.setWidth(1);
+            stage.setHeight(1);
+            // Add a minimal empty scene
+            stage.setScene(new Scene(new StackPane()));
+            stage.show(); // must show to get a valid window handle
+            DMMAPPGUIController.printPdfWithJob(printpath,stage);
+            stage.close(); // o
         } else if (todayArray != null) {
+            System.out.println(".....................................................");
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(todayArray[0], todayArray[1], todayArray[2]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
-            printAndPdfOfTableRecords.printtable(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2]);
+            String printpath=printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], "today", "today","print");
+            if (printpath.isEmpty()){
+                return;
+            }
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UTILITY); // small utility window
+            stage.setWidth(1);
+            stage.setHeight(1);
+            // Add a minimal empty scene
+            stage.setScene(new Scene(new StackPane()));
+            stage.show(); // must show to get a valid window handle
+            DMMAPPGUIController.printPdfWithJob(printpath,stage);
+            stage.close(); // optional, close after printing
+
         } else {
 
         }
@@ -124,18 +172,18 @@ public class Table_View_Controller {
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(oneyearArray[0], oneyearArray[1], oneyearArray[2]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
-            printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], oneyearArray[3], oneyearArray[4]);
+            printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], oneyearArray[3], oneyearArray[4],"noprint");
         } else if (towyearArray != null) {
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdatafortowyears(towyearArray[0], towyearArray[1], towyearArray[2], towyearArray[3]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
-            printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], towyearArray[4], towyearArray[5]);
+            printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], towyearArray[4], towyearArray[5],"noprint");
         } else if (todayArray != null) {
             System.out.println("333333333333333333333333333333333333333333333333333333333333333333333333333333333333333");
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(todayArray[0], todayArray[1], todayArray[2]);
             Print_And_Pdf_Of_Table_Records printAndPdfOfTableRecords = new Print_And_Pdf_Of_Table_Records();
-            printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], "today", "today");
+            printAndPdfOfTableRecords.exportpdf(resultSet, comnamedata[0], comnamedata[1], comnamedata[3], comnamedata[2], "today", "today","noprint");
         } else {
 
         }
@@ -233,7 +281,7 @@ public class Table_View_Controller {
         int columnCount = metaData.getColumnCount();
 
         Row headerRow = sheet.createRow(0);
-        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required (gram)", "Client Name","Location","Truck Number","Total Weight","Remarks"};
+        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required (gram)", "Client Name","Location","Truck Number","Vendor ID","Total Weight","Remarks"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             System.out.println(columnName);
@@ -253,14 +301,14 @@ public class Table_View_Controller {
         sheet.setColumnWidth(9, firstColumnWidth + 30 * 256);
         sheet.setColumnWidth(10, firstColumnWidth + 40 * 256);
         sheet.setColumnWidth(11, firstColumnWidth + 20 * 256);
-
+        sheet.setColumnWidth(13, firstColumnWidth + 20 * 256);
         int rowNum = 1;
         int idvalue = 1;
         while (resultSet.next()) {
             Row row = sheet.createRow(rowNum++);
             for (int i = 1; i <= columnCount; i++) {
 
-                 if (i == 1) {
+                if (i == 1) {
                     Cell cell = row.createCell(i - 1);
                     cell.setCellValue(idvalue);
                 } else if (i == 6) {
@@ -269,7 +317,22 @@ public class Table_View_Controller {
                     LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);
                     String nr6 = localDateTime.format(globeldtformatter);
                     cell.setCellValue(nr6);
-                } else {
+                }
+                else if(i==11){
+                    Cell cell = row.createCell(i - 1);
+                    cell.setCellValue(resultSet.getString(13));
+                }
+                else if(i==12){
+                    Cell cell = row.createCell(i - 1);
+                    cell.setCellValue(resultSet.getString(11));
+                }
+
+                else if(i==13){
+                    Cell cell = row.createCell(i - 1);
+                    cell.setCellValue(resultSet.getString(12));
+                }
+
+                else {
                     Cell cell = row.createCell(i - 1);
                     cell.setCellValue(resultSet.getString(i));
                 }
@@ -298,10 +361,11 @@ class TableModel {
     private SimpleStringProperty ClientName;
     private SimpleStringProperty Location;
     private SimpleStringProperty TruckNumber;
+    private SimpleStringProperty Vendorid;
     private SimpleStringProperty TotalWeight;
     private SimpleStringProperty Remarks;
 
-    public TableModel(String Tid, String srno, String commname, String moist, String Ttemp, String Ttime, String sqreqd, String ClientName,String Location,String TruckNumber,String TotalWeight,String Remarks) {
+    public TableModel(String Tid, String srno, String commname, String moist, String Ttemp, String Ttime, String sqreqd, String ClientName,String Location,String TruckNumber, String Vendorid,String TotalWeight,String Remarks) {
         this.Tid = new SimpleStringProperty(Tid);
         this.Tsrno = new SimpleStringProperty(srno);
         this.commname = new SimpleStringProperty(commname);
@@ -312,6 +376,7 @@ class TableModel {
         this.ClientName = new SimpleStringProperty(ClientName);
         this.Location = new SimpleStringProperty(Location);
         this.TruckNumber = new SimpleStringProperty(TruckNumber);
+        this.Vendorid = new SimpleStringProperty(Vendorid);
         this.TotalWeight = new SimpleStringProperty(TotalWeight);
         this.Remarks = new SimpleStringProperty(Remarks);
     }
@@ -348,6 +413,9 @@ class TableModel {
     }
     public String getTurckNumber() {
         return TruckNumber.get();
+    }
+    public String getVendorid() {
+        return Vendorid.get();
     }
     public String getTotalWeight() {
         return TotalWeight.get();
@@ -393,9 +461,12 @@ class TableModel {
         return TruckNumber;
     }
     public SimpleStringProperty nameProperty10() {
-        return TotalWeight;
+        return Vendorid;
     }
     public SimpleStringProperty nameProperty11() {
+        return TotalWeight;
+    }
+    public SimpleStringProperty nameProperty12() {
         return Remarks;
     }
 

@@ -14,6 +14,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -49,6 +50,11 @@
                                 <Font name="Segoe UI Black" size="21.0" />
                             </font>
                         </Label>
+                  <ImageView fitHeight="38.0" fitWidth="51.0" layoutX="13.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/logo1.jpg" />
+                     </image>
+                  </ImageView>
                     </children>
                 </AnchorPane>
             </children>
@@ -276,12 +282,12 @@
                                                 <Font name="Segoe UI Bold" size="17.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="Tfd1" layoutX="611.0" layoutY="56.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
+                                        <TextField fx:id="Tfd1" layoutX="635.0" layoutY="56.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
 
-                                        <TextField fx:id="Tfd2" layoutX="611.0" layoutY="100.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd3" layoutX="611.0" layoutY="140.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd4" layoutX="611.0" layoutY="181.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
-                                        <TextField fx:id="Tfd5" layoutX="611.0" layoutY="221.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
+                                        <TextField fx:id="Tfd2" layoutX="635.0" layoutY="100.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
+                                        <TextField fx:id="Tfd3" layoutX="635.0" layoutY="140.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
+                                        <TextField fx:id="Tfd4" layoutX="635.0" layoutY="215.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
+                                        <TextField fx:id="Tfd5" layoutX="635.0" layoutY="255.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
                                         <TextField fx:id="Tfd6" layoutX="611.0" layoutY="321.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
                                         <TextField fx:id="Tfd7" layoutX="611.0" layoutY="362.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
                                         <TextField fx:id="Tfd8" layoutX="611.0" layoutY="402.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
@@ -292,12 +298,12 @@
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl4" layoutX="519.0" layoutY="185.0" prefHeight="19.0" prefWidth="87.0" text="Total Weight :" textFill="WHITE">
+                                        <Label fx:id="tfl4" layoutX="519.0" layoutY="219.0" prefHeight="19.0" prefWidth="87.0" text="Total Weight :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl3" layoutX="520.0" layoutY="143.0" prefHeight="19.0" prefWidth="87.0" text="Truck Number :" textFill="WHITE">
+                                        <Label fx:id="tfl3" layoutX="520.0" layoutY="143.0" prefHeight="19.0" prefWidth="109.0" text="Truck Number :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -307,12 +313,12 @@
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl5" layoutX="520.0" layoutY="224.0" prefHeight="19.0" prefWidth="87.0" text="Remarks :" textFill="WHITE">
+                                        <Label fx:id="tfl5" layoutX="520.0" layoutY="258.0" prefHeight="19.0" prefWidth="87.0" text="Remarks :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Button fx:id="addtextfield" layoutX="753.0" layoutY="265.0" mnemonicParsing="false" onAction="#addtextfieldFunc" prefHeight="26.0" prefWidth="115.0" styleClass="white-bg" text="+ Add TextField">
+                                        <Button fx:id="addtextfield" layoutX="755.0" layoutY="331.0" mnemonicParsing="false" onAction="#addtextfieldFunc" prefHeight="26.0" prefWidth="115.0" styleClass="white-bg" text="+ Add TextField">
                                             <effect>
                                                 <DropShadow />
                                             </effect>
@@ -360,6 +366,12 @@
                                                 </DropShadow>
                                             </effect>
                                         </Button>
+                              <Label layoutX="523.0" layoutY="180.0" text="Vendor ID :" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Tfdvid" layoutX="636.0" layoutY="177.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane id="Cobox2" fx:id="conectionwindow" focusTraversable="true" layoutX="112.0" layoutY="85.0" prefHeight="310.0" prefWidth="487.0" styleClass="scence1" visible="false">
@@ -463,7 +475,7 @@
                                         <TextArea fx:id="proAddress" disable="true" layoutX="223.0" layoutY="325.0" prefHeight="74.0" prefWidth="251.0" wrapText="true" />
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane id="Hbox4" fx:id="generalinfoBox" focusTraversable="true" layoutX="8.0" layoutY="7.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
+                                <AnchorPane id="Hbox4" fx:id="generalinfoBox" focusTraversable="true" layoutX="8.0" layoutY="7.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
                                     <children>
                                         <Label layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="299.0" text="Help :" textFill="WHITE">
                                             <font>
@@ -486,9 +498,21 @@
                                                 <Font name="Cambria Italic" size="13.0" />
                                             </font>
                                         </Label>
-                                        <VBox fx:id="faqBox" layoutX="74.0" layoutY="180.0" prefHeight="70.0" prefWidth="800.0" spacing="10.0">
+                                        <VBox fx:id="faqBox" layoutX="65.0" layoutY="226.0" prefHeight="70.0" prefWidth="800.0" spacing="10.0">
                                             <!-- FAQ items will be added dynamically in controller -->
                                         </VBox>
+                              <Label layoutX="474.0" layoutY="171.0" text="FAQ" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="23.0" />
+                                 </font>
+                                 <effect>
+                                    <DropShadow>
+                                       <color>
+                                          <Color opacity="0.3778626024723053" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </Label>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane id="Rebox5" fx:id="historyDataBox" focusTraversable="true" layoutX="12.0" layoutY="14.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
