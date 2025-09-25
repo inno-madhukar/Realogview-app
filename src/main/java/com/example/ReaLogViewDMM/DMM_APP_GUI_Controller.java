@@ -1065,7 +1065,7 @@ public class DMM_APP_GUI_Controller {
         String comphon = proPhoNo.getText();
         String comemail = proEmId.getText();
 
-        Arrays.fill(informationarray, null);
+        Arrays.fill(informationarray, " ");
         System.out.println("heeeee");
         // Replace this with the path to your generated PDF file
 
@@ -1105,7 +1105,7 @@ public class DMM_APP_GUI_Controller {
 
         secondController.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
 
-        System.out.println("array  " + informationarray);
+        System.out.println("array  " + Arrays.toString(informationarray));
 //        a1.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
         AnchorPane v1 = new AnchorPane(newStage.getScene().getRoot());
         Stage stage = null;
@@ -1113,7 +1113,7 @@ public class DMM_APP_GUI_Controller {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
         String formattedDateTime00 = formatter12.format(now);
-        if(!informationarray[0].trim().isEmpty()){
+        if(!(informationarray[0].trim().isEmpty())){
             saveClientJson(informationarray);
         }
 
