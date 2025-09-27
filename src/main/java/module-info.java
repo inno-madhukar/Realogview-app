@@ -15,6 +15,7 @@ module com.example.dmmguivisible {
     requires org.json;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+    requires javafx.graphics;
 //    requires java.prefs;
 
     opens com.example.ReaLogViewDMM to javafx.fxml;

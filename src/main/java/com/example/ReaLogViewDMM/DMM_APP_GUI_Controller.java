@@ -27,11 +27,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.transform.Scale;
 import javafx.stage.*;
 
@@ -291,6 +288,7 @@ public class DMM_APP_GUI_Controller {
     public void showClientListModal() {
         Stage modal = new Stage();
         modal.initModality(Modality.APPLICATION_MODAL);
+        modal.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.png")));
         modal.setTitle("Clients");
 
 // VBox container for rows
@@ -323,7 +321,7 @@ public class DMM_APP_GUI_Controller {
         scrollPane.setFitToWidth(true);
         scrollPane.getStyleClass().add("client-scroll");
 
-        Scene scene = new Scene(scrollPane, 350, 450);
+        Scene scene = new Scene(scrollPane, 500, 500);
         scene.getStylesheets().add(getClass().getResource("/dashboardDesign.css").toExternalForm());
         modal.setScene(scene);
         modal.showAndWait();
@@ -336,6 +334,8 @@ public class DMM_APP_GUI_Controller {
 
         Stage detailModal = new Stage();
         detailModal.initModality(Modality.APPLICATION_MODAL);
+        detailModal.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.png")));
+
         detailModal.setTitle("Client Details: " + clientName);
 
 // GridPane layout
@@ -395,7 +395,7 @@ public class DMM_APP_GUI_Controller {
         truckValue.getStyleClass().add("field-value");
         grid.addRow(row++, truckLabel, truckValue);
 
-        Scene scene = new Scene(grid, 450, 300);
+        Scene scene = new Scene(grid, 600, 500);
         scene.getStylesheets().add(getClass().getResource("/dashboardDesign.css").toExternalForm());
         detailModal.setScene(scene);
         detailModal.showAndWait();
@@ -590,7 +590,7 @@ public class DMM_APP_GUI_Controller {
             System.out.println("done" + path);
             Image image = new Image(getClass().getResource("/images/l5.jpg").toExternalForm());
             headerimage.setImage(image);
-            Image image1 = new Image(getClass().getResource("/images/temp logo.jpg").toExternalForm());
+            Image image1 = new Image(getClass().getResource("/images/temp logo.png").toExternalForm());
 //            headerlogo.setImage(image1);
             Image image9 = new Image(getClass().getResource("/images/qg1.png").toExternalForm());
             quick_guiad.setImage(image9);
@@ -1051,14 +1051,14 @@ public class DMM_APP_GUI_Controller {
         Scene scene12 = new Scene(fxmlLoader1.load(), 500, 600);
         Print_Layout_Controller a1 = fxmlLoader1.getController();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Print_Layout.fxml"));
-        Parent root = loader.load();
-        Print_Layout_Controller secondController = loader.getController();
-        Stage newStage = new Stage();
-        newStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.jpg")));
-        newStage.setTitle("Print Output");
-        newStage.setScene(new Scene(root, 500, 600));
-        newStage.show();
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("Print_Layout.fxml"));
+//        Parent root = loader.load();
+//        Print_Layout_Controller secondController = loader.getController();
+//        Stage newStage = new Stage();
+//        newStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.png")));
+//        newStage.setTitle("Print Output");
+//        newStage.setScene(new Scene(root, 500, 600));
+//        newStage.show();
 
         String comName = proCoNmae.getText();
         String address = proAddress.getText();
@@ -1103,13 +1103,13 @@ public class DMM_APP_GUI_Controller {
             informationarray[9] = Tfd10.getText().trim() + "|";
         }
 
-        secondController.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
+//        secondController.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
 
         System.out.println("array  " + Arrays.toString(informationarray));
 //        a1.setData(MAC_ID, fruits, time_of_recived_data, informationarray, comName, address, comemail, comphon);
-        AnchorPane v1 = new AnchorPane(newStage.getScene().getRoot());
-        Stage stage = null;
-        printAnchorPane(v1, stage);
+//        AnchorPane v1 = new AnchorPane(newStage.getScene().getRoot());
+//        Stage stage = null;
+//        printAnchorPane(v1, stage);
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
         String formattedDateTime00 = formatter12.format(now);
@@ -1121,9 +1121,21 @@ public class DMM_APP_GUI_Controller {
         if (bit0 == 1) {
 //}
             Pdf_Generate_With_Print_Operation Pdf1 = new Pdf_Generate_With_Print_Operation(MAC_ID, fruits, time_of_recived_data, comName, address, comphon, comemail, informationarray);
-            Pdf1.genratepdf(formattedDateTime00);    //get image from imageview of fxml
-//            printPdfWithJob(pdfpath, stage); // pass your main JavaFX stage
-
+            String path=Pdf1.genratepdf(formattedDateTime00);    //get image from imageview of fxml
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UTILITY); // small utility window
+            stage.setWidth(1);
+            stage.setHeight(1);
+            // Add a minimal empty scene
+            stage.setScene(new Scene(new StackPane()));
+            stage.show(); // must show to get a valid window handle
+            printPdfWithJob(path,stage);
+            stage.close(); // o
+            try {
+                Desktop.getDesktop().open(new File(path));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             String array2 = Arrays.toString(informationarray);
             String newTemp_info2 = array2.replace("|,", "|");
             String new_arr3 = newTemp_info2.replace("null,", "");
@@ -1467,7 +1479,7 @@ public class DMM_APP_GUI_Controller {
             String formattedDateTime = formatter12.format(now);
 
             if (RedBtn1.isSelected()) {
-                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex + "_" + formattedDateTime + ".xlsx");
+                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex + ".xlsx");
 
             } else if (RedBtn2.isSelected()) {
                 messageBodyPart.setFileName(formattedDateTime + ".xlsx");
@@ -1978,7 +1990,7 @@ public class DMM_APP_GUI_Controller {
 
         String[] informationarray1 = new String[10];
         JSONObject clientjson = new JSONObject();
-        Arrays.fill(informationarray1, null);
+        Arrays.fill(informationarray1, " ");
         if (!isFieldEmpty(Tfd1)) {
             informationarray1[0] = Tfd1.getText().trim() ;
         }
@@ -2028,7 +2040,7 @@ public class DMM_APP_GUI_Controller {
                     Task<Void> sendEmailTask = new Task<Void>() {
                         @Override
                         protected Void call() throws Exception {
-                            IsendEmailWithAttachment(smtpHost, senderEmail, senderPassword, mail1, subject, body, pdfContent);
+                            IsendEmailWithAttachment(smtpHost, senderEmail, senderPassword, mail1, subject, body, pdfContent,informationarray1[0]);
                             for (int i = 0; i <= 100; i++) {
                                 updateProgress(i, 100);
                                 Thread.sleep(1); // Simulate email sending delay
@@ -2057,7 +2069,7 @@ public class DMM_APP_GUI_Controller {
                     Task<Void> sendEmailTask = new Task<Void>() {
                         @Override
                         protected Void call() throws Exception {
-                            indivipdfsend(mail11, mail2, pdfContent);
+                            indivipdfsend(mail11, mail2, pdfContent,informationarray1[0]);
                             for (int i = 0; i <= 100; i++) {
                                 updateProgress(i, 100);
                                 Thread.sleep(1); // Simulate email sending delay
@@ -2087,7 +2099,7 @@ public class DMM_APP_GUI_Controller {
     }
 
 // convert fetch mesured data , onvert into pdf , then send to user email
-    void indivipdfsend(String mail2, String mail11, byte[] pdfContent) throws MessagingException {
+    void indivipdfsend(String mail2, String mail11, byte[] pdfContent,String othercname) throws MessagingException {
         String smtpHost = "smtp.gmail.com";
         String senderEmail = gmailid_of_II;
         String senderPassword = gmailpass_of_II;
@@ -2095,15 +2107,31 @@ public class DMM_APP_GUI_Controller {
         String subject = "PDF Attachment";
         String body = "Please find attached the generated PDF.";
         String[] addresses = mail2.split(",");
-        IsendEmailWithAttachment(smtpHost, senderEmail, senderPassword, mail11, subject, body, pdfContent);
+        IsendEmailWithAttachment(smtpHost, senderEmail, senderPassword, mail11, subject, body, pdfContent,othercname);
         for (String address1 : addresses) {
-            IsendEmailWithAttachment(smtpHost, senderEmail, senderPassword, address1.trim(), subject, body, pdfContent);
+            IsendEmailWithAttachment(smtpHost, senderEmail, senderPassword, address1.trim(), subject, body, pdfContent,othercname);
         }
+    }
+    public static String[] splitIntoChunks(String input, int chunkSize) {
+        if (input == null || input.isEmpty()) {
+            return new String[0]; // return empty array for null or empty string
+        }
+
+        List<String> chunks = new ArrayList<>();
+        int length = input.length();
+
+        for (int i = 0; i < length; i += chunkSize) {
+            int end = Math.min(length, i + chunkSize);
+            chunks.add(input.substring(i, end));
+        }
+
+        return chunks.toArray(new String[0]);
     }
 
     // get byte fromat of pdf file
     public byte[] generatePDFContent(String[] fruits, String comName, String address, String comPhone, String comEmail, String[] otherinformation) throws IOException {
 //        showAlertinfo("",absoluteImagePath12);
+
         System.out.println(otherinformation[0]);
         Image image0 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
         BufferedImage bufferedImage1 = SwingFXUtils.fromFXImage(image0, null);
@@ -2111,13 +2139,13 @@ public class DMM_APP_GUI_Controller {
 
         float ix1 = 20; // X-coordinate
         float iy1 = 20; // Y-coordinate
-        float iwidth1 = 80; // Width
+        float iwidth1 = 100; // Width
         float iheight1 = 30; // Height
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
             //image
-            float x = 20; // X-coordinate
+            float x = 25; // X-coordinate
             float y = 695; // Y-coordinate
             float width = 140; // Width
             float height = 80; // Height
@@ -2152,17 +2180,73 @@ public class DMM_APP_GUI_Controller {
                 }
             }
 
+
+            float gy=760;
+            float emX = 340;
+            float pmX = 400;
+
+
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(emX, gy);
+            contentStream.showText("Company Name :");
+            contentStream.endText();
+            contentStream.setFont(PDType1Font.HELVETICA, 8);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(pmX+15, gy);
+            contentStream.showText(comName);
+            contentStream.endText();
+            gy-=12;
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(emX, gy);
+            contentStream.showText("Email Id : ");
+            contentStream.endText();
+            contentStream.setFont(PDType1Font.HELVETICA, 8);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(pmX-20, gy);
+            contentStream.showText(comEmail);
+            contentStream.endText();
+            gy-=11;
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(emX, gy);
+            contentStream.showText("Ph No :  " );
+            contentStream.endText();
+            contentStream.setFont(PDType1Font.HELVETICA, 8);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(pmX-20, gy);
+            contentStream.showText(comPhone);
+            contentStream.endText();
+
+            gy-=11;
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(emX, gy);
+            contentStream.showText("Address :" );
+            contentStream.endText();
+            String newaddress = address.trim().replaceAll("\n", " ");
+            System.out.println(newaddress);
+            String[] newStrg1 = address.split("\n");
+            for (String line : newStrg1) {
+                contentStream.setFont(PDType1Font.HELVETICA, 9);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(pmX-20, gy);
+                contentStream.showText(line + " ,");
+                contentStream.endText();
+                gy -= 11;
+            }
+
+            gy-=21;
             //lines
             float startX = 30; // X-coordinate of the starting point
-            float startY = 660; // Y-coordinate of the starting point
             float endX = 580; // X-coordinate of the ending point
-            float endY = 660; // Y-coordinate of the ending point
             float lineWidth = 1; // Line width in points
             float[] lineColor = {0, 0, 0}; //
             contentStream.setLineWidth(lineWidth);
             contentStream.setStrokingColor(lineColor[0], lineColor[1], lineColor[2]);
-            contentStream.moveTo(startX, startY);
-            contentStream.lineTo(endX, endY);
+            contentStream.moveTo(startX, gy);
+            contentStream.lineTo(endX, gy);
             contentStream.stroke();
 
             //line2
@@ -2178,49 +2262,9 @@ public class DMM_APP_GUI_Controller {
             contentStream.lineTo(endX1, endY1);
             contentStream.stroke();
 
-            //header
-            float x3 = 180;
-            float y3 = 730;
-            float x1 = 210;
-            float y1 = 715;
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 20);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(x3, y3);
-            contentStream.showText(comName);
-            contentStream.endText();
 
-            String newaddress = address.trim().replaceAll("\n", " ");
-            System.out.println(newaddress);
-            String[] newStrg1 = address.split("\n");
-            for (String line : newStrg1) {
-                contentStream.setFont(PDType1Font.HELVETICA, 9);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(x1, y1);
-                contentStream.showText(line + " ,");
-                contentStream.endText();
-                y1 -= 11;
-            }
-
-            float emX = 440;
-            float emy = 770;
-            float pmX = 440;
-            float pmy = 755;
-
-            contentStream.setFont(PDType1Font.HELVETICA, 8);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(emX, emy);
-            contentStream.showText("Email Id:  " + comEmail);
-            contentStream.endText();
-
-            contentStream.setFont(PDType1Font.HELVETICA, 8);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(pmX, pmy);
-            contentStream.showText("Ph No:  " + comPhone);
-            contentStream.endText();
-
-
-            float loopy = 600;
-            float loopyDmm = 600;
+            float loopy = gy-30;
+            float loopyDmm = gy-30;
             //device mesured data
             float loopx = 110;
 
@@ -2234,21 +2278,8 @@ public class DMM_APP_GUI_Controller {
                 loopy -= 24;
             }
             loopy-=10;
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(loopx, loopy);
-            contentStream.showText("Other Information");
-            contentStream.endText();
+
             loopy-=24;
-            String[] cars1 = {"Client Name :","Location :","Truck Number :","Vendor ID","Total Weight :","Remarks :"};
-            for (String i : cars1) {
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(loopx, loopy);
-                contentStream.showText(i);
-                contentStream.endText();
-                loopy -= 24;
-            }
 
 //            // serial data printing
             float loopx2 = 185;
@@ -2264,21 +2295,21 @@ public class DMM_APP_GUI_Controller {
             System.out.println(fruits[1]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(240, loopyDmm - 24);
+            contentStream.newLineAtOffset(240, loopyDmm -= 24);
             contentStream.showText(fruits[1]);
             contentStream.endText();
 //
             System.out.println(fruits[2]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 48);
+            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm -= 24);
             contentStream.showText(fruits[2] + " %");
             contentStream.endText();
 //
             System.out.println(fruits[3]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm - 72);
+            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm -= 24);
             contentStream.showText(fruits[3] + " °C");
             contentStream.endText();
 //
@@ -2286,13 +2317,13 @@ public class DMM_APP_GUI_Controller {
             String formattedDateTime2 = currentDateTime2.format(globeldtformatter);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm - 96);
+            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm -= 24);
             contentStream.showText(time_of_recived_data);
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(290, loopyDmm - 120);
+            contentStream.newLineAtOffset(290, loopyDmm -= 24);
             if (fruits[4].equals("FULL")) {
                 contentStream.showText(fruits[4]);
                 contentStream.endText();
@@ -2300,48 +2331,124 @@ public class DMM_APP_GUI_Controller {
                 contentStream.showText(fruits[4] + " gram");
                 contentStream.endText();
             }
-
-
-            System.out.println(fruits[0]);
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            loopyDmm-=24;
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2+15, loopyDmm - 179 );
-            contentStream.showText(otherinformation[0]);
+            contentStream.newLineAtOffset(loopx, loopyDmm-=10);
+            contentStream.showText("Other Information");
+            loopyDmm-=20;
+            contentStream.endText();
+            String[] cars1 = {"Client Name :","Location :","Truck Number :","Vendor ID","Total Weight :","Remarks :"};
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx, loopyDmm);
+            contentStream.showText(cars1[0]);
+            contentStream.endText();
+            if(otherinformation[0].trim().length()>40){
+                String[] result = splitIntoChunks(otherinformation[0],40);
+                for(String chunk:result){
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                    contentStream.showText(chunk);
+                    contentStream.endText();
+                    loopyDmm-=15;
+                }
+                loopyDmm+=15;
+            }
+            else{
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.showText(otherinformation[0]);
+                contentStream.endText();
+            }
+
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx, loopyDmm -=24);
+            contentStream.showText("Location :");
             contentStream.endText();
 
-            System.out.println(fruits[1]);
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2+15, loopyDmm - 203);
-            contentStream.showText(otherinformation[1]);
-            contentStream.endText();
+            if(otherinformation[1].trim().length()>40){
+                String[] result = splitIntoChunks(otherinformation[1],40);
+                for(String chunk:result){
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                    contentStream.showText(chunk);
+                    contentStream.endText();
+                    loopyDmm-=15;
+                }
+                loopyDmm+=15;
+            }
+            else{
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.showText(otherinformation[1]);
+                contentStream.endText();
+            }
 //
-            System.out.println(fruits[2]);
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx, loopyDmm -=24);
+            contentStream.showText("Truck Number :");
+            contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm - 227);
+            contentStream.newLineAtOffset(loopx2 + 27, loopyDmm );
             contentStream.showText(otherinformation[2] );
             contentStream.endText();
 //
-            System.out.println(fruits[3]);
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx, loopyDmm -=24);
+            contentStream.showText("Vendor ID :");
+            contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm - 251);
+            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm );
             contentStream.showText(otherinformation[5] );
             contentStream.endText();
 
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(loopx, loopyDmm -=24);
+            contentStream.showText("Total Weight :");
+            contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 275);
-            contentStream.showText(otherinformation[3] );
+            contentStream.newLineAtOffset(loopx2 + 23, loopyDmm );
+            contentStream.showText(otherinformation[3] +" Kg" );
             contentStream.endText();
 
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm - 299);
-            contentStream.showText(otherinformation[4] );
+            contentStream.newLineAtOffset(loopx, loopyDmm -=24);
+            contentStream.showText("Remarks :");
             contentStream.endText();
+            if(otherinformation[4].trim().length()>40){
+                String[] result = splitIntoChunks(otherinformation[4],40);
+                for(String chunk:result){
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                    contentStream.showText(chunk);
+                    contentStream.endText();
+                    loopyDmm-=15;
+                }
+//                loopyDmm+=15;
+            }
+            else{
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.showText(otherinformation[4]);
+                contentStream.endText();
+            }
 
+//
 
 
             contentStream.setFont(PDType1Font.HELVETICA, 8);
@@ -2412,7 +2519,7 @@ public class DMM_APP_GUI_Controller {
             DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
             String formattedDateTime = formatter12.format(now);
             if (RedBtn1.isSelected()) {
-                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex + "_" + formattedDateTime + ".pdf");
+                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex+ ".pdf");
             } else if (RedBtn2.isSelected()) {
                 messageBodyPart.setFileName(formattedDateTime + ".pdf");
             }
@@ -2426,7 +2533,7 @@ public class DMM_APP_GUI_Controller {
         }
     }
 
-    public void IsendEmailWithAttachment(String smtpHost, String senderEmail, String senderPassword, String recipientEmail, String subject, String body, byte[] attachmentContent) throws MessagingException {
+    public void IsendEmailWithAttachment(String smtpHost, String senderEmail, String senderPassword, String recipientEmail, String subject, String body, byte[] attachmentContent,String othercname) throws MessagingException {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", smtpHost);
         properties.put("mail.smtp.auth", "true");
@@ -2460,7 +2567,7 @@ public class DMM_APP_GUI_Controller {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
             String formattedDateTime = formatter12.format(now);
-            String pdffilename = fruits[0] + "_" + formattedDateTime;
+            String pdffilename = fruits[0] + "_" + formattedDateTime+"_"+othercname;
             messageBodyPart.setFileName("" + pdffilename + ".pdf");
             multipart.addBodyPart(messageBodyPart);
             message.setContent(multipart);
@@ -2623,7 +2730,7 @@ public class DMM_APP_GUI_Controller {
                         Table_View_Controller secondController = loader.getController();
                         ObservableList<TableModel> TableModels = FXCollections.observableArrayList();
                         Stage newStage = new Stage();
-                        newStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.jpg")));
+                        newStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.png")));
                         newStage.setTitle("Table View");
                         Screen screen = Screen.getPrimary();
                         newStage.setScene(new Scene(root, 1200, 531));
@@ -2836,7 +2943,7 @@ public class DMM_APP_GUI_Controller {
 
                     Stage newStage = new Stage();
                     newStage.setTitle("Table View");
-                    newStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.jpg")));
+                    newStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.png")));
                     Screen screen = Screen.getPrimary();
                     newStage.setScene(new Scene(root, 1200, 531));
                     newStage.show();
@@ -4046,7 +4153,7 @@ public class DMM_APP_GUI_Controller {
 
     public void getquickguid(ActionEvent actionEvent) {
 
-        String imagePath12 = "Quick Guide/DMMQG.pdf";
+        String imagePath12 = "Quick Guide/DMMQGV1.pdf";
         String absoluteImagePath12 = String.valueOf(new File(imagePath12).getAbsolutePath());
 //        showAlert("",absoluteImagePath12);
         if (new File(absoluteImagePath12).exists()) {

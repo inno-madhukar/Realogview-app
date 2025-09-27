@@ -38,10 +38,10 @@ public class Main_Application extends Application {
             stage.setOpacity(1);
         });
 //        Image image00 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.jpg")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/temp logo.png")));
 
         stage.setScene(scene);
-        stage.setTitle("ReLogView DMM 1.0");
+        stage.setTitle("DMM B18 V1.0");
 //        stage.initStyle(StageStyle.UNIFIED);
         stage.show();
     }

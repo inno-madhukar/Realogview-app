@@ -208,8 +208,8 @@ public class Table_View_Controller {
 //        String exlefilepath1 = defaultPath+"\\"+Realogview+"\\"+DMM10+"\\"+Records+"\\"+EXCEL+"\\"+formattedDateTime+".xlsx";
 
         if (oneyearArray != null) {
-            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + oneyearArray[3] + "_To_" + oneyearArray[4] + "_" + formattedDateTime + ".xlsx";
-            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + oneyearArray[3] + "_To_" + oneyearArray[4] + "_" + formattedDateTime + ".xlsx";
+            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + oneyearArray[3] + "_To_" + oneyearArray[4]+".xlsx";
+            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + oneyearArray[3] + "_To_" + oneyearArray[4] +".xlsx";
             System.out.print("777777777777777777777777777777777777777777777777777777777777777777777777777777777777" + oneyearArray.length);
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(oneyearArray[0], oneyearArray[1], oneyearArray[2]);
@@ -225,8 +225,8 @@ public class Table_View_Controller {
             }
             showAlertinfo("", "Excel File is saved at " + exlefilepath1);
         } else if (towyearArray != null) {
-            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + towyearArray[4] + "_To_" + towyearArray[5] + "_" + formattedDateTime + ".xlsx";
-            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + towyearArray[3] + "_To_" + towyearArray[4] + "_" + formattedDateTime + ".xlsx";
+            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + towyearArray[4] + "_To_" + towyearArray[5] +".xlsx";
+            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + towyearArray[3] + "_To_" + towyearArray[4] +".xlsx";
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdatafortowyears(towyearArray[0], towyearArray[1], towyearArray[2], towyearArray[3]);
 
