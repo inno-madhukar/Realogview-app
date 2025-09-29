@@ -74,23 +74,29 @@ public class Print_And_Pdf_Of_Table_Records {
     }
 
     public byte[] getpdfbytes(ResultSet resultSet, String Comname, String Adress, String Email, String PNo) throws IOException {
-        System.out.println("emailing pdf");
+
+        int flag1=0;
+        tableprintpath="";
         BufferedImage image = null;
         File folder = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile);
         File[] files = folder.listFiles();
         for (File file : files) {
             if (isImageFile(file)) {
                 image = ImageIO.read(file);
+                flag1=1;
                 break;
             } else {
-                Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
-                image = SwingFXUtils.fromFXImage(image00, null);
+
             }
+        }
+        if(flag1==0){
+            Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
+            image = SwingFXUtils.fromFXImage(image00, null);
         }
         Image image0 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
         BufferedImage bufferedImage1 = SwingFXUtils.fromFXImage(image0, null);
 //          BufferedImage image1 = ImageIO.read(new File("src/main/resources/images/dmmlogo.jpg"));
-        float ix = 20; // X-coordinate
+        float ix = 40; // X-coordinate
         float iy = 700; // Y-coordinate
         float iwidth = 100; // Width
         float iheight = 60; // Height
@@ -110,7 +116,7 @@ public class Print_And_Pdf_Of_Table_Records {
             PDPageContentStream contentStream = new PDPageContentStream(document, page1);
             //image
             contentStream.drawImage(pdImage, ix, iy, iwidth, iheight);
-            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
+//            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
             //line
 
             pageNo += 1;
@@ -146,8 +152,8 @@ public class Print_And_Pdf_Of_Table_Records {
             int moistxv= 190;
             int timexv = 175;
             int tempxv = 366;
-            int cnamexv = 210; //490
-            int locaxv = 190 ;
+            int cnamexv = 205; //490
+            int locaxv = 215 ;
             int trunamexv = 500;   //340
             int totweightxv=200;
             int remarkxv=190;
@@ -164,7 +170,7 @@ public class Print_And_Pdf_Of_Table_Records {
                     document.addPage(newpage);
                     contentStream = new PDPageContentStream(document, newpage);
                     contentStream.drawImage(pdImage, ix, iy, iwidth, iheight);
-                    contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
+//                    contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
                     pageNo += 1;
                     contentStream.setFont(PDType1Font.HELVETICA, 7);
                     contentStream.beginText();
@@ -208,7 +214,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(semqrx, y1);
-                contentStream.showText("Sample Quantity Required :");
+                contentStream.showText("Weight :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
@@ -237,7 +243,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(timex, y1 );
-                contentStream.showText("Time :");
+                contentStream.showText("Date :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
@@ -248,7 +254,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(tempx, y1 );
-                contentStream.showText("Sample Temperature :");
+                contentStream.showText("Temperature :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
@@ -300,7 +306,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String cname=resultSet.getString(8);
                 if(cname.trim().length()>50){
-                    String[] result = splitIntoChunks(cname,50);
+                    String[] result = splitIntoChunks(cname,100);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(cnamexv, y1 );
@@ -321,15 +327,15 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(remarkx, y1 );
-                contentStream.showText("Location :");
+                contentStream.showText("Client Address :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String lname=resultSet.getString(9);
                 if(lname.trim().length()>50){
-                    String[] result = splitIntoChunks(lname,50);
+                    String[] result = splitIntoChunks(lname,100);
                     for(String chunk:result){
                         contentStream.beginText();
-                        contentStream.newLineAtOffset(remarkxv, y1 );
+                        contentStream.newLineAtOffset(locaxv, y1 );
                         contentStream.showText(chunk);
                         contentStream.endText();
                         y1-=10;
@@ -352,7 +358,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String rname=resultSet.getString(12);
                 if(rname.trim().length()>50){
-                    String[] result = splitIntoChunks(rname,50);
+                    String[] result = splitIntoChunks(rname,100);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(remarkxv, y1 );
@@ -401,6 +407,7 @@ public class Print_And_Pdf_Of_Table_Records {
     String tableprintpath="";
     String exportpdf(ResultSet resultSet, String Comname, String Adress, String Email, String PNo, String fromexem, String toexem, String print1) throws IOException {
 //
+        int flag1=0;
         tableprintpath="";
         BufferedImage image = null;
         File folder = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile);
@@ -408,16 +415,20 @@ public class Print_And_Pdf_Of_Table_Records {
         for (File file : files) {
             if (isImageFile(file)) {
                 image = ImageIO.read(file);
+                flag1=1;
                 break;
             } else {
-                Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
-                image = SwingFXUtils.fromFXImage(image00, null);
+
             }
+        }
+        if(flag1==0){
+            Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
+            image = SwingFXUtils.fromFXImage(image00, null);
         }
         Image image0 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
         BufferedImage bufferedImage1 = SwingFXUtils.fromFXImage(image0, null);
 //          BufferedImage image1 = ImageIO.read(new File("src/main/resources/images/dmmlogo.jpg"));
-        float ix = 20; // X-coordinate
+        float ix = 40; // X-coordinate
         float iy = 700; // Y-coordinate
         float iwidth = 100; // Width
         float iheight = 60; // Height
@@ -437,7 +448,7 @@ public class Print_And_Pdf_Of_Table_Records {
             PDPageContentStream contentStream = new PDPageContentStream(document, page1);
             //image
             contentStream.drawImage(pdImage, ix, iy, iwidth, iheight);
-            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
+//            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
             //line
 
             pageNo += 1;
@@ -473,8 +484,8 @@ public class Print_And_Pdf_Of_Table_Records {
             int moistxv= 190;
             int timexv = 175;
             int tempxv = 366;
-            int cnamexv = 210; //490
-            int locaxv = 190 ;
+            int cnamexv = 205; //490
+            int locaxv = 215 ;
             int trunamexv = 500;   //340
             int totweightxv=200;
             int remarkxv=190;
@@ -491,7 +502,7 @@ public class Print_And_Pdf_Of_Table_Records {
                     document.addPage(newpage);
                     contentStream = new PDPageContentStream(document, newpage);
                     contentStream.drawImage(pdImage, ix, iy, iwidth, iheight);
-                    contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
+//                    contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
                     pageNo += 1;
                     contentStream.setFont(PDType1Font.HELVETICA, 7);
                     contentStream.beginText();
@@ -535,7 +546,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(semqrx, y1);
-                contentStream.showText("Sample Quantity Required :");
+                contentStream.showText("Weight :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
@@ -564,7 +575,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(timex, y1 );
-                contentStream.showText("Time :");
+                contentStream.showText("Date :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
@@ -575,7 +586,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(tempx, y1 );
-                contentStream.showText("Sample Temperature :");
+                contentStream.showText("Temperature :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 contentStream.beginText();
@@ -627,7 +638,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String cname=resultSet.getString(8);
                 if(cname.trim().length()>50){
-                    String[] result = splitIntoChunks(cname,50);
+                    String[] result = splitIntoChunks(cname,100);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(cnamexv, y1 );
@@ -648,15 +659,15 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(remarkx, y1 );
-                contentStream.showText("Location :");
+                contentStream.showText("Cllient Address :");
                 contentStream.endText();
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String lname=resultSet.getString(9);
                 if(lname.trim().length()>50){
-                    String[] result = splitIntoChunks(lname,50);
+                    String[] result = splitIntoChunks(lname,100);
                     for(String chunk:result){
                         contentStream.beginText();
-                        contentStream.newLineAtOffset(remarkxv, y1 );
+                        contentStream.newLineAtOffset(locaxv, y1 );
                         contentStream.showText(chunk);
                         contentStream.endText();
                         y1-=10;
@@ -679,7 +690,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String rname=resultSet.getString(12);
                 if(rname.trim().length()>50){
-                    String[] result = splitIntoChunks(rname,50);
+                    String[] result = splitIntoChunks(rname,100);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(remarkxv, y1 );
@@ -721,8 +732,8 @@ public class Print_And_Pdf_Of_Table_Records {
 
                 if (print1!="print") {
                     // Open the selected PDF file in a PDF viewer
-                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/" + pdffilename + ".pdf");
-                    String filepath2 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\" + pdffilename + ".pdf";
+                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/" + pdffilename+"_Record"+".pdf");
+                    String filepath2 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\" + pdffilename+"_Record"+".pdf";
 
                     try {
                         Desktop.getDesktop().open(new File(filepath2));
@@ -743,9 +754,9 @@ public class Print_And_Pdf_Of_Table_Records {
 
                 if ( print1!="print") {
                     // Open the selected PDF file in a PDF viewer
-                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/From_" + fromexem + "_To_" + toexem +".pdf");
+                    document.save(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + PDF + "/From_" + fromexem + "_To_" + toexem+"_Record"+".pdf");
                     System.out.println("PDF created successfully.");
-                    String filepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\From_" + fromexem + "_To_" + toexem +".pdf";
+                    String filepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + PDF + "\\From_" + fromexem + "_To_" + toexem +"_Record"+".pdf";
 
                     try {
                         Desktop.getDesktop().open(new File(filepath1));
@@ -903,12 +914,12 @@ public class Print_And_Pdf_Of_Table_Records {
         Hdrawline(contentStream, 50);
         contentStream.setFont(PDType1Font.HELVETICA, 8);
         contentStream.beginText();
-        contentStream.newLineAtOffset(120, 35);
+        contentStream.newLineAtOffset(90, 35);
         contentStream.showText("Measured in Digital Moisture Meter By Innovative Instruments,vadodara,gujarat,india.");
         contentStream.endText();
         contentStream.setFont(PDType1Font.HELVETICA, 8);
         contentStream.beginText();
-        contentStream.newLineAtOffset(200, 25);
+        contentStream.newLineAtOffset(110, 25);
         contentStream.showText("Visit Us : www.innovative-instruments.in ");
         contentStream.endText();
         gy2=gy;

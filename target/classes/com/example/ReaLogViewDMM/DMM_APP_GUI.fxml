@@ -193,32 +193,32 @@
                             <children>
                                 <AnchorPane id="GDbox1" fx:id="dmmdatarivecerwindow" focusTraversable="true" layoutX="80.0" layoutY="23.0" prefHeight="563.0" prefWidth="930.0" styleClass="profile13" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">
                                     <children>
-                                        <Label layoutX="43.0" layoutY="33.0" prefHeight="14.0" prefWidth="79.0" text="Serial No :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="33.0" prefHeight="19.0" prefWidth="143.0" text="Serial No                     :" textFill="WHITE">
                                             <font>
                                                 <Font name="Corbel" size="16.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="129.0" prefHeight="19.0" prefWidth="173.0" text="Sample Temperature :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="129.0" prefHeight="19.0" prefWidth="147.0" text="Temperature            :" textFill="WHITE">
                                             <font>
                                                 <Font name="Corbel" size="16.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="97.0" prefHeight="14.0" prefWidth="106.0" text="Moisture :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="97.0" prefHeight="19.0" prefWidth="145.0" text="Moisture                     :" textFill="WHITE">
                                             <font>
                                                 <Font name="Corbel" size="16.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="65.0" prefHeight="16.0" prefWidth="165.0" text="Commodity Name :" textFill="WHITE">
+                                        <Label layoutX="42.0" layoutY="65.0" prefHeight="19.0" prefWidth="146.0" text="Commodity Name  :" textFill="WHITE">
                                             <font>
                                                 <Font name="Corbel" size="16.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="161.0" prefHeight="7.0" prefWidth="51.0" text="Time : " textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="192.0" prefHeight="19.0" prefWidth="143.0" text="Date                             : " textFill="WHITE">
                                             <font>
                                                 <Font name="Corbel" size="16.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="43.0" layoutY="193.0" prefHeight="0.0" prefWidth="218.0" text="Sample Quantity Required :" textFill="WHITE">
+                                        <Label layoutX="43.0" layoutY="161.0" prefHeight="19.0" prefWidth="146.0" text="Weight                        :" textFill="WHITE">
                                             <font>
                                                 <Font name="Corbel" size="16.0" />
                                             </font>
@@ -233,7 +233,7 @@
                                                 <Font name="Segoe UI" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="data2" layoutX="134.0" layoutY="33.0" prefHeight="17.0" prefWidth="171.0" text="2" textFill="BLACK">
+                                        <Label fx:id="data2" layoutX="193.0" layoutY="33.0" prefHeight="17.0" prefWidth="171.0" text="2" textFill="BLACK">
                                             <font>
                                                 <Font name="Segoe UI" size="15.0" />
                                             </font>
@@ -243,22 +243,22 @@
                                                 <Font name="Segoe UI" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="data4" layoutX="137.0" layoutY="97.0" prefHeight="15.0" prefWidth="100.0" text="4" textFill="BLACK">
+                                        <Label fx:id="data4" layoutX="192.0" layoutY="97.0" prefHeight="15.0" prefWidth="100.0" text="4" textFill="BLACK">
                                             <font>
                                                 <Font name="Segoe UI" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="data5" layoutX="220.0" layoutY="130.0" prefHeight="19.0" prefWidth="87.0" text="5" textFill="BLACK">
+                                        <Label fx:id="data5" layoutX="193.0" layoutY="130.0" prefHeight="19.0" prefWidth="87.0" text="5" textFill="BLACK">
                                             <font>
                                                 <Font name="Segoe UI" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="data7" layoutX="105.0" layoutY="162.0" prefHeight="3.0" prefWidth="224.0" text="7" textFill="BLACK">
+                                        <Label fx:id="data7" layoutX="193.0" layoutY="193.0" prefHeight="3.0" prefWidth="224.0" text="7" textFill="BLACK">
                                             <font>
                                                 <Font name="Segoe UI" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="data8" layoutX="249.0" layoutY="193.0" prefHeight="19.0" prefWidth="110.0" text="8" textFill="BLACK">
+                                        <Label fx:id="data8" layoutX="192.0" layoutY="161.0" prefHeight="19.0" prefWidth="207.0" text="8" textFill="BLACK">
                                             <font>
                                                 <Font name="Segoe UI" size="15.0" />
                                             </font>
@@ -293,27 +293,27 @@
                                         <TextField fx:id="Tfd8" layoutX="611.0" layoutY="402.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
                                         <TextField fx:id="Tfd9" layoutX="612.0" layoutY="441.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
                                         <TextField fx:id="Tfd10" layoutX="612.0" layoutY="481.0" prefHeight="25.0" prefWidth="233.0" promptText="Write Max 80 Characters" visible="false" />
-                                        <Label fx:id="tfl1" layoutX="521.0" layoutY="72.0" prefHeight="19.0" prefWidth="87.0" text="Client Name :" textFill="WHITE">
+                                        <Label fx:id="tfl1" layoutX="521.0" layoutY="72.0" prefHeight="19.0" prefWidth="111.0" text="Client Name       :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl4" layoutX="519.0" layoutY="231.0" prefHeight="19.0" prefWidth="87.0" text="Total Weight :" textFill="WHITE">
+                                        <Label fx:id="tfl4" layoutX="521.0" layoutY="231.0" prefHeight="19.0" prefWidth="113.0" text="Total Weight     :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl3" layoutX="520.0" layoutY="155.0" prefHeight="19.0" prefWidth="109.0" text="Truck Number :" textFill="WHITE">
+                                        <Label fx:id="tfl3" layoutX="521.0" layoutY="155.0" prefHeight="19.0" prefWidth="114.0" text="Truck Number   :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl2" layoutX="521.0" layoutY="115.0" prefHeight="19.0" prefWidth="87.0" text="Location :" textFill="WHITE">
+                                        <Label fx:id="tfl2" layoutX="521.0" layoutY="115.0" prefHeight="19.0" prefWidth="110.0" text="Client Address   :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="tfl5" layoutX="520.0" layoutY="270.0" prefHeight="19.0" prefWidth="87.0" text="Remarks :" textFill="WHITE">
+                                        <Label fx:id="tfl5" layoutX="521.0" layoutY="270.0" prefHeight="19.0" prefWidth="108.0" text="Remarks            :" textFill="WHITE">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
@@ -366,7 +366,7 @@
                                                 </DropShadow>
                                             </effect>
                                         </Button>
-                              <Label layoutX="523.0" layoutY="192.0" text="Vendor ID :" textFill="WHITE">
+                              <Label layoutX="522.0" layoutY="192.0" prefHeight="19.0" prefWidth="111.0" text="Vendor ID         :" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -513,6 +513,11 @@
                                     </DropShadow>
                                  </effect>
                               </Label>
+                              <Button fx:id="toggleLanguageBtn" layoutX="639.0" layoutY="172.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" styleClass="white-bg" text="Hindi">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font></Button>
+                              <Label layoutX="720.0" layoutY="175.0" text="(Select Language for FAQ)" textFill="WHITE" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane id="Rebox5" fx:id="historyDataBox" focusTraversable="true" layoutX="12.0" layoutY="14.0" prefHeight="563.0" prefWidth="930.0" styleClass="desk" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="10.0">

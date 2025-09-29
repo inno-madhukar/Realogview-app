@@ -90,6 +90,50 @@ public class Pdf_Generate_With_Print_Operation {
 
         return chunks.toArray(new String[0]);
     }
+
+    public static List<String> chunkWithLockedPhrases(String text, int chunkSize) {
+        // 1. Define important phrases you don't want to split
+        String[][] lockedPhrases = {
+                {"Pvt Ltd", "Pvt_Ltd"},
+                {"Co. Ltd", "Co._Ltd"},
+                {"Private Limited", "Private_Limited"},
+                {"Ltd.", "Ltd."} // single word, safe anyway
+        };
+
+        // 2. Replace them with placeholders
+        for (String[] pair : lockedPhrases) {
+            text = text.replace(pair[0], pair[1]);
+        }
+
+        // 3. Do the normal chunking by words
+        List<String> chunks = new ArrayList<>();
+        String[] words = text.split("\\s+");
+        StringBuilder current = new StringBuilder();
+
+        for (String word : words) {
+            if (word.length() > chunkSize) {
+                // break extra-long word if needed
+                int index = 0;
+                while (index < word.length()) {
+                    int end = Math.min(index + chunkSize, word.length());
+                    chunks.add(word.substring(index, end).replace("_", " "));
+                    index = end;
+                }
+                current = new StringBuilder();
+            } else if (current.length() + word.length() + 1 > chunkSize) {
+                chunks.add(current.toString().trim().replace("_", " "));
+                current = new StringBuilder(word).append(" ");
+            } else {
+                current.append(word).append(" ");
+            }
+        }
+
+        if (current.length() > 0) {
+            chunks.add(current.toString().trim().replace("_", " "));
+        }
+
+        return chunks;
+    }
     String pdfPath="";
     public String genratepdf(String idatetime) throws IOException {
 
@@ -112,8 +156,8 @@ public class Pdf_Generate_With_Print_Operation {
             float height = 80; // Height
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            PDImageXObject pdImage1 = LosslessFactory.createFromImage(document, bufferedImage1);
-            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
+//            PDImageXObject pdImage1 = LosslessFactory.createFromImage(document, bufferedImage1);
+//            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
             //border
             PDRectangle pageSize = page.getMediaBox();
             float pageWidth = pageSize.getWidth();
@@ -125,6 +169,7 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.addRect(borderWidth / 2, borderWidth / 2, pageWidth - borderWidth, pageHeight - borderWidth);
             contentStream.stroke();
             //add image
+            int flag1=0;
             File folder = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile);
             File[] files = folder.listFiles();
             for (File file : files) {
@@ -132,19 +177,25 @@ public class Pdf_Generate_With_Print_Operation {
                     BufferedImage image = ImageIO.read(file);
                     PDImageXObject pdImage = LosslessFactory.createFromImage(document, image);
                     contentStream.drawImage(pdImage, x, y, width, height);
+                    flag1=1;
                     break;
                 } else {
-                    Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
-                    BufferedImage image = SwingFXUtils.fromFXImage(image00, null);
-                    PDImageXObject pdImage01 = LosslessFactory.createFromImage(document, image);
-                    contentStream.drawImage(pdImage01, x, y, width, height);
+
                 }
+            }
+            if(flag1==0){
+
+                System.out.println("fasfsadfa sdf asf afasfa rfaegr gragerafgerrfrdgfadgaff");
+                Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
+                BufferedImage image = SwingFXUtils.fromFXImage(image00, null);
+                PDImageXObject pdImage01 = LosslessFactory.createFromImage(document, image);
+                contentStream.drawImage(pdImage01, x, y, width, height);
             }
 
 
             float gy=760;
-            float emX = 340;
-            float pmX = 400;
+            float emX = 310;
+            float pmX = 370;
 
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
@@ -229,7 +280,7 @@ public class Pdf_Generate_With_Print_Operation {
             //device mesured data
             float loopx = 110;
 
-            String[] cars = {"Serial No :", "Commodity Name :", "Moisture  :", "Sample Temperature :", "Time :", "Sample Quantity Required :"};
+            String[] cars = {"Serial No ", "Commodity Name ", "Moisture  ", "Temperature ", "Date ", "Weight "};
             for (String i : cars) {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
                 contentStream.beginText();
@@ -243,53 +294,53 @@ public class Pdf_Generate_With_Print_Operation {
             loopy-=24;
 
 //            // serial data printing
-            float loopx2 = 185;
+            float loopx2 = 230;
 
 
             System.out.println(fruits[0]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx2, loopyDmm );
-            contentStream.showText(fruits[0]);
+            contentStream.showText(":  "+fruits[0]);
             contentStream.endText();
 
             System.out.println(fruits[1]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(240, loopyDmm -= 24);
-            contentStream.showText(fruits[1]);
+            contentStream.newLineAtOffset(loopx2, loopyDmm -= 24);
+            contentStream.showText(":  "+fruits[1]);
             contentStream.endText();
 //
             System.out.println(fruits[2]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm -= 24);
-            contentStream.showText(fruits[2] + " %");
+            contentStream.newLineAtOffset(loopx2 , loopyDmm -= 24);
+            contentStream.showText(":  "+fruits[2] + " %");
             contentStream.endText();
 //
             System.out.println(fruits[3]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm -= 24);
-            contentStream.showText(fruits[3] + " °C");
+            contentStream.newLineAtOffset(loopx2 , loopyDmm -= 24);
+            contentStream.showText(":  "+fruits[3] + " °C");
             contentStream.endText();
 //
             LocalDateTime currentDateTime2 = LocalDateTime.now();
             String formattedDateTime2 = currentDateTime2.format(globeldtformatter);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm -= 24);
-            contentStream.showText(data_r_time);
+            contentStream.newLineAtOffset(loopx2 , loopyDmm -= 24);
+            contentStream.showText(":  "+data_r_time);
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(290, loopyDmm -= 24);
+            contentStream.newLineAtOffset(loopx2, loopyDmm -= 24);
             if (fruits[4].equals("FULL")) {
-                contentStream.showText(fruits[4]);
+                contentStream.showText(":  "+fruits[4]);
                 contentStream.endText();
             } else {
-                contentStream.showText(fruits[4] + " gram");
+                contentStream.showText(":  "+fruits[4] + " gram");
                 contentStream.endText();
             }
             loopyDmm-=24;
@@ -299,28 +350,41 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.showText("Other Information");
             loopyDmm-=20;
             contentStream.endText();
-            String[] cars1 = {"Client Name :","Location :","Truck Number :","Vendor ID","Total Weight :","Remarks :"};
+            String[] cars1 = {"Client Name","Client Address","Truck Number","Vendor ID","Total Weight","Remarks"};
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm);
             contentStream.showText(cars1[0]);
             contentStream.endText();
+
+            int f3=0;
             if(otherinformation[0].trim().length()>40){
                 String[] result = splitIntoChunks(otherinformation[0],40);
                 for(String chunk:result){
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
-                    contentStream.showText(chunk);
-                    contentStream.endText();
-                    loopyDmm-=15;
+                    if(f3==0){
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2, loopyDmm );
+                        contentStream.showText(":  "+chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    else{
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2+11, loopyDmm );
+                        contentStream.showText(chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    f3=1;
                 }
                 loopyDmm+=15;
             }
             else{
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.newLineAtOffset(loopx2, loopyDmm );
                 contentStream.showText(otherinformation[0]);
                 contentStream.endText();
             }
@@ -328,25 +392,37 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Location :");
+            contentStream.showText("Client Address ");
             contentStream.endText();
 
+            int f2=0;
             if(otherinformation[1].trim().length()>40){
                 String[] result = splitIntoChunks(otherinformation[1],40);
                 for(String chunk:result){
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
-                    contentStream.showText(chunk);
-                    contentStream.endText();
-                    loopyDmm-=15;
+                    if(f2==0){
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2, loopyDmm );
+                        contentStream.showText(":  "+chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    else{
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2+11, loopyDmm );
+                        contentStream.showText(chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    f2=1;
                 }
                 loopyDmm+=15;
             }
             else{
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.newLineAtOffset(loopx2, loopyDmm );
                 contentStream.showText(otherinformation[1]);
                 contentStream.endText();
             }
@@ -354,57 +430,70 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Truck Number :");
+            contentStream.showText("Truck Number ");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 27, loopyDmm );
-            contentStream.showText(otherinformation[2] );
+            contentStream.newLineAtOffset(loopx2 , loopyDmm );
+            contentStream.showText(":  "+otherinformation[2] );
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Vendor ID :");
+            contentStream.showText("Vendor ID ");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm );
-            contentStream.showText(otherinformation[5] );
+            contentStream.newLineAtOffset(loopx2 , loopyDmm );
+            contentStream.showText(":  "+otherinformation[5] );
             contentStream.endText();
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Total Weight :");
+            contentStream.showText("Total Weight ");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 23, loopyDmm );
-            contentStream.showText(otherinformation[3] +" Kg" );
+            contentStream.newLineAtOffset(loopx2 , loopyDmm );
+            contentStream.showText(":  "+otherinformation[3] +" Kg" );
             contentStream.endText();
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Remarks :");
+            contentStream.showText("Remarks ");
             contentStream.endText();
+            int f1=0;
             if(otherinformation[4].trim().length()>40){
                 String[] result = splitIntoChunks(otherinformation[4],40);
                 for(String chunk:result){
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
-                    contentStream.showText(chunk);
-                    contentStream.endText();
-                    loopyDmm-=15;
+                    if(f1==0){
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2, loopyDmm );
+                        contentStream.showText(":  "+chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    else{
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2+11, loopyDmm );
+                        contentStream.showText(chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    f1=1;
+
                 }
 //                loopyDmm+=15;
             }
             else{
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.newLineAtOffset(loopx2, loopyDmm );
                 contentStream.showText(otherinformation[4]);
                 contentStream.endText();
             }
@@ -414,12 +503,12 @@ public class Pdf_Generate_With_Print_Operation {
 
             contentStream.setFont(PDType1Font.HELVETICA, 8);
             contentStream.beginText();
-            contentStream.newLineAtOffset(150, 40);
+            contentStream.newLineAtOffset(90, 40);
             contentStream.showText("Measured in Digital Moisture Meter By Innovative Instruments,vadodara,gujarat,india.");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 8);
             contentStream.beginText();
-            contentStream.newLineAtOffset(250, 30);
+            contentStream.newLineAtOffset(110, 30);
             contentStream.showText("Visit Us : www.innovative-instruments.in ");
             contentStream.endText();
 

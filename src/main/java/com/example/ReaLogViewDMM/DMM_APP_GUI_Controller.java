@@ -174,6 +174,7 @@ public class DMM_APP_GUI_Controller {
     public VBox faqBox;
     public Button clientsbutton;
     public TextField Tfdvid;
+    public Button toggleLanguageBtn;
     @FXML
     private ToggleGroup toggleGroup1;
     private Data_Holder dataHolder;
@@ -218,6 +219,8 @@ public class DMM_APP_GUI_Controller {
     public String MAC_ID = "";
     private Map<String, Map<String, Object>> allClients1 = new HashMap<>();
     private ContextMenu suggestions = new ContextMenu();
+    private boolean isEnglish = true; // default language
+
     private static class FAQItem {
         String question;
         String answer;
@@ -226,7 +229,11 @@ public class DMM_APP_GUI_Controller {
             this.question = question;
             this.answer = answer;
         }
+        public String getQuestion() { return question; }
+        public String getAnswer() { return answer; }
     }
+
+
     private final FAQItem[] faqData = new FAQItem[]{
             new FAQItem("How do I get a new measurement?",
                     "Go to the Home tab, connect with device on Comport(com5,6) selection. after this click on get data to fetch new measurement. "),
@@ -238,6 +245,19 @@ public class DMM_APP_GUI_Controller {
                     "you can share the records via email in excel or pdf format."),
             new FAQItem("Does Clients details are stored in app?",
                     "Yes. The clients details are stored, so next time does not required to fill all data fields again, on click suggested clients you the input box automatically fill up. click on clients button to show all clients data.")
+    };
+
+    private final FAQItem[] faqDataHindi = new FAQItem[]{
+            new FAQItem("मैं नया माप कैसे प्राप्त करूं?",
+                    "होम टैब पर जाएं, COM पोर्ट (COM5 या COM6) पर डिवाइस से कनेक्ट करें। इसके बाद, 'Get Data' पर क्लिक करें ताकि नया माप प्राप्त किया जा सके।"),
+            new FAQItem("रिकॉर्ड की उपलब्धता क्या है?",
+                    "पिछले 60 दिनों के रिकॉर्ड उपलब्ध हैं।"),
+            new FAQItem("मेरी CSV और PDF फाइलें कहाँ संग्रहीत होती हैं?",
+                    "CSV फाइलें C://Users/admin/Realogview/DMM1.0/Records में संग्रहीत होती हैं।"),
+            new FAQItem("मैं रिकॉर्ड दूसरों के साथ कैसे साझा कर सकता हूँ?",
+                    "आप रिकॉर्ड को ईमेल के माध्यम से Excel या PDF प्रारूप में साझा कर सकते हैं।"),
+            new FAQItem("क्या क्लाइंट विवरण ऐप में संग्रहीत होते हैं?",
+                    "हाँ। क्लाइंट विवरण संग्रहीत होते हैं, इसलिए अगली बार आपको सभी डेटा फ़ील्ड्स को फिर से भरने की आवश्यकता नहीं होगी। 'Suggested Clients' पर क्लिक करें ताकि इनपुट स्वतः भरे जाएं। सभी क्लाइंट डेटा देखने के लिए 'Clients' बटन पर क्लिक करें।")
     };
 
 
@@ -354,7 +374,7 @@ public class DMM_APP_GUI_Controller {
         grid.addRow(row++, nameLabel, nameValue);
 
 // Location
-        Label locLabel = new Label("Location:");
+        Label locLabel = new Label("Client Address:");
         locLabel.getStyleClass().add("field-label");
         Label locValue = new Label((String) clientData.get("Location"));
         locValue.getStyleClass().add("field-value");
@@ -401,7 +421,19 @@ public class DMM_APP_GUI_Controller {
         detailModal.showAndWait();
 
     }
+    private void updateFAQList(VBox faqContainer) {
+        faqBox.getChildren().clear();
+        FAQItem[] currentFAQ = isEnglish ? faqData : faqDataHindi;
 
+        for (FAQItem faq : currentFAQ) {
+            TitledPane pane = new TitledPane();
+            pane.setText(faq.getQuestion());
+//            pane.getStyleClass().add("faq-pane");
+            pane.setContent(new Label(faq.getAnswer()));
+            pane.setExpanded(false);
+            faqBox.getChildren().add(pane);
+        }
+    }
 
     public void initialize() throws IOException, SQLException, ClassNotFoundException, SQLException {
 
@@ -503,6 +535,15 @@ public class DMM_APP_GUI_Controller {
 
         });
 
+
+
+        VBox faqContainer = new VBox(10);
+        toggleLanguageBtn.setOnAction(e -> {
+            isEnglish = !isEnglish;
+            toggleLanguageBtn.setText(isEnglish ? "Hindi" : "English");
+            updateFAQList(faqContainer);
+        });
+
         for (FAQItem item : faqData) {
             TitledPane tp = new TitledPane();
             tp.setText(item.question);
@@ -516,7 +557,7 @@ public class DMM_APP_GUI_Controller {
 
             tp.setContent(answerLabel);
             tp.setExpanded(false); // collapsed by default
-            faqBox.getChildren().add(tp);
+//            faqBox.getChildren().add(tp);
 
         }
 
@@ -1147,7 +1188,7 @@ public class DMM_APP_GUI_Controller {
         }
 
 
-        showAlertinfo("", "PDF File is saved at " + defaultPath + "\\Realogview\\DMM1.0\\Data\\PDF\\ \n" + fruits[0] + "_" + formattedDateTime00 + ".pdf");
+        showAlertinfo("", "PDF File is saved at " + defaultPath + "\\Realogview\\DMM1.0\\Data\\PDF\\ \n" + fruits[0] + "_" + formattedDateTime00+"_"+informationarray[0] + ".pdf");
         Tfd1.setText("");
         Tfd2.setText("");
         Tfd3.setText("");
@@ -1458,7 +1499,14 @@ public class DMM_APP_GUI_Controller {
         };
 
         Session session = Session.getInstance(properties, auth);
-
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
+        String formattedDateTime = formatter12.format(now);
+        if (RedBtn1.isSelected()) {
+            subject="From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex+"_Record";
+        } else if (RedBtn2.isSelected()) {
+            subject=formattedDateTime+"_Records";
+        }
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
@@ -1474,15 +1522,12 @@ public class DMM_APP_GUI_Controller {
             messageBodyPart = new MimeBodyPart();
             DataSource source = new ByteArrayDataSource(EXattachmentContent, "application/excel");
             messageBodyPart.setDataHandler(new DataHandler(source));
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
-            String formattedDateTime = formatter12.format(now);
 
             if (RedBtn1.isSelected()) {
-                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex + ".xlsx");
+                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex+"_Record" + ".xlsx");
 
             } else if (RedBtn2.isSelected()) {
-                messageBodyPart.setFileName(formattedDateTime + ".xlsx");
+                messageBodyPart.setFileName(formattedDateTime+"_Records"+".xlsx");
 
             }
             multipart.addBodyPart(messageBodyPart);
@@ -2106,6 +2151,7 @@ public class DMM_APP_GUI_Controller {
         String recipientEmail = "chauhantejas18@gmail.com";
         String subject = "PDF Attachment";
         String body = "Please find attached the generated PDF.";
+
         String[] addresses = mail2.split(",");
         IsendEmailWithAttachment(smtpHost, senderEmail, senderPassword, mail11, subject, body, pdfContent,othercname);
         for (String address1 : addresses) {
@@ -2131,7 +2177,6 @@ public class DMM_APP_GUI_Controller {
     // get byte fromat of pdf file
     public byte[] generatePDFContent(String[] fruits, String comName, String address, String comPhone, String comEmail, String[] otherinformation) throws IOException {
 //        showAlertinfo("",absoluteImagePath12);
-
         System.out.println(otherinformation[0]);
         Image image0 = new Image(getClass().getResource("/images/dmmlogo.jpg").toExternalForm());
         BufferedImage bufferedImage1 = SwingFXUtils.fromFXImage(image0, null);
@@ -2151,8 +2196,8 @@ public class DMM_APP_GUI_Controller {
             float height = 80; // Height
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            PDImageXObject pdImage1 = LosslessFactory.createFromImage(document, bufferedImage1);
-            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
+//            PDImageXObject pdImage1 = LosslessFactory.createFromImage(document, bufferedImage1);
+//            contentStream.drawImage(pdImage1, ix1, iy1, iwidth1, iheight1);
             //border
             PDRectangle pageSize = page.getMediaBox();
             float pageWidth = pageSize.getWidth();
@@ -2164,6 +2209,7 @@ public class DMM_APP_GUI_Controller {
             contentStream.addRect(borderWidth / 2, borderWidth / 2, pageWidth - borderWidth, pageHeight - borderWidth);
             contentStream.stroke();
             //add image
+            int flag1=0;
             File folder = new File(defaultPath + "/" + Realogview + "/" + DMM10 + "/" + User_Profile);
             File[] files = folder.listFiles();
             for (File file : files) {
@@ -2171,19 +2217,25 @@ public class DMM_APP_GUI_Controller {
                     BufferedImage image = ImageIO.read(file);
                     PDImageXObject pdImage = LosslessFactory.createFromImage(document, image);
                     contentStream.drawImage(pdImage, x, y, width, height);
+                    flag1=1;
                     break;
                 } else {
-                    Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
-                    BufferedImage image = SwingFXUtils.fromFXImage(image00, null);
-                    PDImageXObject pdImage01 = LosslessFactory.createFromImage(document, image);
-                    contentStream.drawImage(pdImage01, x, y, width, height);
+
                 }
+            }
+            if(flag1==0){
+
+                System.out.println("fasfsadfa sdf asf afasfa rfaegr gragerafgerrfrdgfadgaff");
+                Image image00 = new Image(getClass().getResource("/images/innovativeLogo.jpg").toExternalForm());
+                BufferedImage image = SwingFXUtils.fromFXImage(image00, null);
+                PDImageXObject pdImage01 = LosslessFactory.createFromImage(document, image);
+                contentStream.drawImage(pdImage01, x, y, width, height);
             }
 
 
             float gy=760;
-            float emX = 340;
-            float pmX = 400;
+            float emX = 310;
+            float pmX = 370;
 
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
@@ -2268,7 +2320,7 @@ public class DMM_APP_GUI_Controller {
             //device mesured data
             float loopx = 110;
 
-            String[] cars = {"Serial No :", "Commodity Name :", "Moisture  :", "Sample Temperature :", "Time :", "Sample Quantity Required :"};
+            String[] cars = {"Serial No ", "Commodity Name ", "Moisture  ", "Temperature ", "Date ", "Weight "};
             for (String i : cars) {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
                 contentStream.beginText();
@@ -2282,53 +2334,53 @@ public class DMM_APP_GUI_Controller {
             loopy-=24;
 
 //            // serial data printing
-            float loopx2 = 185;
+            float loopx2 = 230;
 
 
             System.out.println(fruits[0]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx2, loopyDmm );
-            contentStream.showText(fruits[0]);
+            contentStream.showText(":  "+fruits[0]);
             contentStream.endText();
 
             System.out.println(fruits[1]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(240, loopyDmm -= 24);
-            contentStream.showText(fruits[1]);
+            contentStream.newLineAtOffset(loopx2, loopyDmm -= 24);
+            contentStream.showText(":  "+fruits[1]);
             contentStream.endText();
 //
             System.out.println(fruits[2]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 15, loopyDmm -= 24);
-            contentStream.showText(fruits[2] + " %");
+            contentStream.newLineAtOffset(loopx2 , loopyDmm -= 24);
+            contentStream.showText(":  "+fruits[2] + " %");
             contentStream.endText();
 //
             System.out.println(fruits[3]);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 60, loopyDmm -= 24);
-            contentStream.showText(fruits[3] + " °C");
+            contentStream.newLineAtOffset(loopx2 , loopyDmm -= 24);
+            contentStream.showText(":  "+fruits[3] + " °C");
             contentStream.endText();
 //
             LocalDateTime currentDateTime2 = LocalDateTime.now();
             String formattedDateTime2 = currentDateTime2.format(globeldtformatter);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 - 10, loopyDmm -= 24);
-            contentStream.showText(time_of_recived_data);
+            contentStream.newLineAtOffset(loopx2 , loopyDmm -= 24);
+            contentStream.showText(":  "+time_of_recived_data);
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(290, loopyDmm -= 24);
+            contentStream.newLineAtOffset(loopx2, loopyDmm -= 24);
             if (fruits[4].equals("FULL")) {
-                contentStream.showText(fruits[4]);
+                contentStream.showText(":  "+fruits[4]);
                 contentStream.endText();
             } else {
-                contentStream.showText(fruits[4] + " gram");
+                contentStream.showText(":  "+fruits[4] + " gram");
                 contentStream.endText();
             }
             loopyDmm-=24;
@@ -2338,28 +2390,41 @@ public class DMM_APP_GUI_Controller {
             contentStream.showText("Other Information");
             loopyDmm-=20;
             contentStream.endText();
-            String[] cars1 = {"Client Name :","Location :","Truck Number :","Vendor ID","Total Weight :","Remarks :"};
+            String[] cars1 = {"Client Name","Client Address","Truck Number","Vendor ID","Total Weight","Remarks"};
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm);
             contentStream.showText(cars1[0]);
             contentStream.endText();
+
+            int f3=0;
             if(otherinformation[0].trim().length()>40){
                 String[] result = splitIntoChunks(otherinformation[0],40);
                 for(String chunk:result){
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
-                    contentStream.showText(chunk);
-                    contentStream.endText();
-                    loopyDmm-=15;
+                    if(f3==0){
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2, loopyDmm );
+                        contentStream.showText(":  "+chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    else{
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2+11, loopyDmm );
+                        contentStream.showText(chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    f3=1;
                 }
                 loopyDmm+=15;
             }
             else{
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.newLineAtOffset(loopx2, loopyDmm );
                 contentStream.showText(otherinformation[0]);
                 contentStream.endText();
             }
@@ -2367,25 +2432,37 @@ public class DMM_APP_GUI_Controller {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Location :");
+            contentStream.showText("Client Address ");
             contentStream.endText();
 
+            int f2=0;
             if(otherinformation[1].trim().length()>40){
                 String[] result = splitIntoChunks(otherinformation[1],40);
                 for(String chunk:result){
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
-                    contentStream.showText(chunk);
-                    contentStream.endText();
-                    loopyDmm-=15;
+                    if(f2==0){
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2, loopyDmm );
+                        contentStream.showText(":  "+chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    else{
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2+11, loopyDmm );
+                        contentStream.showText(chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    f2=1;
                 }
                 loopyDmm+=15;
             }
             else{
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.newLineAtOffset(loopx2, loopyDmm );
                 contentStream.showText(otherinformation[1]);
                 contentStream.endText();
             }
@@ -2393,57 +2470,70 @@ public class DMM_APP_GUI_Controller {
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Truck Number :");
+            contentStream.showText("Truck Number ");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 27, loopyDmm );
-            contentStream.showText(otherinformation[2] );
+            contentStream.newLineAtOffset(loopx2 , loopyDmm );
+            contentStream.showText(":  "+otherinformation[2] );
             contentStream.endText();
 //
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Vendor ID :");
+            contentStream.showText("Vendor ID ");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 20, loopyDmm );
-            contentStream.showText(otherinformation[5] );
+            contentStream.newLineAtOffset(loopx2 , loopyDmm );
+            contentStream.showText(":  "+otherinformation[5] );
             contentStream.endText();
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Total Weight :");
+            contentStream.showText("Total Weight ");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 12);
             contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 + 23, loopyDmm );
-            contentStream.showText(otherinformation[3] +" Kg" );
+            contentStream.newLineAtOffset(loopx2 , loopyDmm );
+            contentStream.showText(":  "+otherinformation[3] +" Kg" );
             contentStream.endText();
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
-            contentStream.showText("Remarks :");
+            contentStream.showText("Remarks ");
             contentStream.endText();
+            int f1=0;
             if(otherinformation[4].trim().length()>40){
                 String[] result = splitIntoChunks(otherinformation[4],40);
                 for(String chunk:result){
-                    contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(loopx2+20, loopyDmm );
-                    contentStream.showText(chunk);
-                    contentStream.endText();
-                    loopyDmm-=15;
+                    if(f1==0){
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2, loopyDmm );
+                        contentStream.showText(":  "+chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    else{
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(loopx2+11, loopyDmm );
+                        contentStream.showText(chunk);
+                        contentStream.endText();
+                        loopyDmm-=15;
+                    }
+                    f1=1;
+
                 }
 //                loopyDmm+=15;
             }
             else{
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(loopx2+20, loopyDmm );
+                contentStream.newLineAtOffset(loopx2, loopyDmm );
                 contentStream.showText(otherinformation[4]);
                 contentStream.endText();
             }
@@ -2453,12 +2543,12 @@ public class DMM_APP_GUI_Controller {
 
             contentStream.setFont(PDType1Font.HELVETICA, 8);
             contentStream.beginText();
-            contentStream.newLineAtOffset(150, 40);
+            contentStream.newLineAtOffset(90, 40);
             contentStream.showText("Measured in Digital Moisture Meter By Innovative Instruments,vadodara,gujarat,india.");
             contentStream.endText();
             contentStream.setFont(PDType1Font.HELVETICA, 8);
             contentStream.beginText();
-            contentStream.newLineAtOffset(250, 30);
+            contentStream.newLineAtOffset(110, 30);
             contentStream.showText("Visit Us : www.innovative-instruments.in ");
             contentStream.endText();
 
@@ -2499,7 +2589,14 @@ public class DMM_APP_GUI_Controller {
         };
 
         Session session = Session.getInstance(properties, auth);
-
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
+        String formattedDateTime = formatter12.format(now);
+        if (RedBtn1.isSelected()) {
+        subject="From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex+"_Record"+" - "+"DMM B-18 Data";
+        } else if (RedBtn2.isSelected()) {
+        subject=formattedDateTime+"_Record"+" - "+"DMM B-18 Data";
+        }
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
@@ -2515,13 +2612,11 @@ public class DMM_APP_GUI_Controller {
             messageBodyPart = new MimeBodyPart();
             DataSource source = new ByteArrayDataSource(attachmentContent, "application/pdf");
             messageBodyPart.setDataHandler(new DataHandler(source));
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
-            String formattedDateTime = formatter12.format(now);
+
             if (RedBtn1.isSelected()) {
-                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex+ ".pdf");
+                messageBodyPart.setFileName("From_" + FromDateForEm_Ex + "_To_" + ToDateForEm_Ex+"_Record"+".pdf");
             } else if (RedBtn2.isSelected()) {
-                messageBodyPart.setFileName(formattedDateTime + ".pdf");
+                messageBodyPart.setFileName(formattedDateTime+"_Record" + ".pdf");
             }
 
             multipart.addBodyPart(messageBodyPart);
@@ -2548,7 +2643,11 @@ public class DMM_APP_GUI_Controller {
         };
 
         Session session = Session.getInstance(properties, auth);
-
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
+        String formattedDateTime = formatter12.format(now);
+        String pdffilename = fruits[0] + "_" + formattedDateTime+"_"+othercname;
+        subject=pdffilename+" - "+"DMM B-18 Data";
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
@@ -2564,10 +2663,7 @@ public class DMM_APP_GUI_Controller {
             messageBodyPart = new MimeBodyPart();
             DataSource source = new ByteArrayDataSource(attachmentContent, "application/pdf");
             messageBodyPart.setDataHandler(new DataHandler(source));
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter12 = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
-            String formattedDateTime = formatter12.format(now);
-            String pdffilename = fruits[0] + "_" + formattedDateTime+"_"+othercname;
+
             messageBodyPart.setFileName("" + pdffilename + ".pdf");
             multipart.addBodyPart(messageBodyPart);
             message.setContent(multipart);
@@ -3701,7 +3797,7 @@ public class DMM_APP_GUI_Controller {
         String senderEmail = gmailid_of_II;
         String senderPassword = gmailpass_of_II;
         String recipientEmail = "chauhantejas18@gmail.com";
-        String subject = "Excel Attachment";
+        String subject = "PDF Attachment";
         String body = "Please find attached the generated PDF.";
 
         String comName = proCoNmae.getText();
@@ -3959,7 +4055,7 @@ public class DMM_APP_GUI_Controller {
         ResultSetMetaData metaData = resultSet.getMetaData();
         int columnCount = metaData.getColumnCount();
         Row headerRow = sheet.createRow(0);
-        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required (gram)", "Client Name","Location","Truck Number","Vendor ID","Total Weight","Remarks"};
+        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Temperature (°C) ", "Date", "Weight (gram)", "Client Name","Client Address","Truck Number","Vendor ID","Total Weight","Remarks"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             System.out.println(columnName);
@@ -4128,10 +4224,10 @@ public class DMM_APP_GUI_Controller {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email1));
-            message.setSubject("sending file from me");
+            message.setSubject("sending file from "+email1);
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("Please find the attached PDF file.");
+            messageBodyPart.setText("Please find the attached file.");
 
             MimeBodyPart attachmentBodyPart = new MimeBodyPart();
             DataSource source = new FileDataSource(attachmentFile);

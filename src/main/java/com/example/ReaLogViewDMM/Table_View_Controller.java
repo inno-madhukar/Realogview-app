@@ -208,8 +208,8 @@ public class Table_View_Controller {
 //        String exlefilepath1 = defaultPath+"\\"+Realogview+"\\"+DMM10+"\\"+Records+"\\"+EXCEL+"\\"+formattedDateTime+".xlsx";
 
         if (oneyearArray != null) {
-            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + oneyearArray[3] + "_To_" + oneyearArray[4]+".xlsx";
-            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + oneyearArray[3] + "_To_" + oneyearArray[4] +".xlsx";
+            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + oneyearArray[3] + "_To_" + oneyearArray[4]+"_Record"+".xlsx";
+            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + oneyearArray[3] + "_To_" + oneyearArray[4]+"_Record"+".xlsx";
             System.out.print("777777777777777777777777777777777777777777777777777777777777777777777777777777777777" + oneyearArray.length);
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(oneyearArray[0], oneyearArray[1], oneyearArray[2]);
@@ -225,8 +225,8 @@ public class Table_View_Controller {
             }
             showAlertinfo("", "Excel File is saved at " + exlefilepath1);
         } else if (towyearArray != null) {
-            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + towyearArray[4] + "_To_" + towyearArray[5] +".xlsx";
-            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + towyearArray[3] + "_To_" + towyearArray[4] +".xlsx";
+            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\From_" + towyearArray[4] + "_To_" + towyearArray[5]+"_Record"+".xlsx";
+            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/From_" + towyearArray[3] + "_To_" + towyearArray[4]+"_Record"+".xlsx";
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdatafortowyears(towyearArray[0], towyearArray[1], towyearArray[2], towyearArray[3]);
 
@@ -241,8 +241,8 @@ public class Table_View_Controller {
             }
             showAlertinfo("", "Excel File is saved at " + exlefilepath1);
         } else if (todayArray != null) {
-            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\" + formattedDateTime + ".xlsx";
-            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/" + formattedDateTime + ".xlsx";
+            String exlefilepath1 = defaultPath + "\\" + Realogview + "\\" + DMM10 + "\\" + Records + "\\" + EXCEL + "\\" + formattedDateTime+"_Record"+ ".xlsx";
+            String exlefilepath = defaultPath + "/" + Realogview + "/" + DMM10 + "/" + Records + "/" + EXCEL + "/" + formattedDateTime+"_Record"+ ".xlsx";
             System.out.println("333333333333333333333333333333333333333333333333333333333333333333333333333333333333333");
             DMM_APP_GUI_Controller DMMAPPGUIController = new DMM_APP_GUI_Controller();
             ResultSet resultSet = DMMAPPGUIController.getallresultdata(todayArray[0], todayArray[1], todayArray[2]);
@@ -281,7 +281,7 @@ public class Table_View_Controller {
         int columnCount = metaData.getColumnCount();
 
         Row headerRow = sheet.createRow(0);
-        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Sample Temperature (°C) ", "Time", "Sample Quantity Required (gram)", "Client Name","Location","Truck Number","Vendor ID","Total Weight","Remarks"};
+        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Temperature (°C) ", "Date", "Weight (gram)", "Client Name","Location","Truck Number","Vendor ID","Total Weight","Remarks"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             System.out.println(columnName);

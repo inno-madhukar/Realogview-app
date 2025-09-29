@@ -140,7 +140,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="71.0" layoutY="363.0" text="Location :">
+                  <Label layoutX="71.0" layoutY="363.0" text="Client Address :">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
