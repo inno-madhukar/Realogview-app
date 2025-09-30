@@ -53,7 +53,7 @@
                 <TableColumn fx:id="Tmois" prefWidth="93.33340454101562" text="Moisture %"/>
                 <TableColumn fx:id="Ttemp" prefWidth="148.6666259765625" text="Temperature (°C)"/>
                 <TableColumn fx:id="Ttime" prefWidth="167.33331298828125" text="Date"/>
-                <TableColumn fx:id="sqrequired" prefWidth="138.6666259765625" text="Weight(gram)"/>
+                <TableColumn fx:id="sqrequired" prefWidth="138.6666259765625" text="Weight (grams)"/>
                 <TableColumn fx:id="ClientName" prefWidth="109.3333740234375" text="Client Name"/>
                 <TableColumn fx:id="Location" prefWidth="109.3333740234375" text="Client Address"/>
                 <TableColumn fx:id="TruckNumber" prefWidth="109.3333740234375" text="Truck Number"/>

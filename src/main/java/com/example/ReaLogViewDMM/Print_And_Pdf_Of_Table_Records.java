@@ -73,6 +73,51 @@ public class Print_And_Pdf_Of_Table_Records {
         return chunks.toArray(new String[0]);
     }
 
+
+    public static List<String> chunkWithLockedPhrases(String text, int chunkSize) {
+        // 1. Define important phrases you don't want to split
+        String[][] lockedPhrases = {
+                {"Pvt Ltd", "Pvt_Ltd"},
+                {"Co. Ltd", "Co._Ltd"},
+                {"Private Limited", "Private_Limited"},
+                {"Ltd.", "Ltd."} // single word, safe anyway
+        };
+
+        // 2. Replace them with placeholders
+        for (String[] pair : lockedPhrases) {
+            text = text.replace(pair[0], pair[1]);
+        }
+
+        // 3. Do the normal chunking by words
+        List<String> chunks = new ArrayList<>();
+        String[] words = text.split("\\s+");
+        StringBuilder current = new StringBuilder();
+
+        for (String word : words) {
+            if (word.length() > chunkSize) {
+                // break extra-long word if needed
+                int index = 0;
+                while (index < word.length()) {
+                    int end = Math.min(index + chunkSize, word.length());
+                    chunks.add(word.substring(index, end).replace("_", " "));
+                    index = end;
+                }
+                current = new StringBuilder();
+            } else if (current.length() + word.length() + 1 > chunkSize) {
+                chunks.add(current.toString().trim().replace("_", " "));
+                current = new StringBuilder(word).append(" ");
+            } else {
+                current.append(word).append(" ");
+            }
+        }
+
+        if (current.length() > 0) {
+            chunks.add(current.toString().trim().replace("_", " "));
+        }
+
+        return chunks;
+    }
+
     public byte[] getpdfbytes(ResultSet resultSet, String Comname, String Adress, String Email, String PNo) throws IOException {
 
         int flag1=0;
@@ -148,16 +193,16 @@ public class Print_And_Pdf_Of_Table_Records {
             int vendorx=280;
 
             int commxv = 510;
-            int semqrxv = 385;
+            int semqrxv = 315;
             int moistxv= 190;
             int timexv = 175;
-            int tempxv = 366;
+            int tempxv = 335;
             int cnamexv = 205; //490
             int locaxv = 215 ;
             int trunamexv = 500;   //340
             int totweightxv=200;
             int remarkxv=190;
-            int vendorxv=330;
+            int vendorxv=328;
 
             int y1 = (int) gy2-30;
             int idv = 0;
@@ -222,7 +267,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 if (resultSet.getString(7).equals("FULL")) {
                     contentStream.showText("  " + resultSet.getString(7));
                 } else {
-                    contentStream.showText("  " + resultSet.getString(7) + " gram");
+                    contentStream.showText("  " + resultSet.getString(7) + " grams");
                 }
                 contentStream.endText();
 
@@ -280,11 +325,22 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.newLineAtOffset(totweightx, y1 );
                 contentStream.showText("Total Weight :");
                 contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA, 7);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(totweightxv, y1 );
-                contentStream.showText("  " + resultSet.getString(11) );
-                contentStream.endText();
+
+                if(resultSet.getString(11).isBlank()){
+                    contentStream.setFont(PDType1Font.HELVETICA, 7);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(totweightxv, y1 );
+                    contentStream.showText("  " + resultSet.getString(11) );
+                    contentStream.endText();
+                }
+                else{
+                    contentStream.setFont(PDType1Font.HELVETICA, 7);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(totweightxv, y1 );
+                    contentStream.showText("  " + resultSet.getString(11));
+                    contentStream.endText();
+                }
+
 
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
@@ -306,7 +362,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String cname=resultSet.getString(8);
                 if(cname.trim().length()>50){
-                    String[] result = splitIntoChunks(cname,100);
+                    String[] result = chunkWithLockedPhrases(cname, 100).toArray(new String[0]);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(cnamexv, y1 );
@@ -332,7 +388,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String lname=resultSet.getString(9);
                 if(lname.trim().length()>50){
-                    String[] result = splitIntoChunks(lname,100);
+                    String[] result = chunkWithLockedPhrases(lname, 100).toArray(new String[0]);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(locaxv, y1 );
@@ -344,7 +400,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 }
                 else{
                     contentStream.beginText();
-                    contentStream.newLineAtOffset(remarkxv, y1 );
+                    contentStream.newLineAtOffset(locaxv, y1 );
                     contentStream.showText("  " + cname );
                     contentStream.endText();
                 }
@@ -358,7 +414,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String rname=resultSet.getString(12);
                 if(rname.trim().length()>50){
-                    String[] result = splitIntoChunks(rname,100);
+                    String[] result = chunkWithLockedPhrases(rname, 100).toArray(new String[0]);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(remarkxv, y1 );
@@ -480,16 +536,16 @@ public class Print_And_Pdf_Of_Table_Records {
             int vendorx=280;
 
             int commxv = 510;
-            int semqrxv = 385;
+            int semqrxv = 315;
             int moistxv= 190;
             int timexv = 175;
-            int tempxv = 366;
+            int tempxv = 335;
             int cnamexv = 205; //490
             int locaxv = 215 ;
             int trunamexv = 500;   //340
             int totweightxv=200;
             int remarkxv=190;
-            int vendorxv=330;
+            int vendorxv=328;
 
             int y1 = (int) gy2-30;
             int idv = 0;
@@ -554,7 +610,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 if (resultSet.getString(7).equals("FULL")) {
                     contentStream.showText("  " + resultSet.getString(7));
                 } else {
-                    contentStream.showText("  " + resultSet.getString(7) + " gram");
+                    contentStream.showText("  " + resultSet.getString(7) + " grams");
                 }
                 contentStream.endText();
 
@@ -612,11 +668,20 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.newLineAtOffset(totweightx, y1 );
                 contentStream.showText("Total Weight :");
                 contentStream.endText();
-                contentStream.setFont(PDType1Font.HELVETICA, 7);
-                contentStream.beginText();
-                contentStream.newLineAtOffset(totweightxv, y1 );
-                contentStream.showText("  " + resultSet.getString(11) );
-                contentStream.endText();
+                if(resultSet.getString(11).isBlank()){
+                    contentStream.setFont(PDType1Font.HELVETICA, 7);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(totweightxv, y1 );
+                    contentStream.showText("  " + resultSet.getString(11) );
+                    contentStream.endText();
+                }
+                else{
+                    contentStream.setFont(PDType1Font.HELVETICA, 7);
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(totweightxv, y1 );
+                    contentStream.showText("  " + resultSet.getString(11) );
+                    contentStream.endText();
+                }
 
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                 contentStream.beginText();
@@ -638,7 +703,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String cname=resultSet.getString(8);
                 if(cname.trim().length()>50){
-                    String[] result = splitIntoChunks(cname,100);
+                    String[] result = chunkWithLockedPhrases(cname, 100).toArray(new String[0]);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(cnamexv, y1 );
@@ -664,7 +729,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String lname=resultSet.getString(9);
                 if(lname.trim().length()>50){
-                    String[] result = splitIntoChunks(lname,100);
+                    String[] result = chunkWithLockedPhrases(lname, 100).toArray(new String[0]);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(locaxv, y1 );
@@ -676,7 +741,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 }
                 else{
                     contentStream.beginText();
-                    contentStream.newLineAtOffset(remarkxv, y1 );
+                    contentStream.newLineAtOffset(locaxv, y1 );
                     contentStream.showText("  " + cname );
                     contentStream.endText();
                 }
@@ -690,7 +755,7 @@ public class Print_And_Pdf_Of_Table_Records {
                 contentStream.setFont(PDType1Font.HELVETICA, 7);
                 String rname=resultSet.getString(12);
                 if(rname.trim().length()>50){
-                    String[] result = splitIntoChunks(rname,100);
+                    String[] result = chunkWithLockedPhrases(rname, 100).toArray(new String[0]);
                     for(String chunk:result){
                         contentStream.beginText();
                         contentStream.newLineAtOffset(remarkxv, y1 );
@@ -1048,7 +1113,7 @@ public class Print_And_Pdf_Of_Table_Records {
             if (resultSet.getString(7).equals("FULL")) {
                 page.getChildren().add(lablefunc(" " + resultSet.getString(7), sqrvx, inc_y + 1));
             } else {
-                page.getChildren().add(lablefunc(" " + resultSet.getString(7) + " gram", sqrvx, inc_y + 1));
+                page.getChildren().add(lablefunc(" " + resultSet.getString(7) + " grams", sqrvx, inc_y + 1));
             }
             String r6 = resultSet.getString(6);
             LocalDateTime localDateTime = LocalDateTime.parse(r6, formattor24Hours);

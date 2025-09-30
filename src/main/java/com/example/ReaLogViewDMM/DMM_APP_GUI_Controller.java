@@ -29,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Scale;
 import javafx.stage.*;
 
@@ -235,30 +236,51 @@ public class DMM_APP_GUI_Controller {
 
 
     private final FAQItem[] faqData = new FAQItem[]{
-            new FAQItem("How do I get a new measurement?",
-                    "Go to the Home tab, connect with device on Comport(com5,6) selection. after this click on get data to fetch new measurement. "),
-            new FAQItem("What is Availability of Records?",
-                    "There is last 60 days of records are available."),
-            new FAQItem("Where are my CSV and PDF files stored?",
-                    "CSV files are stored in System C://Users/admin/Realogview/DMM1.0/Records"),
-            new FAQItem("How do i share records to other?",
-                    "you can share the records via email in excel or pdf format."),
-            new FAQItem("Does Clients details are stored in app?",
-                    "Yes. The clients details are stored, so next time does not required to fill all data fields again, on click suggested clients you the input box automatically fill up. click on clients button to show all clients data.")
+
+            new FAQItem("How do I get a new measurement from DMM-B18?",
+                    "1. Tap the \"Connect\" button — this will show all available COM ports.\n" +
+                            "2. Select the port where the DMM-B18 device is connected.\n" +
+                            "3. Once connected, tap \"Get Data\" to retrieve a new measurement."
+            ),
+
+            new FAQItem("Where are my CSV and PDF files saved?",
+                    "Your CSV and PDF files are saved in the following location:\n" +
+                            "C://Users/admin/Realogview/DMM1.0/Records"
+            ),
+
+            new FAQItem("How can I share records with others?",
+                    "You can share records via email in Excel (.csv) or PDF format.\n you can share last 60 days of records."
+            ),
+
+            new FAQItem("Are client details saved in the app?",
+                    "Yes. Client details are saved so that you don't have to re-enter them every time.\n" +
+                            "Simply tap on a suggested client, and the input fields will be filled automatically.\n" +
+                            "You can also view all saved clients by tapping the \"Clients\" button."
+            )
     };
 
     private final FAQItem[] faqDataHindi = new FAQItem[]{
-            new FAQItem("मैं नया माप कैसे प्राप्त करूं?",
-                    "होम टैब पर जाएं, COM पोर्ट (COM5 या COM6) पर डिवाइस से कनेक्ट करें। इसके बाद, 'Get Data' पर क्लिक करें ताकि नया माप प्राप्त किया जा सके।"),
-            new FAQItem("रिकॉर्ड की उपलब्धता क्या है?",
-                    "पिछले 60 दिनों के रिकॉर्ड उपलब्ध हैं।"),
-            new FAQItem("मेरी CSV और PDF फाइलें कहाँ संग्रहीत होती हैं?",
-                    "CSV फाइलें C://Users/admin/Realogview/DMM1.0/Records में संग्रहीत होती हैं।"),
+            new FAQItem("मैं DMM-B18 से नया माप कैसे प्राप्त कर सकता हूँ?",
+                    "1. \"Connect\" बटन पर टैप करें — यह सभी उपलब्ध COM पोर्ट दिखाएगा।\n" +
+                            "2. उस पोर्ट का चयन करें जहाँ DMM-B18 डिवाइस जुड़ा है।\n" +
+                            "3. जुड़ने के बाद, \"Get Data\" पर टैप करें नया माप प्राप्त करने के लिए।"
+            ),
+
+            new FAQItem("मेरी CSV और PDF फाइलें कहाँ सेव होती हैं?",
+                    "आपकी CSV और PDF फाइलें इस स्थान पर सेव होती हैं:\n" +
+                            "C:\\Users\\{UserName}\\Realogview\\DMM1.0\\Data"
+            ),
+
             new FAQItem("मैं रिकॉर्ड दूसरों के साथ कैसे साझा कर सकता हूँ?",
-                    "आप रिकॉर्ड को ईमेल के माध्यम से Excel या PDF प्रारूप में साझा कर सकते हैं।"),
-            new FAQItem("क्या क्लाइंट विवरण ऐप में संग्रहीत होते हैं?",
-                    "हाँ। क्लाइंट विवरण संग्रहीत होते हैं, इसलिए अगली बार आपको सभी डेटा फ़ील्ड्स को फिर से भरने की आवश्यकता नहीं होगी। 'Suggested Clients' पर क्लिक करें ताकि इनपुट स्वतः भरे जाएं। सभी क्लाइंट डेटा देखने के लिए 'Clients' बटन पर क्लिक करें।")
-    };
+                    "आप रिकॉर्ड को ईमेल के माध्यम से Excel (.csv) या PDF फ़ॉर्मेट में साझा कर सकते हैं।\n" +
+                            "आप पिछले 60 दिनों के रिकॉर्ड भी साझा कर सकते हैं।"
+            ),
+
+            new FAQItem("क्या क्लाइंट का विवरण ऐप में सेव होता है?",
+                    "हाँ। क्लाइंट का विवरण सेव रहता है ताकि हर बार आपको उसे फिर से दर्ज न करना पड़े।\n" +
+                            "सुझाए गए क्लाइंट पर टैप करें, और इनपुट फ़ील्ड स्वतः भर जाएँगे।\n" +
+                            "आप सभी सेव किए गए क्लाइंट को \"Clients\" बटन पर टैप करके भी देख सकते हैं।"
+            ) };
 
 
     // Check that , selected file is image or not.
@@ -381,11 +403,11 @@ public class DMM_APP_GUI_Controller {
         grid.addRow(row++, locLabel, locValue);
 
 // Total Weight
-        Label weightLabel = new Label("Total Weight:");
-        weightLabel.getStyleClass().add("field-label");
-        Label weightValue = new Label((String) clientData.get("Total Weight"));
-        weightValue.getStyleClass().add("field-value");
-        grid.addRow(row++, weightLabel, weightValue);
+//        Label weightLabel = new Label("Total Weight:");
+//        weightLabel.getStyleClass().add("field-label");
+//        Label weightValue = new Label((String) clientData.get("Total Weight"));
+//        weightValue.getStyleClass().add("field-value");
+//        grid.addRow(row++, weightLabel, weightValue);
 
         // vendorid
         Label vendorlabel = new Label("Vendor ID:");
@@ -427,12 +449,32 @@ public class DMM_APP_GUI_Controller {
 
         for (FAQItem faq : currentFAQ) {
             TitledPane pane = new TitledPane();
-            pane.setText(faq.getQuestion());
-//            pane.getStyleClass().add("faq-pane");
-            pane.setContent(new Label(faq.getAnswer()));
+
+            // Create a Label for the question (Hindi supported)
+            Label questionLabel = new Label(faq.getQuestion());
+            questionLabel.setFont(Font.font("Mangal", 15)); // Use Hindi-supporting font
+            questionLabel.setWrapText(true);
+
+            // Set the Label as the graphic of the TitledPane
+            pane.setGraphic(questionLabel);
+            pane.setText(""); // Remove default text
+
+            // Style answer
+            Label answerLabel = new Label(faq.getAnswer());
+            answerLabel.setFont(Font.font("Mangal", 14));
+            answerLabel.setWrapText(true);
+            answerLabel.setMinHeight(70);
+//            answerLabel.getStyleClass().add("faq-answer"); // CSS class if needed
+
+            pane.setContent(answerLabel);
             pane.setExpanded(false);
+
+            // Optional: add custom style class
+            pane.getStyleClass().add("faq-pane");
+
             faqBox.getChildren().add(pane);
         }
+
     }
 
     public void initialize() throws IOException, SQLException, ClassNotFoundException, SQLException {
@@ -1796,7 +1838,7 @@ public class DMM_APP_GUI_Controller {
                 if (fruits[4].equals("FULL")) {
                     data8.setText(fruits[4]);
                 } else {
-                    data8.setText(fruits[4] + " gram");
+                    data8.setText(fruits[4] + " grams");
                 }
 
                 //time create
@@ -2174,6 +2216,50 @@ public class DMM_APP_GUI_Controller {
         return chunks.toArray(new String[0]);
     }
 
+    public static List<String> chunkWithLockedPhrases(String text, int chunkSize) {
+        // 1. Define important phrases you don't want to split
+        String[][] lockedPhrases = {
+                {"Pvt Ltd", "Pvt_Ltd"},
+                {"Co. Ltd", "Co._Ltd"},
+                {"Private Limited", "Private_Limited"},
+                {"Ltd.", "Ltd."} // single word, safe anyway
+        };
+
+        // 2. Replace them with placeholders
+        for (String[] pair : lockedPhrases) {
+            text = text.replace(pair[0], pair[1]);
+        }
+
+        // 3. Do the normal chunking by words
+        List<String> chunks = new ArrayList<>();
+        String[] words = text.split("\\s+");
+        StringBuilder current = new StringBuilder();
+
+        for (String word : words) {
+            if (word.length() > chunkSize) {
+                // break extra-long word if needed
+                int index = 0;
+                while (index < word.length()) {
+                    int end = Math.min(index + chunkSize, word.length());
+                    chunks.add(word.substring(index, end).replace("_", " "));
+                    index = end;
+                }
+                current = new StringBuilder();
+            } else if (current.length() + word.length() + 1 > chunkSize) {
+                chunks.add(current.toString().trim().replace("_", " "));
+                current = new StringBuilder(word).append(" ");
+            } else {
+                current.append(word).append(" ");
+            }
+        }
+
+        if (current.length() > 0) {
+            chunks.add(current.toString().trim().replace("_", " "));
+        }
+
+        return chunks;
+    }
+
     // get byte fromat of pdf file
     public byte[] generatePDFContent(String[] fruits, String comName, String address, String comPhone, String comEmail, String[] otherinformation) throws IOException {
 //        showAlertinfo("",absoluteImagePath12);
@@ -2380,7 +2466,7 @@ public class DMM_APP_GUI_Controller {
                 contentStream.showText(":  "+fruits[4]);
                 contentStream.endText();
             } else {
-                contentStream.showText(":  "+fruits[4] + " gram");
+                contentStream.showText(":  "+fruits[4] + " grams");
                 contentStream.endText();
             }
             loopyDmm-=24;
@@ -2399,7 +2485,7 @@ public class DMM_APP_GUI_Controller {
 
             int f3=0;
             if(otherinformation[0].trim().length()>40){
-                String[] result = splitIntoChunks(otherinformation[0],40);
+                String[] result = chunkWithLockedPhrases(otherinformation[0], 40).toArray(new String[0]);
                 for(String chunk:result){
                     if(f3==0){
                         contentStream.setFont(PDType1Font.HELVETICA, 12);
@@ -2437,7 +2523,7 @@ public class DMM_APP_GUI_Controller {
 
             int f2=0;
             if(otherinformation[1].trim().length()>40){
-                String[] result = splitIntoChunks(otherinformation[1],40);
+                String[] result = chunkWithLockedPhrases(otherinformation[1], 40).toArray(new String[0]);
                 for(String chunk:result){
                     if(f2==0){
                         contentStream.setFont(PDType1Font.HELVETICA, 12);
@@ -2463,7 +2549,7 @@ public class DMM_APP_GUI_Controller {
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(loopx2, loopyDmm );
-                contentStream.showText(otherinformation[1]);
+                contentStream.showText( ":  "+otherinformation[1]);
                 contentStream.endText();
             }
 //
@@ -2494,11 +2580,20 @@ public class DMM_APP_GUI_Controller {
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
             contentStream.showText("Total Weight ");
             contentStream.endText();
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 , loopyDmm );
-            contentStream.showText(":  "+otherinformation[3] +" Kg" );
-            contentStream.endText();
+            if(otherinformation[3].trim().length()>0){
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx2 , loopyDmm );
+                contentStream.showText(":  "+otherinformation[3] );
+                contentStream.endText();
+            }
+            else{
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx2 , loopyDmm );
+                contentStream.showText(":  "+otherinformation[3]  );
+                contentStream.endText();
+            }
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
@@ -2507,7 +2602,7 @@ public class DMM_APP_GUI_Controller {
             contentStream.endText();
             int f1=0;
             if(otherinformation[4].trim().length()>40){
-                String[] result = splitIntoChunks(otherinformation[4],40);
+                String[] result = chunkWithLockedPhrases(otherinformation[4], 40).toArray(new String[0]);
                 for(String chunk:result){
                     if(f1==0){
                         contentStream.setFont(PDType1Font.HELVETICA, 12);
@@ -2534,7 +2629,7 @@ public class DMM_APP_GUI_Controller {
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(loopx2, loopyDmm );
-                contentStream.showText(otherinformation[4]);
+                contentStream.showText( ":  "+otherinformation[4]);
                 contentStream.endText();
             }
 
@@ -4055,7 +4150,7 @@ public class DMM_APP_GUI_Controller {
         ResultSetMetaData metaData = resultSet.getMetaData();
         int columnCount = metaData.getColumnCount();
         Row headerRow = sheet.createRow(0);
-        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Temperature (°C) ", "Date", "Weight (gram)", "Client Name","Client Address","Truck Number","Vendor ID","Total Weight","Remarks"};
+        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Temperature (°C) ", "Date", "Weight (grams)", "Client Name","Client Address","Truck Number","Vendor ID","Total Weight","Remarks"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             System.out.println(columnName);
@@ -4248,20 +4343,31 @@ public class DMM_APP_GUI_Controller {
     }
 
     public void getquickguid(ActionEvent actionEvent) {
+        String resourcePath = "/QuickGuide/Quick_Guide_for_DMM_B18 V1_APP.pdf";
 
-        String imagePath12 = "Quick Guide/DMMQGV1.pdf";
-        String absoluteImagePath12 = String.valueOf(new File(imagePath12).getAbsolutePath());
-//        showAlert("",absoluteImagePath12);
-        if (new File(absoluteImagePath12).exists()) {
-            // Open the selected PDF file in a PDF viewer
-            try {
-                Desktop.getDesktop().open(new File(absoluteImagePath12));
-                showAlertinfo("", "Quick Guide available at " + absoluteImagePath12);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try (InputStream inputStream = getClass().getResourceAsStream(resourcePath)) {
+            if (inputStream == null) {
+                showAlert("Error", "Quick Guide file is not available in resources.");
+                return;
             }
-        } else {
-            showAlert("error", "Quick Guide file is not available");
+
+            // Copy the PDF to a temporary file so Desktop can open it
+            File tempFile = File.createTempFile("Quick_Guide_for_DMM_B18", ".pdf");
+            tempFile.deleteOnExit();
+
+            try (OutputStream outputStream = new FileOutputStream(tempFile)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+
+            Desktop.getDesktop().open(tempFile);
+            showAlertinfo("", "Quick Guide opened successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Unable to open Quick Guide: " + e.getMessage());
         }
     }
 }

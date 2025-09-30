@@ -281,7 +281,7 @@ public class Table_View_Controller {
         int columnCount = metaData.getColumnCount();
 
         Row headerRow = sheet.createRow(0);
-        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Temperature (°C) ", "Date", "Weight (gram)", "Client Name","Location","Truck Number","Vendor ID","Total Weight","Remarks"};
+        String[] colname = {"0", "ID", "Serial No","Commodity Name", "Moisture %", "Temperature (°C) ", "Date", "Weight (grams)", "Client Name","Location","Truck Number","Vendor ID","Total Weight","Remarks"};
         for (int i = 1; i <= columnCount; i++) {
             String columnName = metaData.getColumnName(i);
             System.out.println(columnName);

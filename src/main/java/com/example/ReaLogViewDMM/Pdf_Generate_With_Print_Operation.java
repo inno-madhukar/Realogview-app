@@ -340,7 +340,7 @@ public class Pdf_Generate_With_Print_Operation {
                 contentStream.showText(":  "+fruits[4]);
                 contentStream.endText();
             } else {
-                contentStream.showText(":  "+fruits[4] + " gram");
+                contentStream.showText(":  "+fruits[4] + " grams");
                 contentStream.endText();
             }
             loopyDmm-=24;
@@ -359,7 +359,7 @@ public class Pdf_Generate_With_Print_Operation {
 
             int f3=0;
             if(otherinformation[0].trim().length()>40){
-                String[] result = splitIntoChunks(otherinformation[0],40);
+                String[] result = chunkWithLockedPhrases(otherinformation[0], 40).toArray(new String[0]);
                 for(String chunk:result){
                     if(f3==0){
                         contentStream.setFont(PDType1Font.HELVETICA, 12);
@@ -397,7 +397,7 @@ public class Pdf_Generate_With_Print_Operation {
 
             int f2=0;
             if(otherinformation[1].trim().length()>40){
-                String[] result = splitIntoChunks(otherinformation[1],40);
+                String[] result = chunkWithLockedPhrases(otherinformation[1], 40).toArray(new String[0]);
                 for(String chunk:result){
                     if(f2==0){
                         contentStream.setFont(PDType1Font.HELVETICA, 12);
@@ -423,7 +423,7 @@ public class Pdf_Generate_With_Print_Operation {
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(loopx2, loopyDmm );
-                contentStream.showText(otherinformation[1]);
+                contentStream.showText( ":  "+otherinformation[1]);
                 contentStream.endText();
             }
 //
@@ -454,11 +454,21 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.newLineAtOffset(loopx, loopyDmm -=24);
             contentStream.showText("Total Weight ");
             contentStream.endText();
-            contentStream.setFont(PDType1Font.HELVETICA, 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(loopx2 , loopyDmm );
-            contentStream.showText(":  "+otherinformation[3] +" Kg" );
-            contentStream.endText();
+            if(otherinformation[3].trim().length()>0){
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx2 , loopyDmm );
+                contentStream.showText(":  "+otherinformation[3]  );
+                contentStream.endText();
+            }
+            else{
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(loopx2 , loopyDmm );
+                contentStream.showText(":  "+otherinformation[3]  );
+                contentStream.endText();
+            }
+
 
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contentStream.beginText();
@@ -467,7 +477,7 @@ public class Pdf_Generate_With_Print_Operation {
             contentStream.endText();
             int f1=0;
             if(otherinformation[4].trim().length()>40){
-                String[] result = splitIntoChunks(otherinformation[4],40);
+                String[] result = chunkWithLockedPhrases(otherinformation[4], 40).toArray(new String[0]);
                 for(String chunk:result){
                     if(f1==0){
                         contentStream.setFont(PDType1Font.HELVETICA, 12);
@@ -494,7 +504,7 @@ public class Pdf_Generate_With_Print_Operation {
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(loopx2, loopyDmm );
-                contentStream.showText(otherinformation[4]);
+                contentStream.showText( ":  "+otherinformation[4]);
                 contentStream.endText();
             }
 
